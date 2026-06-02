@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>세스코 — 무료 위생 진단 서비스</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --orange: #d95f00;
+      --orange-dark: #a84800;
+      --orange-light: #fff3eb;
+      --text: #1a1a2e;
+      --sub: #555;
+      --border: #f0d5c0;
+    }
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: #fdf8f4;
+      color: var(--text);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* STEP BAR */
+    .step-bar { display: flex; align-items: center; justify-content: center; padding: 16px 24px 0; }
+    .step-item { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+    .step-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #e0d5cc; color: #888;
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step-circle.active { background: var(--orange); color: #fff; }
+    .step-circle.done { background: #1a8a4a; color: #fff; }
+    .step-text { font-size: 10px; color: #999; font-weight: 600; }
+    .step-text.active { color: var(--orange); }
+    .step-line { height: 2px; flex: 0.8; background: #e0d5cc; margin-bottom: 16px; }
+    .step-line.done { background: #1a8a4a; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(145deg, #7a3000 0%, var(--orange) 100%);
+      padding: 32px 24px 48px; text-align: center; position: relative;
+    }
+    .hero::after {
+      content: ''; position: absolute;
+      bottom: -24px; left: 0; right: 0;
+      height: 48px; background: #fdf8f4;
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    }
+    .hero .logo { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+    .hero .icon-wrap {
+      width: 64px; height: 64px; background: rgba(255,255,255,0.15);
+      border-radius: 20px; display: flex; align-items: center;
+      justify-content: center; font-size: 30px; margin: 0 auto 16px;
+    }
+    .hero h1 { font-size: 23px; font-weight: 800; color: #fff; line-height: 1.35; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .hero h1 em { color: #ffd4a8; font-style: normal; }
+    .hero p { font-size: 13px; color: rgba(255,255,255,0.78); line-height: 1.7; }
+
+    /* CARD */
+    .card {
+      background: #fff; border-radius: 16px;
+      padding: 24px 20px; margin: 0 16px 16px;
+      box-shadow: 0 2px 12px rgba(180,80,0,0.07);
+    }
+    .card-title {
+      font-size: 15px; font-weight: 700; color: var(--text);
+      margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+    }
+    .card-title .num {
+      width: 22px; height: 22px; background: var(--orange);
+      color: #fff; border-radius: 50%; font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    /* 체크리스트 */
+    .check-intro {
+      background: var(--orange-light); border-radius: 10px;
+      padding: 12px 14px; margin-bottom: 16px;
+      font-size: 13px; color: var(--orange-dark); line-height: 1.6;
+    }
+    .check-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 13px 0; border-bottom: 1px solid #f5ede5; cursor: pointer;
+    }
+    .check-item:last-child { border-bottom: none; }
+    .check-item input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--orange); margin-top: 1px; flex-shrink: 0; }
+    .check-item .ck-label { font-size: 14px; line-height: 1.5; }
+    .check-item .ck-label small { display: block; font-size: 11px; color: #999; margin-top: 2px; }
+
+    .calc-btn {
+      width: 100%; padding: 15px; background: var(--orange);
+      color: #fff; border: none; border-radius: 12px;
+      font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px;
+    }
+
+    /* 결과 */
+    .result-section { display: none; }
+
+    /* 판정 헤더 */
+    .verdict-wrap {
+      border-radius: 14px; padding: 22px 20px 18px;
+      text-align: center; margin-bottom: 14px;
+      background: linear-gradient(135deg, #7a3000 0%, var(--orange) 100%);
+    }
+    .verdict-label { font-size: 11px; color: rgba(255,255,255,0.7); letter-spacing: 0.06em; margin-bottom: 6px; }
+    .verdict-grade { font-size: 44px; font-weight: 900; color: #fff; letter-spacing: -0.02em; line-height: 1; margin-bottom: 8px; }
+    .verdict-bar {
+      height: 8px; background: rgba(255,255,255,0.25); border-radius: 4px;
+      overflow: hidden; margin: 0 auto 10px; max-width: 200px;
+    }
+    .verdict-fill { height: 100%; border-radius: 4px; background: #fff; transition: width 0.9s ease; }
+    .verdict-msg { font-size: 13px; color: rgba(255,255,255,0.92); line-height: 1.65; }
+
+    /* 항목별 진단 분석 */
+    .q-analysis-title {
+      font-size: 13px; font-weight: 700; color: var(--text);
+      margin: 16px 0 10px; display: flex; align-items: center; gap: 6px;
+    }
+    .q-analysis-item {
+      background: #fff8f2; border-left: 3px solid var(--orange);
+      border-radius: 8px; padding: 12px 14px; margin-bottom: 10px;
+    }
+    .qa-header {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 700; color: var(--orange-dark); margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+    .qa-badge {
+      font-size: 10px; background: var(--orange-light);
+      color: var(--orange-dark); padding: 2px 8px; border-radius: 20px;
+      font-weight: 600;
+    }
+    .qa-comment { font-size: 12px; color: #444; line-height: 1.7; }
+
+    /* 카테고리 요약 */
+    .risk-breakdown { margin-bottom: 16px; border-top: 1px solid #f5ede5; padding-top: 12px; }
+    .risk-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; border-bottom: 1px solid #f5ede5; font-size: 13px;
+    }
+    .risk-row:last-child { border-bottom: none; }
+    .risk-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+    .dot-high { background: #e63c00; }
+    .dot-mid { background: #ff8800; }
+    .dot-low { background: #aaa; }
+    .risk-badge {
+      font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 20px;
+    }
+    .badge-high { background: #ffe5e0; color: #c0392b; }
+    .badge-mid { background: #fff0d8; color: #b86000; }
+    .badge-low { background: #f0f0f0; color: #888; }
+
+    /* 신청 폼 */
+    .form-group { margin-bottom: 14px; }
+    .form-label { font-size: 12px; font-weight: 600; color: var(--sub); margin-bottom: 6px; display: block; }
+    .form-control {
+      width: 100%; padding: 13px 14px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 14px; color: var(--text); background: #fdfaf7;
+      outline: none; appearance: none;
+    }
+    .form-control:focus { border-color: var(--orange); background: #fff; }
+    .form-row { display: flex; gap: 10px; }
+    .form-row .form-group { flex: 1; }
+
+    .submit-btn {
+      width: 100%; padding: 16px; background: var(--orange);
+      color: #fff; border: none; border-radius: 12px;
+      font-size: 15px; font-weight: 800; cursor: pointer;
+    }
+
+    /* 완료 */
+    .complete-section { display: none; padding: 32px 16px 0; text-align: center; }
+    .complete-icon { font-size: 52px; margin-bottom: 12px; }
+    .complete-section h2 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+    .complete-section p { font-size: 13px; color: var(--sub); line-height: 1.7; margin-bottom: 20px; }
+
+    .contract-card {
+      background: #fff; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 2px 12px rgba(180,80,0,0.08);
+      border: 1.5px solid var(--border); margin-bottom: 16px;
+    }
+    .contract-top {
+      background: linear-gradient(110deg, #7a3000, var(--orange));
+      padding: 18px 20px;
+    }
+    .contract-top .tag {
+      display: inline-block; background: rgba(255,255,255,0.2);
+      color: #fff; font-size: 10px; font-weight: 700;
+      padding: 3px 10px; border-radius: 20px; margin-bottom: 8px;
+    }
+    .contract-top h3 { font-size: 15px; font-weight: 800; color: #fff; line-height: 1.4; }
+    .contract-top h3 em { color: #ffd4a8; font-style: normal; }
+    .contract-body { padding: 16px 20px; text-align: left; }
+    .contract-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid #f5ede5; font-size: 13px;
+    }
+    .contract-row:last-child { border-bottom: none; }
+    .ci { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .ct strong { color: var(--orange-dark); display: block; margin-bottom: 2px; }
+    .ct span { font-size: 12px; color: var(--sub); }
+
+    footer { padding: 24px; text-align: center; font-size: 11px; color: #aaa; line-height: 1.8; }
+    .bottom-safe { height: 48px; }
+  </style>
+</head>
+<body>
+
+  <div class="step-bar">
+    <div class="step-item">
+      <div class="step-circle active" id="s1">1</div>
+      <div class="step-text active">위생 체크</div>
+    </div>
+    <div class="step-line" id="line1"></div>
+    <div class="step-item">
+      <div class="step-circle" id="s2">2</div>
+      <div class="step-text" id="st2">진단 신청</div>
+    </div>
+    <div class="step-line" id="line2"></div>
+    <div class="step-item">
+      <div class="step-circle" id="s3">3</div>
+      <div class="step-text" id="st3">신청 완료</div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="logo">CESCO</div>
+    <div class="icon-wrap">🔍</div>
+    <h1>혹시 우리 집에<br /><em>보이지 않는 불청객</em>이<br />있진 않을까요?</h1>
+    <p>세스코 전문가의 무료 위생 진단으로<br />정확하게 확인해드립니다.</p>
+  </div>
+
+  <div style="height:40px"></div>
+
+  <!-- STEP 1: 체크리스트 -->
+  <div class="card" id="step1Card">
+    <div class="card-title"><span class="num">1</span>우리 집 위생 체크리스트</div>
+    <div class="check-intro">해당하는 항목을 모두 체크해주세요. 위험도를 분석해드립니다.</div>
+
+    <div id="checklist">
+      <div class="check-item"><input type="checkbox" class="ck" /><label class="ck-label">주방 싱크대 주변에 작은 벌레가 보인 적 있다<small>초파리·바퀴 등 해충 위험</small></label></div>
+      <div class="check-item"><input type="checkbox" class="ck" /><label class="ck-label">욕실 타일 줄눈에 곰팡이가 보인다<small>세균·곰팡이 위험</small></label></div>
+      <div class="check-item"><input type="checkbox" class="ck" /><label class="ck-label">음식이나 쓰레기통 근처에 개미가 자주 발견된다<small>해충 서식 위험</small></label></div>
+      <div class="check-item"><input type="checkbox" class="ck" /><label class="ck-label">정수기·가습기·에어컨을 정기적으로 청소하지 않는다<small>기기 내부 세균 위험</small></label></div>
+      <div class="check-item"><input type="checkbox" class="ck" /><label class="ck-label">반려동물을 키우거나 영유아·어르신이 있다<small>위생 취약 구성원 존재</small></label></div>
+      <div class="check-item"><input type="checkbox" class="ck" /><label class="ck-label">환기가 잘 안 되는 공간(창고·보일러실 등)이 있다<small>밀폐 공간 해충·세균 위험</small></label></div>
+    </div>
+
+    <button class="calc-btn" onclick="calcRisk()">위험도 분석하기 →</button>
+  </div>
+
+  <!-- STEP 1-2: 결과 + 신청 폼 -->
+  <div class="card" id="step2Card" style="display:none">
+    <div class="card-title"><span class="num">2</span>위생 위험도 분석 결과</div>
+
+    <div class="verdict-wrap">
+      <div class="verdict-label">셀프 진단 결과</div>
+      <div class="verdict-grade" id="riskLevel">—</div>
+      <div class="verdict-bar"><div class="verdict-fill" id="riskFill" style="width:0%"></div></div>
+      <div class="verdict-msg" id="riskDesc">—</div>
+    </div>
+
+    <div id="qAnalysis"></div>
+
+    <div class="risk-breakdown" id="riskBreakdown"></div>
+
+    <div class="card-title" style="margin-top:4px"><span class="num">✓</span>무료 위생 진단 신청</div>
+    <p style="font-size:13px;color:var(--sub);margin-bottom:16px;line-height:1.6">세스코 전문가가 직접 방문해 정확한 위생 진단을 무료로 해드립니다.</p>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">이름</label>
+        <input class="form-control" type="text" placeholder="홍길동" id="fName" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">연락처</label>
+        <input class="form-control" type="tel" placeholder="010-0000-0000" id="fPhone" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">구매 채널</label>
+      <select class="form-control" id="fSource">
+        <option value="">어디서 구매하셨나요?</option>
+        <option>쿠팡</option>
+        <option>스마트스토어</option>
+        <option>옥션</option>
+        <option>11번가</option>
+        <option>G마켓</option>
+        <option>세스코 자사몰</option>
+        <option>기타</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">구매하신 마이랩 제품</label>
+      <select class="form-control" id="fProduct">
+        <option value="">선택해주세요</option>
+        <optgroup label="주방">
+          <option>주방세제 프리미엄</option>
+          <option>기름때세정제 파워</option>
+          <option>베이킹소다</option>
+          <option>마스터 락스</option>
+          <option>마스터 배수관세정제</option>
+          <option>마스터 주방세제</option>
+          <option>마스터 기름때세정제 파우더</option>
+          <option>마스터 키친 핸드워시 폼</option>
+        </optgroup>
+        <optgroup label="청소">
+          <option>다목적 욕실세정제</option>
+          <option>곰팡이제거제</option>
+          <option>배수구클리너</option>
+          <option>다용도 살균클리닝 티슈</option>
+        </optgroup>
+        <optgroup label="세탁 / 섬유케어">
+          <option>세탁세제</option>
+          <option>세탁조클리너</option>
+          <option>섬유탈취제</option>
+          <option>섬유유연제</option>
+          <option>습기제거제</option>
+        </optgroup>
+        <optgroup label="살균 / 소독">
+          <option>곡물발효 살균소독제</option>
+        </optgroup>
+        <optgroup label="개인위생">
+          <option>핸드워시 폼</option>
+          <option>항균 핸드워시 폼</option>
+          <option>항균 폼샴푸</option>
+          <option>손소독제</option>
+        </optgroup>
+        <optgroup label="해충퇴치">
+          <option>모기 에어로솔</option>
+          <option>모기 기피제</option>
+          <option>초파리 유인제</option>
+          <option>야외도어 미스트 에어로솔</option>
+        </optgroup>
+        <optgroup label="반려동물">
+          <option>반려동물 탈취제</option>
+        </optgroup>
+        <option value="기타">기타</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">공간 유형</label>
+      <select class="form-control" id="fType">
+        <option value="">선택해주세요</option>
+        <option>가정집</option>
+        <option>요식업</option>
+        <option>일반사업체</option>
+      </select>
+    </div>
+
+    <button class="submit-btn" onclick="submitForm()">무료 진단 신청 완료</button>
+  </div>
+
+  <!-- STEP 3: 완료 -->
+  <div id="step3Section" class="complete-section">
+    <div class="complete-icon">🔬</div>
+    <h2>진단 신청이 완료됐습니다!</h2>
+    <p>세스코 전문가가 방문해 위생 상태를 정확히<br />진단하고 맞춤 솔루션을 제안해드립니다.</p>
+
+    <div class="contract-card">
+      <div class="contract-top">
+        <div class="tag">진단 후 맞춤 서비스 안내</div>
+        <h3>진단 결과에 따라<br /><em>세스코 전문 서비스</em>를 제안드립니다</h3>
+      </div>
+      <div class="contract-body">
+        <div class="contract-row">
+          <div class="ci">🐛</div>
+          <div class="ct">
+            <strong>IPM 해충방제 서비스</strong>
+            <span>해충 서식 환경 차단 + 정기 방문 관리</span>
+          </div>
+        </div>
+        <div class="contract-row">
+          <div class="ci">💧</div>
+          <div class="ct">
+            <strong>환경가전 서비스</strong>
+            <span>정수기·공기청정기·비데 필터 정기 교체 및 위생 관리</span>
+          </div>
+        </div>
+        <div class="contract-row">
+          <div class="ci">🧪</div>
+          <div class="ct">
+            <strong>마이랩 정기구독</strong>
+            <span>진단 결과에 맞는 맞춤 위생용품 정기 배송</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-safe"></div>
+  <footer>세스코(주) · 고객센터 1588-1119<br />월~금 08:30~18:00 / 토 09:00~13:00<br />www.cesco.co.kr</footer>
+
+  <script>
+    const categories = ['해충 위험', '곰팡이·세균', '기기 위생', '취약 환경'];
+    const catMap = [0, 1, 0, 2, 3, 3];
+
+    // 체크 항목별 진단 코멘트
+    const qData = [
+      {
+        q: "주방 싱크대 주변 벌레 발견",
+        icon: "🪲", category: "해충 위험",
+        comment: "싱크대 주변에 벌레가 보였다면 이미 서식 환경이 형성된 신호입니다. 초파리는 하루 500개 이상 알을 낳아 급속 번식하며, 눈에 보이는 개체 외에도 배수구·수납장 내부에 집단 서식하고 있을 가능성이 높습니다."
+      },
+      {
+        q: "욕실 타일 줄눈 곰팡이 발견",
+        icon: "🦠", category: "세균·곰팡이 위험",
+        comment: "욕실 곰팡이는 단순 청결 문제가 아닙니다. 포자가 공기 중으로 확산돼 호흡기·피부에 직접 영향을 줄 수 있습니다. 특히 영유아나 알레르기가 있는 가족이 계신 경우 빠른 처치가 필요합니다."
+      },
+      {
+        q: "음식·쓰레기통 근처 개미 출몰",
+        icon: "🐜", category: "해충 서식 위험",
+        comment: "개미가 실내에서 보인다면 집 내부에 이미 이동 경로와 서식지가 생긴 상태입니다. 개미 한 마리 뒤에는 수천 마리의 집단이 있으며, 먹이를 따라 부엌·욕실 등 생활 공간 전체로 빠르게 확산됩니다."
+      },
+      {
+        q: "정수기·가습기·에어컨 정기 청소 미실시",
+        icon: "🔧", category: "기기 위생 위험",
+        comment: "정수기 내부는 습기와 유기물이 결합되기 쉬운 환경입니다. 정기 관리를 받지 않은 필터와 내부 배관에서는 세균·바이오필름이 급증할 수 있으며, 마시는 물의 청결과 직결되므로 정기 점검이 중요합니다."
+      },
+      {
+        q: "반려동물·영유아·어르신 있음",
+        icon: "👶", category: "취약 구성원",
+        comment: "반려동물은 외부 산책 시 진드기·벼룩을 실내로 유입할 수 있습니다. 영유아와 어르신은 면역력이 상대적으로 낮아 동일한 위생 위험에도 더 큰 영향을 받습니다. 위험 요소가 없어 보여도 예방적 관리가 더욱 중요한 환경입니다."
+      },
+      {
+        q: "환기 안 되는 밀폐 공간 존재",
+        icon: "🚪", category: "밀폐 공간 위험",
+        comment: "밀폐된 어두운 공간은 해충이 서식하기 가장 좋은 환경입니다. 쥐·바퀴·그리마 등이 창고나 보일러실에서 번식한 뒤 생활 공간으로 침투하는 경우가 많습니다. 보이지 않는 곳에서 이미 서식이 시작됐을 가능성이 있습니다."
+      },
+    ];
+
+    function calcRisk() {
+      const checks = document.querySelectorAll('.ck');
+      const checked = Array.from(checks).filter(c => c.checked);
+      const count = checked.length;
+
+      let level, desc, pct;
+      if (count === 0) {
+        level = '양호'; desc = '현재 체크된 위험 요소가 없습니다. 지금 상태를 유지하는 것도 중요합니다. 정기적인 관심을 기울여주세요.'; pct = 15;
+      } else if (count <= 2) {
+        level = '주의'; desc = count + '가지 위험 요소가 발견됩니다. 지금 당장 위험하지 않더라도 방치하면 빠르게 악화될 수 있습니다. 전문가 확인을 권장드립니다.'; pct = 50;
+      } else if (count <= 4) {
+        level = '위험'; desc = count + '가지 복합 위험 요소가 발견됩니다. 단독으로도 문제이지만 요소가 겹칠수록 피해가 기하급수적으로 커집니다. 빠른 전문가 진단이 필요합니다.'; pct = 78;
+      } else {
+        level = '시급'; desc = '다수의 위험 요소가 복합적으로 존재합니다. 이미 서식·오염이 시작됐을 가능성이 높으며, 혼자 해결하기 어려운 상태입니다. 지금 바로 전문가 방문 진단을 신청하세요.'; pct = 95;
+      }
+
+      document.getElementById('riskLevel').textContent = level;
+      document.getElementById('riskFill').style.width = pct + '%';
+      document.getElementById('riskDesc').textContent = desc;
+
+      // 항목별 진단 분석
+      const analysisItems = [];
+      Array.from(checks).forEach((c, i) => {
+        if (c.checked) {
+          const d = qData[i];
+          analysisItems.push(`
+            <div class="q-analysis-item">
+              <div class="qa-header">
+                <span>${d.icon}</span>
+                <span>${d.q}</span>
+                <span class="qa-badge">${d.category}</span>
+              </div>
+              <div class="qa-comment">${d.comment}</div>
+            </div>
+          `);
+        }
+      });
+      document.getElementById('qAnalysis').innerHTML = analysisItems.length
+        ? `<div class="q-analysis-title">📋 항목별 진단 분석</div>` + analysisItems.join('')
+        : '';
+
+      // 카테고리별 결과
+      const catCount = [0, 0, 0, 0];
+      Array.from(checks).forEach((c, i) => { if (c.checked) catCount[catMap[i]]++; });
+      const rows = [
+        { label: '🪲 해충 위험', val: catCount[0] > 1 ? '높음' : catCount[0] === 1 ? '주의' : '양호' },
+        { label: '🦠 세균·곰팡이', val: catCount[1] > 0 ? '주의' : '양호' },
+        { label: '🔧 기기 위생', val: catCount[2] > 0 ? '주의' : '양호' },
+        { label: '👶 취약 환경', val: catCount[3] > 0 ? '위험' : '양호' },
+      ];
+      const badgeClass = { '높음': 'badge-high', '위험': 'badge-high', '주의': 'badge-mid', '양호': 'badge-low' };
+      const dotClass = { '높음': 'dot-high', '위험': 'dot-high', '주의': 'dot-mid', '양호': 'dot-low' };
+      let html = '';
+      rows.forEach(r => {
+        html += `<div class="risk-row"><span><span class="risk-dot ${dotClass[r.val]}"></span>${r.label}</span><span class="risk-badge ${badgeClass[r.val]}">${r.val}</span></div>`;
+      });
+      document.getElementById('riskBreakdown').innerHTML = html;
+
+      document.getElementById('step1Card').style.display = 'none';
+      document.getElementById('step2Card').style.display = 'block';
+      document.getElementById('s1').className = 'step-circle done';
+      document.getElementById('line1').className = 'step-line done';
+      document.getElementById('s2').className = 'step-circle active';
+      document.getElementById('st2').className = 'step-text active';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function submitForm() {
+      const name = document.getElementById('fName').value;
+      const phone = document.getElementById('fPhone').value;
+      const type = document.getElementById('fType').value;
+      const product = document.getElementById('fProduct').value;
+      const source = document.getElementById('fSource').value;
+      if (!name || !phone || !type || !product || !source) { alert('모든 항목을 입력해주세요.'); return; }
+      document.getElementById('step2Card').style.display = 'none';
+      document.getElementById('step3Section').style.display = 'block';
+      document.getElementById('s2').className = 'step-circle done';
+      document.getElementById('line2').className = 'step-line done';
+      document.getElementById('s3').className = 'step-circle active';
+      document.getElementById('st3').className = 'step-text active';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

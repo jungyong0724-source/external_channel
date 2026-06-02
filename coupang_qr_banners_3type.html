@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>쿠팡 상세페이지 QR 배너 — 제품군 2종</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #e0e0e0;
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      padding: 32px 16px;
+      display: flex; flex-direction: column; align-items: center; gap: 48px;
+    }
+
+    .section-wrap { width: 100%; max-width: 980px; display: flex; flex-direction: column; gap: 16px; }
+    .section-label {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px; font-weight: 700; color: #333;
+    }
+    .section-label .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* ══ 공통 배너 베이스 ══ */
+    .banner {
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      display: flex; align-items: stretch;
+    }
+
+    /* 포인트 바 */
+    .accent { width: 6px; flex-shrink: 0; }
+
+    /* 콘텐츠 */
+    .bc { flex: 1; padding: 28px 32px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; }
+    .banner h2 { font-size: 24px; font-weight: 800; line-height: 1.3; letter-spacing: -0.02em; color: #111; }
+    .banner h2 em { font-style: normal; }
+    .banner .sub { font-size: 13px; color: #555; line-height: 1.65; }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 2px; }
+    .chip {
+      font-size: 12px; font-weight: 600; padding: 4px 12px;
+      border-radius: 20px; border: 1.5px solid;
+    }
+
+    /* QR 영역 */
+    .qr-area {
+      width: 180px; flex-shrink: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 24px 18px; gap: 10px;
+      border-left: 1.5px dashed rgba(0,0,0,0.1);
+    }
+    .qr-box {
+      width: 106px; height: 106px; background: #fff;
+      border-radius: 10px; padding: 7px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .qr-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 1.5px; width: 90px; height: 90px; }
+    .qr-cell { border-radius: 1px; }
+    .qr-cta { font-size: 11px; font-weight: 700; text-align: center; line-height: 1.5; }
+    .qr-url { font-size: 10px; color: #999; }
+
+    /* ── A: 환경가전 ── */
+    .banner-A { background: #f5f8ff; border: 1.5px solid #c8d8f5; }
+    .accent-A { background: linear-gradient(180deg, #003087, #0066cc); }
+    .eyebrow-A { color: #0055cc; }
+    .banner-A h2 em { color: #003087; }
+    .chip-A { background: #eef3fc; color: #003087; border-color: #b8ccf0; }
+    .chip-A.primary { background: #003087; color: #fff; border-color: #003087; }
+    .qr-area-A { background: #eef3fc; }
+    .qr-cta-A { color: #003087; }
+
+    /* ── B: 필터·소모품 ── */
+    .banner-B { background: #f4fbfa; border: 1.5px solid #b8e0db; }
+    .accent-B { background: linear-gradient(180deg, #005a51, #007a6e); }
+    .eyebrow-B { color: #007a6e; }
+    .banner-B h2 em { color: #005a51; }
+    .chip-B { background: #e6f4f2; color: #005a51; border-color: #a8d4cf; }
+    .chip-B.primary { background: #007a6e; color: #fff; border-color: #007a6e; }
+    .qr-area-B { background: #e6f4f2; }
+    .qr-cta-B { color: #005a51; }
+
+    /* ── C: 마이랩 ── */
+    .banner-C { background: #fdf7f2; border: 1.5px solid #f0c8a0; }
+    .accent-C { background: linear-gradient(180deg, #a84800, #d95f00); }
+    .eyebrow-C { color: #d95f00; }
+    .banner-C h2 em { color: #a84800; }
+    .chip-C { background: #fff3eb; color: #a84800; border-color: #f0c8a0; }
+    .chip-C.primary { background: #d95f00; color: #fff; border-color: #d95f00; }
+    .qr-area-C { background: #fff3eb; }
+    .qr-cta-C { color: #a84800; }
+
+    /* ── 모바일 배너 ── */
+    .mobile-row { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .banner-m {
+      width: 220px; border-radius: 14px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .bm-top { padding: 18px 16px 14px; }
+    .bm-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.05em; color: rgba(255,255,255,0.7); margin-bottom: 6px; }
+    .bm-top h3 { font-size: 15px; font-weight: 800; color: #fff; line-height: 1.35; letter-spacing: -0.02em; }
+    .bm-top h3 em { font-style: normal; opacity: 0.85; }
+    .bm-body { background: #fff; padding: 14px 16px; }
+    .bm-chip { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; }
+    .bm-list { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+    .bm-item { font-size: 11px; color: #444; display: flex; align-items: center; gap: 5px; }
+    .bm-item::before { content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
+    .bm-qr-row { display: flex; align-items: center; gap: 10px; }
+    .bm-qr { width: 58px; height: 58px; background: #f5f5f5; border-radius: 8px; padding: 5px; }
+    .bm-qr-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 1px; width: 48px; height: 48px; }
+    .bm-scan { font-size: 11px; font-weight: 700; line-height: 1.5; }
+
+    .bm-A-top { background: linear-gradient(135deg, #003087, #0055cc); }
+    .bm-A-chip { background: #eef3fc; color: #003087; }
+    .bm-A-item::before { background: #0055cc; }
+    .bm-A-scan { color: #003087; }
+
+    .bm-B-top { background: linear-gradient(135deg, #005a51, #007a6e); }
+    .bm-B-chip { background: #e6f4f2; color: #005a51; }
+    .bm-B-item::before { background: #007a6e; }
+    .bm-B-scan { color: #005a51; }
+
+    .bm-C-top { background: linear-gradient(135deg, #a84800, #d95f00); }
+    .bm-C-chip { background: #fff3eb; color: #a84800; }
+    .bm-C-item::before { background: #d95f00; }
+    .bm-C-scan { color: #a84800; }
+
+    /* NOTE */
+    .note {
+      max-width: 980px; width: 100%;
+      background: #fff8e1; border-radius: 10px;
+      padding: 14px 20px; font-size: 12px;
+      color: #7a5c00; line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ PC 가로형 배너 2종 ══════════ -->
+
+  <!-- A: 환경가전 -->
+  <div class="section-wrap">
+    <div class="section-label">
+      <span class="dot" style="background:#003087"></span>
+      🖥 환경가전 (정수기·공기청정기·비데) — PC 배너
+    </div>
+    <div class="banner banner-A">
+      <div class="accent accent-A"></div>
+      <div class="bc">
+        <div class="eyebrow eyebrow-A">CESCO 세스코 정품 등록 혜택</div>
+        <h2>정품 등록하고<br /><em>12개월 필터 50% 받으세요</em></h2>
+        <p class="sub">회원가입 후 정품 등록 완료 시 12개월분 필터 50% 쿠폰을 즉시 드립니다.<br />교체 알림 서비스도 함께 신청하세요.</p>
+        <div class="chips">
+          <span class="chip chip-A primary">🎁 정품 등록하고 쿠폰 받기</span>
+          <span class="chip chip-A">12개월 필터 50% 쿠폰 즉시 지급</span>
+          <span class="chip chip-A">교체 알림 서비스 무료 신청</span>
+        </div>
+      </div>
+      <div class="qr-area qr-area-A">
+        <div class="qr-box"><div class="qr-grid" id="qrA"></div></div>
+        <div class="qr-cta qr-cta-A">QR 스캔 후<br />정품 등록</div>
+        <div class="qr-url">cesco.co.kr</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B: 마이랩 -->
+  <div class="section-wrap">
+    <div class="section-label">
+      <span class="dot" style="background:#d95f00"></span>
+      🖥 마이랩 — PC 배너
+    </div>
+    <div class="banner banner-C">
+      <div class="accent accent-C"></div>
+      <div class="bc">
+        <div class="eyebrow eyebrow-C">⚠️ 세스코 위생 위험도 셀프 진단</div>
+        <h2>지금 이 순간에도<br /><em>보이지 않는 곳에서 번식 중</em>일 수 있습니다</h2>
+        <p class="sub">싱크대 아래, 창고, 욕실 줄눈 — 해충과 세균은 눈에 띄지 않을 때 가장 빠르게 퍼집니다.<br />1분 셀프 진단으로 우리 집 위험 등급을 지금 바로 확인하세요.</p>
+        <div class="chips">
+          <span class="chip chip-C primary">🔍 1분 셀프 진단 · 위험 등급 확인</span>
+          <span class="chip chip-C">항목별 원인 분석 제공</span>
+          <span class="chip chip-C">전문가 방문 진단 무료</span>
+        </div>
+      </div>
+      <div class="qr-area qr-area-C">
+        <div class="qr-box"><div class="qr-grid" id="qrC"></div></div>
+        <div class="qr-cta qr-cta-C">QR 스캔<br />셀프 진단</div>
+        <div class="qr-url">cesco.co.kr</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ 모바일 세로형 배너 2종 ══════════ -->
+  <div class="section-wrap">
+    <div class="section-label"><span>📱 모바일 배너 2종 비교</span></div>
+    <div class="mobile-row">
+
+      <!-- A 모바일 -->
+      <div class="banner-m">
+        <div class="bm-top bm-A-top">
+          <div class="bm-eyebrow">세스코 정품 등록 혜택</div>
+          <h3>정품 등록하고<br /><em>필터 50% 받기</em></h3>
+        </div>
+        <div class="bm-body">
+          <span class="bm-chip bm-A-chip">🎁 정품 등록 쿠폰 받기</span>
+          <div class="bm-list">
+            <div class="bm-item bm-A-item">12개월 필터 50% 쿠폰</div>
+            <div class="bm-item bm-A-item">교체 알림 무료 신청</div>
+            <div class="bm-item bm-A-item">회원 전용 혜택</div>
+          </div>
+          <div class="bm-qr-row">
+            <div class="bm-qr"><div class="bm-qr-grid" id="qrAm"></div></div>
+            <div class="bm-scan bm-A-scan">QR 스캔<br />정품 등록</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- B 모바일 (마이랩) -->
+      <div class="banner-m">
+        <div class="bm-top bm-C-top">
+          <div class="bm-eyebrow">⚠️ 위생 위험도 셀프 진단</div>
+          <h3>보이지 않는 곳에서<br /><em>지금도 번식 중?</em></h3>
+        </div>
+        <div class="bm-body">
+          <span class="bm-chip bm-C-chip">🔍 1분 셀프 진단 · 위험 등급 확인</span>
+          <div class="bm-list">
+            <div class="bm-item bm-C-item">해충·세균·곰팡이 항목별 분석</div>
+            <div class="bm-item bm-C-item">전문가 방문 진단 무료 연계</div>
+            <div class="bm-item bm-C-item">맞춤 솔루션 즉시 제안</div>
+          </div>
+          <div class="bm-qr-row">
+            <div class="bm-qr"><div class="bm-qr-grid" id="qrCm"></div></div>
+            <div class="bm-scan bm-C-scan">QR 스캔<br />셀프 진단</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="note">
+    📋 <strong>실무 참고사항</strong><br />
+    · 실제 쿠팡 업로드 파일은 PNG 이미지. 이 HTML은 디자인 시안 확인용입니다.<br />
+    · QR코드는 제품군별 UTM 파라미터가 다른 URL로 생성 필요 (ref=gageon / ref=mylab)<br />
+    · 배너에 "자사몰 가입" 직접 요구 문구 없음 — 쿠팡 심사 대응 의도.<br />
+    · 환경가전 랜딩: landing_page.html (정품등록+쿠폰) / 마이랩 랜딩: landing_마이랩.html
+  </div>
+
+  <script>
+    const pat = [
+      1,1,1,1,1,1,1,0,1,
+      1,0,0,0,0,0,1,0,0,
+      1,0,1,1,1,0,1,0,1,
+      1,0,1,1,1,0,1,0,0,
+      1,0,1,1,1,0,1,0,1,
+      1,0,0,0,0,0,1,0,1,
+      1,1,1,1,1,1,1,0,0,
+      0,0,0,0,0,0,0,0,1,
+      1,0,1,0,0,1,1,1,0,
+      0,1,0,1,0,0,1,0,1,
+      1,1,0,0,1,0,0,1,0,
+      0,0,1,1,0,1,1,0,1,
+      1,0,0,0,1,0,1,1,0,
+      0,1,1,0,0,1,0,0,1,
+      0,0,1,0,1,0,1,1,0,
+      1,1,0,1,0,1,0,0,1,
+      0,1,0,0,1,1,1,0,0,
+      1,0,1,1,0,0,0,1,1,
+    ];
+    const colors = { A:'#001f5c', B:'#003d38', C:'#6b2e00' };
+    ['A','B','C'].forEach(t => {
+      ['qr'+t, 'qr'+t+'m'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        pat.forEach(v => {
+          const cell = document.createElement('div');
+          cell.className = 'qr-cell';
+          cell.style.background = v ? colors[t] : '#fff';
+          el.appendChild(cell);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
