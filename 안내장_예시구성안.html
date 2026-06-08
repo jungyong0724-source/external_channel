@@ -792,6 +792,61 @@
     }
 
     /* ===========================
+       A6 마이랩 개편 요소
+    =========================== */
+    .a6-step-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 5px 14px;
+      background: #eef2ff;
+      border-top: 1px solid #c8d0f0;
+      border-bottom: 1px solid #c8d0f0;
+    }
+    .sf-item { font-size: 7.5px; font-weight: 700; color: var(--navy); white-space: nowrap; }
+    .sf-item.highlight { background: var(--gold); color: #fff; padding: 2px 5px; border-radius: 4px; }
+    .sf-arrow { font-size: 8px; color: var(--green); font-weight: 700; }
+
+    .savings-badge {
+      margin: 5px 14px 0;
+      background: linear-gradient(135deg, #001f5a 0%, #003087 100%);
+      border-radius: 7px;
+      padding: 8px 12px;
+      text-align: center;
+      border: 1.5px solid var(--gold);
+    }
+    .savings-badge .sb-eyebrow { font-size: 7.5px; color: #f0c040; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 2px; }
+    .savings-badge .sb-main { font-size: 15px; font-weight: 900; color: #fff; letter-spacing: -0.02em; }
+    .savings-badge .sb-cap { font-size: 8px; color: rgba(255,255,255,0.75); margin-top: 2px; }
+
+    .benefit-steps { padding: 7px 14px 0; display: flex; flex-direction: column; gap: 5px; }
+    .bs-item { display: flex; align-items: flex-start; gap: 6px; }
+    .bs-num {
+      width: 15px; height: 15px;
+      background: var(--green); color: #fff;
+      border-radius: 50%; font-size: 8px; font-weight: 800;
+      display: grid; place-items: center; flex-shrink: 0; margin-top: 1px;
+    }
+    .bs-text { font-size: 8.5px; color: #333; line-height: 1.4; }
+    .bs-text strong { color: var(--navy); display: block; font-size: 9px; font-weight: 700; }
+
+    .savings-highlight {
+      margin: 6px 14px 0;
+      background: #fffbea;
+      border: 1.5px solid var(--gold);
+      border-radius: 6px;
+      padding: 6px 10px;
+    }
+    .sh-title { font-size: 9px; font-weight: 800; color: #7a5800; margin-bottom: 2px; }
+    .sh-body { font-size: 8.5px; color: #5a4000; line-height: 1.5; }
+    .sh-cap {
+      margin-top: 3px; font-size: 9px; font-weight: 700;
+      color: #7a5800; background: rgba(200,155,60,0.2);
+      border-radius: 3px; padding: 1px 6px; display: inline-block;
+    }
+
+    /* ===========================
        SCREEN-ONLY HELPERS
     =========================== */
     @media screen {
@@ -1107,23 +1162,25 @@
               <span style="font-size:9px;color:rgba(255,255,255,0.75);font-weight:600;">MY LAB</span>
             </div>
 
-            <div class="headline-block">
-              <div class="hl-sub">🧪 MYLAB 구매자 전용</div>
-              <div class="hl-main">내가 산 마이랩,<br>제대로 쓰고 있나요?</div>
+            <div class="headline-block" style="padding:9px 16px 6px;">
+              <div class="hl-sub">🧪 마이랩 구매자 전용</div>
+              <div class="hl-main" style="font-size:13px;">진단 받고<br>딱 맞는 마이랩을<br>단돈 100원에!</div>
             </div>
 
-            <div style="height:8px;"></div>
-
-            <div class="diag-band">
-              <div class="d-tag">QR 스캔 한 번으로</div>
-              <div class="d-title">🧪 무료 위생 진단 서비스</div>
+            <!-- 3-step 플로우 -->
+            <div class="a6-step-flow">
+              <div class="sf-item">📋 셀프 진단</div>
+              <div class="sf-arrow">→</div>
+              <div class="sf-item">🧪 맞춤 추천</div>
+              <div class="sf-arrow">→</div>
+              <div class="sf-item highlight">💰 100원 쿠폰</div>
             </div>
 
-            <div class="check-list">
-              <div class="check-item"><span class="ck">✓</span>내 공간 위생 위험도 진단</div>
-              <div class="check-item"><span class="ck">✓</span>구매 제품에 맞는 마이랩 추천</div>
-              <div class="check-item"><span class="ck">✓</span>첫구매 100원 쿠폰 지급</div>
-              <div class="check-item"><span class="ck">✓</span>세스코 전문가 무료 방문 진단</div>
+            <!-- 100% 적립 배너 -->
+            <div class="savings-badge">
+              <div class="sb-eyebrow">🎁 세스코몰 회원 가입 시 추가 혜택</div>
+              <div class="sb-main">구매금액 100% 적립</div>
+              <div class="sb-cap">최대 30,000원 · 다음 마이랩 구매 시 사용</div>
             </div>
 
             <div class="qr-center">
@@ -1157,34 +1214,44 @@
           <!-- 후면 -->
           <div class="card-face back a6-back">
 
-            <div class="top-bar">
-              <div class="back-title">진단하면 이런 게 달라집니다</div>
+            <div class="top-bar" style="background:var(--navy);">
+              <div class="back-title">이렇게 혜택을 받아요</div>
             </div>
 
-            <div class="before-after">
-              <div class="ba-box before">
-                <div class="ba-label">BEFORE</div>
-                <div class="ba-text">마이랩 구매<br>→ 어떻게 써야<br>할지 모름 😓</div>
+            <div class="benefit-steps">
+              <div class="bs-item">
+                <div class="bs-num">1</div>
+                <div class="bs-text"><strong>📋 셀프 위생 진단 (30초)</strong>8개 카테고리 · 내 공간 위험도 측정</div>
               </div>
-              <div class="ba-box after">
-                <div class="ba-label">AFTER</div>
-                <div class="ba-text">진단 완료<br>→ 내 공간에 딱 맞는<br>위생 루틴 확인 ✅</div>
+              <div class="bs-item">
+                <div class="bs-num">2</div>
+                <div class="bs-text"><strong>🧪 맞춤 마이랩 2종 자동 추천</strong>진단 점수 기반 · 딱 맞는 제품 선별</div>
+              </div>
+              <div class="bs-item">
+                <div class="bs-num">3</div>
+                <div class="bs-text"><strong>💰 첫구매 단돈 100원 쿠폰</strong>세스코몰 회원가입 즉시 지급</div>
+              </div>
+              <div class="bs-item">
+                <div class="bs-num">4</div>
+                <div class="bs-text"><strong>🎁 구매금액 100% 포인트 적립</strong>첫구매 완료 후 자동 지급</div>
               </div>
             </div>
 
-            <div class="diag-title">세스코 전문가의 10가지 위생 진단 서비스</div>
+            <div class="savings-highlight">
+              <div class="sh-title">💰 100% 적립 쿠폰이란?</div>
+              <div class="sh-body">첫구매 금액 전액을 포인트로 적립<br>→ 다음 마이랩 구매 시 그대로 사용</div>
+              <div class="sh-cap">최대 적립 한도: 30,000원</div>
+            </div>
 
-            <div class="diag-grid">
-              <div class="diag-grid-item"><span class="emoji">🔬</span>해충 발생 환경 진단</div>
-              <div class="diag-grid-item"><span class="emoji">🛏</span>침구·매트리스 오염 진단</div>
-              <div class="diag-grid-item"><span class="emoji">🦠</span>표면 세균 오염 진단</div>
-              <div class="diag-grid-item"><span class="emoji">💨</span>실내 공기질·라돈 진단</div>
-              <div class="diag-grid-item"><span class="emoji">🔧</span>배수구 오염도 진단</div>
-              <div class="diag-grid-item"><span class="emoji">🌫</span>곰팡이·습기 리스크 진단</div>
-              <div class="diag-grid-item"><span class="emoji">🍳</span>후드·덕트 기름때 진단</div>
-              <div class="diag-grid-item"><span class="emoji">❄️</span>에어컨 미생물 오염 진단</div>
-              <div class="diag-grid-item"><span class="emoji">🦟</span>비래해충 유입 리스크 진단</div>
-              <div class="diag-grid-item"><span class="emoji">👃</span>실내 악취원인 분석</div>
+            <div class="diag-title" style="font-size:8.5px;margin:5px 14px 3px;">+ 세스코 전문 진단 10종 무료 신청도 가능</div>
+
+            <div class="diag-grid" style="margin:0 14px;">
+              <div class="diag-grid-item"><span class="emoji">🔬</span>해충 환경 진단</div>
+              <div class="diag-grid-item"><span class="emoji">🛏</span>침구 오염 진단</div>
+              <div class="diag-grid-item"><span class="emoji">🦠</span>표면 세균 진단</div>
+              <div class="diag-grid-item"><span class="emoji">💨</span>공기질 진단</div>
+              <div class="diag-grid-item"><span class="emoji">🔧</span>배수구 진단</div>
+              <div class="diag-grid-item"><span class="emoji">❄️</span>에어컨 진단</div>
             </div>
 
             <div class="footer-band">
