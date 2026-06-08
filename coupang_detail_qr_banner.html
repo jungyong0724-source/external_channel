@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>쿠팡 상세페이지 QR 배너 — 세스코</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #e8e8e8;
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      gap: 48px;
+    }
+
+    .section-label {
+      align-self: flex-start;
+      background: #333;
+      color: #fff;
+      font-size: 11px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ═══════════════════════════════
+       PC 가로형 배너
+    ═══════════════════════════════ */
+    .banner-pc {
+      width: 100%;
+      max-width: 960px;
+      background: #f7f9fc;
+      border: 1.5px solid #dce6f5;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      min-height: 200px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    /* 왼쪽 포인트 컬러 바 */
+    .banner-pc .accent-bar {
+      width: 6px;
+      background: linear-gradient(180deg, #003087 0%, #0066cc 100%);
+      flex-shrink: 0;
+    }
+
+    .banner-pc .content {
+      flex: 1;
+      padding: 32px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .banner-pc .eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      color: #0055cc;
+      letter-spacing: 0.04em;
+    }
+
+    .banner-pc h2 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #111;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
+    .banner-pc h2 em {
+      color: #003087;
+      font-style: normal;
+    }
+
+    .banner-pc .sub {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .banner-pc .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .chip {
+      background: #eef3fc;
+      color: #003087;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid #c9d9f5;
+    }
+    .chip.primary {
+      background: #003087;
+      color: #fff;
+      border-color: #003087;
+    }
+
+    /* QR 오른쪽 */
+    .banner-pc .qr-area {
+      width: 200px;
+      flex-shrink: 0;
+      background: #f0f5ff;
+      border-left: 1.5px dashed #c3d4f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 20px;
+      gap: 10px;
+    }
+    .qr-wrap {
+      width: 110px;
+      height: 110px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,48,135,0.12);
+    }
+    .qr-grid {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 1.5px;
+      width: 92px;
+      height: 92px;
+    }
+    .qr-cell { border-radius: 1px; background: #fff; }
+    .qr-cell.d { background: #001a4d; }
+
+    .qr-cta {
+      font-size: 12px;
+      font-weight: 700;
+      color: #003087;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .qr-url {
+      font-size: 10px;
+      color: #888;
+    }
+
+    /* ═══════════════════════════════
+       모바일 세로형 배너
+    ═══════════════════════════════ */
+    .banner-mobile {
+      width: 100%;
+      max-width: 390px;
+      background: #f7f9fc;
+      border: 1.5px solid #dce6f5;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    .banner-mobile .top-bar {
+      background: linear-gradient(110deg, #003087 0%, #0055cc 100%);
+      padding: 20px 24px 18px;
+    }
+    .banner-mobile .top-bar .eyebrow-m {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .banner-mobile .top-bar h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+    }
+    .banner-mobile .top-bar h2 em {
+      color: #9ecfff;
+      font-style: normal;
+    }
+
+    .banner-mobile .body {
+      padding: 20px 24px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .banner-mobile .body .left { flex: 1; }
+    .banner-mobile .desc {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .chips-mobile {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .chip-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #333;
+      font-weight: 500;
+    }
+    .chip-row::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: #0055cc;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .banner-mobile .body .qr-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .qr-wrap-sm {
+      width: 86px;
+      height: 86px;
+      background: #fff;
+      border-radius: 8px;
+      padding: 6px;
+      box-shadow: 0 2px 8px rgba(0,48,135,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qr-grid-sm {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 1.2px;
+      width: 74px;
+      height: 74px;
+    }
+    .qr-cta-sm {
+      font-size: 10px;
+      font-weight: 700;
+      color: #003087;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* ── 실무 노트 ── */
+    .note {
+      max-width: 960px;
+      width: 100%;
+      background: #fff8e1;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 12px;
+      color: #7a5c00;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="section-label">🖥 PC 쿠팡 상세페이지 — 하단 배너 (가로형)</div>
+
+  <div class="banner-pc">
+    <div class="accent-bar"></div>
+    <div class="content">
+      <div class="eyebrow">CESCO 세스코 워터 서비스</div>
+      <h2>내 정수기 필터,<br /><em>교체 시기를 알려드립니다</em></h2>
+      <p class="sub">설치일만 알려주시면 필터 교체 시기를 계산해드리고<br />카카오 알림톡으로 미리 안내해드립니다.</p>
+      <div class="chips">
+        <span class="chip primary">📱 알림톡 등록하기</span>
+        <span class="chip">교체 30일·7일 전 사전 알림</span>
+        <span class="chip">모델별 교체 주기 자동 계산</span>
+      </div>
+    </div>
+    <div class="qr-area">
+      <div class="qr-wrap">
+        <div class="qr-grid" id="qrPc"></div>
+      </div>
+      <div class="qr-cta">QR 스캔 후<br />알림 신청</div>
+      <div class="qr-url">cesco.co.kr</div>
+    </div>
+  </div>
+
+  <div class="section-label">📱 모바일 쿠팡 상세페이지 — 하단 배너 (세로형)</div>
+
+  <div class="banner-mobile">
+    <div class="top-bar">
+      <div class="eyebrow-m">CESCO 세스코 워터 서비스</div>
+      <h2>내 필터 교체 시기,<br /><em>카카오로 알려드릴게요</em></h2>
+    </div>
+    <div class="body">
+      <div class="left">
+        <p class="desc">설치일 입력 한 번으로<br />교체 시기 자동 계산 + 알림톡 발송</p>
+        <div class="chips-mobile">
+          <div class="chip-row">교체 30일 · 7일 전 미리 알림</div>
+          <div class="chip-row">모델별 교체 주기 자동 계산</div>
+          <div class="chip-row">필터 구매 할인 쿠폰 제공</div>
+        </div>
+      </div>
+      <div class="qr-side">
+        <div class="qr-wrap-sm">
+          <div class="qr-grid-sm" id="qrMobile"></div>
+        </div>
+        <div class="qr-cta-sm">QR 스캔<br />알림 신청</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    📋 <strong>실무 참고사항</strong><br />
+    · 실제 쿠팡 업로드 파일은 PNG 이미지입니다. 이 HTML은 디자인 시안 확인용입니다.<br />
+    · "자사몰 가입" 문구 없이 "알림 신청" 서비스로만 표현 — 쿠팡 심사 통과 의도.<br />
+    · QR 코드는 실제 랜딩 URL(cesco.co.kr?ref=coupang)로 생성하여 교체 필요.
+  </div>
+
+  <script>
+    const pattern = [
+      1,1,1,1,1,1,1,0,1,
+      1,0,0,0,0,0,1,0,0,
+      1,0,1,1,1,0,1,0,1,
+      1,0,1,1,1,0,1,0,0,
+      1,0,1,1,1,0,1,0,1,
+      1,0,0,0,0,0,1,0,1,
+      1,1,1,1,1,1,1,0,0,
+      0,0,0,0,0,0,0,0,1,
+      1,0,1,0,0,1,1,1,0,
+      0,1,0,1,0,0,1,0,1,
+      1,1,0,0,1,0,0,1,0,
+      0,0,1,1,0,1,1,0,1,
+      1,0,0,0,1,0,1,1,0,
+      0,1,1,0,0,1,0,0,1,
+      0,0,1,0,1,0,1,1,0,
+      1,1,0,1,0,1,0,0,1,
+      0,1,0,0,1,1,1,0,0,
+      1,0,1,1,0,0,0,1,1,
+    ];
+    ['qrPc','qrMobile'].forEach(id => {
+      const el = document.getElementById(id);
+      pattern.forEach(v => {
+        const cell = document.createElement('div');
+        cell.className = 'qr-cell' + (v ? ' d' : '');
+        el.appendChild(cell);
+      });
+    });
+  </script>
+</body>
+</html>
