@@ -7,242 +7,284 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     :root {
-      --navy: #003087; --navy2: #00256b; --blue: #0055cc;
-      --blue-light: #e8f0fe; --green: #1a7a45;
-      --text: #1a1a1a; --sub: #555; --border: #d8dee8; --bg: #f2f4f8;
+      --navy:#003087; --navy2:#00256b; --blue:#0055cc;
+      --blue-light:#e8f0fe; --green:#1a7a45;
+      --text:#1a1a1a; --sub:#555; --border:#d8dee8; --bg:#f2f4f8;
     }
-    body { font-family: 'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif; background: var(--bg); color: var(--text); max-width: 480px; margin: 0 auto; font-size: 14px; line-height: 1.5; }
+    body { font-family:'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif; background:var(--bg); color:var(--text); max-width:480px; margin:0 auto; font-size:14px; line-height:1.5; }
 
     /* ── HEADER ── */
-    .site-header { background: var(--navy); padding: 0 20px; height: 52px; display: flex; align-items: center; justify-content: space-between; }
-    .site-header .logo { font-size: 18px; font-weight: 900; color: #fff; letter-spacing: 0.1em; }
-    .site-header .header-badge { font-size: 10px; color: rgba(255,255,255,0.65); }
+    .site-header { background:var(--navy); padding:0 20px; height:52px; display:flex; align-items:center; justify-content:space-between; }
+    .site-header .logo { font-size:18px; font-weight:900; color:#fff; letter-spacing:.1em; }
+    .site-header .hbadge { font-size:10px; color:rgba(255,255,255,.65); }
 
     /* ── STEP BAR ── */
-    .step-bar { background: #fff; border-bottom: 1px solid var(--border); display: flex; align-items: stretch; position: sticky; top: 0; z-index: 20; }
-    .step-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 4px; gap: 4px; border-bottom: 3px solid transparent; }
-    .step-item.active { border-bottom-color: var(--navy); }
-    .step-item.done { border-bottom-color: var(--green); }
-    .step-circle { width: 22px; height: 22px; border-radius: 50%; background: #dde2ec; color: #999; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-    .step-item.active .step-circle { background: var(--navy); color: #fff; }
-    .step-item.done .step-circle { background: var(--green); color: #fff; }
-    .step-text { font-size: 9px; font-weight: 600; color: #aaa; white-space: nowrap; }
-    .step-item.active .step-text { color: var(--navy); }
-    .step-item.done .step-text { color: var(--green); }
-    .step-divider { width: 1px; background: var(--border); align-self: stretch; margin: 8px 0; }
+    .step-bar { background:#fff; border-bottom:1px solid var(--border); display:flex; align-items:stretch; position:sticky; top:0; z-index:20; }
+    .step-item { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:4px; border-bottom:3px solid transparent; }
+    .step-item.active { border-bottom-color:var(--navy); }
+    .step-item.done   { border-bottom-color:var(--green); }
+    .step-circle { width:22px; height:22px; border-radius:50%; background:#dde2ec; color:#999; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+    .step-item.active .step-circle { background:var(--navy); color:#fff; }
+    .step-item.done   .step-circle { background:var(--green); color:#fff; }
+    .step-text { font-size:9px; font-weight:600; color:#aaa; white-space:nowrap; }
+    .step-item.active .step-text { color:var(--navy); }
+    .step-item.done   .step-text { color:var(--green); }
+    .step-divider { width:1px; background:var(--border); align-self:stretch; margin:8px 0; }
 
     /* ── HERO ── */
-    .hero-section { background: linear-gradient(160deg, var(--navy2) 0%, var(--navy) 60%, #0040b0 100%); padding: 28px 24px 38px; text-align: center; position: relative; }
-    .hero-section::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 30px; background: var(--bg); clip-path: ellipse(55% 100% at 50% 100%); }
-    .hero-eyebrow { display: inline-block; background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
-    .hero-section h1 { font-size: 20px; font-weight: 800; color: #fff; line-height: 1.4; letter-spacing: -0.02em; margin-bottom: 8px; }
-    .hero-section h1 em { color: #90c8ff; font-style: normal; }
-    .hero-section p { font-size: 12px; color: rgba(255,255,255,0.72); line-height: 1.7; }
+    .hero { background:linear-gradient(160deg,var(--navy2) 0%,var(--navy) 60%,#0040b0 100%); padding:28px 24px 38px; text-align:center; position:relative; }
+    .hero::after { content:''; position:absolute; bottom:-1px; left:0; right:0; height:30px; background:var(--bg); clip-path:ellipse(55% 100% at 50% 100%); }
+    .hero-eye { display:inline-block; background:rgba(255,255,255,.15); color:rgba(255,255,255,.85); font-size:10px; font-weight:700; letter-spacing:.08em; padding:4px 12px; border-radius:20px; margin-bottom:12px; }
+    .hero h1 { font-size:20px; font-weight:800; color:#fff; line-height:1.4; letter-spacing:-.02em; margin-bottom:8px; }
+    .hero h1 em { color:#90c8ff; font-style:normal; }
+    .hero p { font-size:12px; color:rgba(255,255,255,.72); line-height:1.7; }
 
     /* ── CARD ── */
-    .section-wrap { padding: 20px 16px 0; }
-    .card { background: #fff; border-radius: 8px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 12px; }
-    .card-head { background: #f7f9fc; border-bottom: 1px solid var(--border); padding: 12px 18px; font-size: 12px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 8px; }
-    .card-body { padding: 18px; }
+    .sec { padding:20px 16px 0; }
+    .card { background:#fff; border-radius:8px; border:1px solid var(--border); overflow:hidden; margin-bottom:12px; }
+    .card-head { background:#f7f9fc; border-bottom:1px solid var(--border); padding:12px 18px; font-size:12px; font-weight:700; color:var(--navy); display:flex; align-items:center; gap:8px; }
+    .card-body { padding:18px; }
 
-    /* ── STEP1: 카테고리/공간 선택 ── */
-    .cat-intro { font-size: 12px; color: var(--sub); margin-bottom: 14px; padding: 10px 12px; background: var(--blue-light); border-radius: 6px; }
-    .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-    .cat-btn, .cat-btn-wide { border: 1.5px solid var(--border); border-radius: 8px; cursor: pointer; font-family: inherit; transition: all 0.15s; background: #f9fafc; }
-    .cat-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 14px 8px; text-align: center; }
-    .cat-btn-wide { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; font-size: 12px; font-weight: 700; color: #777; margin-bottom: 8px; }
-    .cat-btn:hover, .cat-btn-wide:hover, .cat-btn.selected, .cat-btn-wide.selected { background: var(--blue-light); border-color: var(--navy); color: var(--navy); }
-    .cat-icon { font-size: 22px; line-height: 1; }
-    .cat-name { font-size: 12px; font-weight: 700; color: var(--text); }
-    .cat-sub { font-size: 10px; color: var(--sub); line-height: 1.3; }
-    .cat-btn.selected .cat-name, .cat-btn.selected .cat-sub { color: var(--navy); }
-    .space-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 14px; }
-    .space-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 14px 6px; background: #f9fafc; border: 1.5px solid var(--border); border-radius: 8px; cursor: pointer; font-family: inherit; transition: all 0.15s; }
-    .space-btn:hover, .space-btn.selected { background: var(--blue-light); border-color: var(--navy); }
-    .space-btn .sp-icon { font-size: 22px; }
-    .space-btn .sp-name { font-size: 11px; font-weight: 700; }
-    .divider-label { display: flex; align-items: center; gap: 10px; margin: 14px 0; }
-    .divider-label::before, .divider-label::after { content:''; flex:1; height:1px; background:var(--border); }
-    .divider-label span { font-size: 11px; color: #aaa; font-weight: 600; white-space: nowrap; }
-    .btn-primary { width: 100%; padding: 15px; background: var(--navy); color: #fff; border: none; border-radius: 6px; font-size: 15px; font-weight: 800; cursor: pointer; font-family: inherit; }
-    .btn-primary:disabled { background: #aab0c0; cursor: not-allowed; }
-    .btn-primary:not(:disabled):hover { background: var(--navy2); }
-    .btn-note { text-align: center; font-size: 11px; color: #aaa; margin-top: 8px; }
+    /* ── STEP1 ── */
+    .cat-intro { font-size:12px; color:var(--sub); margin-bottom:14px; padding:10px 12px; background:var(--blue-light); border-radius:6px; }
+    .cat-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+    .cat-btn,.cat-btn-w { border:1.5px solid var(--border); border-radius:8px; cursor:pointer; font-family:inherit; transition:all .15s; background:#f9fafc; }
+    .cat-btn { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; padding:14px 8px; text-align:center; }
+    .cat-btn-w { width:100%; display:flex; align-items:center; gap:8px; padding:12px; font-size:12px; font-weight:700; color:#777; margin-bottom:8px; }
+    .cat-btn:hover,.cat-btn-w:hover,.cat-btn.selected,.cat-btn-w.selected { background:var(--blue-light); border-color:var(--navy); }
+    .cat-icon { font-size:22px; }
+    .cat-name { font-size:12px; font-weight:700; }
+    .cat-sub { font-size:10px; color:var(--sub); line-height:1.3; }
+    .cat-btn.selected .cat-name,.cat-btn.selected .cat-sub { color:var(--navy); }
+    .space-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:8px; }
+    .sp-btn { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:14px 6px; background:#f9fafc; border:1.5px solid var(--border); border-radius:8px; cursor:pointer; font-family:inherit; transition:all .15s; }
+    .sp-btn:hover,.sp-btn.selected { background:var(--blue-light); border-color:var(--navy); }
+    .sp-icon { font-size:22px; }
+    .sp-name { font-size:11px; font-weight:700; }
+    .divider-label { display:flex; align-items:center; gap:10px; margin:14px 0 10px; }
+    .divider-label::before,.divider-label::after { content:''; flex:1; height:1px; background:var(--border); }
+    .divider-label span { font-size:11px; color:#aaa; font-weight:600; white-space:nowrap; }
+    .form-label { font-size:12px; font-weight:700; color:#333; margin-bottom:6px; display:block; }
+    .form-label .req { color:#c00; margin-left:2px; }
+    .form-ctrl { width:100%; padding:12px 14px; border:1px solid var(--border); border-radius:6px; font-size:14px; color:var(--text); background:#fff; outline:none; appearance:none; -webkit-appearance:none; font-family:inherit; }
+    .form-ctrl:focus { border-color:var(--navy); }
+    select.form-ctrl { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:36px; }
+    .btn-primary { width:100%; padding:15px; background:var(--navy); color:#fff; border:none; border-radius:6px; font-size:15px; font-weight:800; cursor:pointer; font-family:inherit; margin-top:4px; }
+    .btn-primary:disabled { background:#aab0c0; cursor:not-allowed; }
+    .btn-primary:not(:disabled):hover { background:var(--navy2); }
+    .btn-note { text-align:center; font-size:11px; color:#aaa; margin-top:8px; }
 
-    /* ── STEP2: 진단 퀴즈 ── */
-    .quiz-wrap { padding: 20px 16px 0; }
-    .quiz-progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
-    .quiz-progress-bar { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
-    .quiz-progress-fill { height: 100%; background: var(--navy); border-radius: 3px; transition: width 0.4s ease; }
-    .quiz-progress-text { font-size: 11px; font-weight: 700; color: var(--navy); white-space: nowrap; }
-    .quiz-card { background: #fff; border-radius: 8px; border: 1px solid var(--border); padding: 24px 20px 20px; transition: opacity 0.2s, transform 0.2s; }
-    .quiz-card.fade-out { opacity: 0; transform: translateY(-8px); }
-    .sel-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 16px; }
-    .sel-tag { display: inline-flex; align-items: center; gap: 4px; background: var(--navy); color: #fff; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; }
-    .quiz-q { font-size: 16px; font-weight: 800; color: var(--text); line-height: 1.5; margin-bottom: 20px; }
-    .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .quiz-options.single-col { grid-template-columns: 1fr; }
-    .quiz-opt { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; padding: 16px 10px; background: #f9fafc; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; text-align: center; font-family: inherit; transition: all 0.15s; }
-    .quiz-opt:hover { background: var(--blue-light); border-color: var(--navy); }
-    .quiz-opt.selected { background: var(--navy); border-color: var(--navy); }
-    .quiz-opt .opt-icon { font-size: 26px; line-height: 1; }
-    .quiz-opt .opt-text { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.45; }
-    .quiz-opt.selected .opt-text { color: #fff; }
-    .quiz-options.single-col .quiz-opt { flex-direction: row; gap: 12px; text-align: left; padding: 14px 16px; }
-    .quiz-options.single-col .quiz-opt .opt-icon { font-size: 22px; flex-shrink: 0; }
+    /* ── STEP2 QUIZ ── */
+    .qwrap { padding:20px 16px 0; }
+    .qprow { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+    .qpbar { flex:1; height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+    .qpfill { height:100%; background:var(--navy); border-radius:3px; transition:width .4s ease; }
+    .qptxt { font-size:11px; font-weight:700; color:var(--navy); white-space:nowrap; }
+    .qcard { background:#fff; border-radius:8px; border:1px solid var(--border); padding:24px 20px 20px; transition:opacity .2s,transform .2s; }
+    .qcard.fade-out { opacity:0; transform:translateY(-8px); }
+    .sel-tags { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:16px; }
+    .sel-tag { display:inline-flex; align-items:center; gap:4px; background:var(--navy); color:#fff; padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700; }
+    .qqtxt { font-size:16px; font-weight:800; color:var(--text); line-height:1.5; margin-bottom:20px; }
+    .qopts { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .qopts.sc { grid-template-columns:1fr; }
+    .qopt { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; padding:16px 10px; background:#f9fafc; border:1.5px solid var(--border); border-radius:10px; cursor:pointer; text-align:center; font-family:inherit; transition:all .15s; }
+    .qopt:hover { background:var(--blue-light); border-color:var(--navy); }
+    .qopt.selected { background:var(--navy); border-color:var(--navy); }
+    .qopt .oi { font-size:26px; line-height:1; }
+    .qopt .ot { font-size:12px; font-weight:700; color:var(--text); line-height:1.45; }
+    .qopt.selected .ot { color:#fff; }
+    .qopts.sc .qopt { flex-direction:row; gap:12px; text-align:left; padding:14px 16px; }
+    .qopts.sc .qopt .oi { font-size:22px; flex-shrink:0; }
 
-    /* ── STEP3: 결과 + 추천 ── */
-    .result-level-card { border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 14px; background: linear-gradient(135deg, var(--navy2) 0%, var(--navy) 100%); }
-    .rl-label { font-size: 10px; color: rgba(255,255,255,0.65); letter-spacing: 0.06em; margin-bottom: 6px; }
-    .rl-grade { font-size: 38px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 8px; }
-    .rl-bar { height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden; margin: 0 auto 10px; max-width: 200px; }
-    .rl-fill { height: 100%; border-radius: 4px; background: #fff; transition: width 1s ease; }
-    .rl-msg { font-size: 12px; color: rgba(255,255,255,0.9); line-height: 1.7; }
+    /* ── STEP3 결과 ── */
+    .rl-card { border-radius:8px; padding:20px; text-align:center; margin-bottom:14px; background:linear-gradient(135deg,var(--navy2) 0%,var(--navy) 100%); }
+    .rl-label { font-size:10px; color:rgba(255,255,255,.65); letter-spacing:.06em; margin-bottom:6px; }
+    .rl-grade { font-size:38px; font-weight:900; color:#fff; line-height:1; margin-bottom:8px; }
+    .rl-bar { height:8px; background:rgba(255,255,255,.2); border-radius:4px; overflow:hidden; margin:0 auto 10px; max-width:200px; }
+    .rl-fill { height:100%; border-radius:4px; background:#fff; transition:width 1s ease; }
+    .rl-msg { font-size:12px; color:rgba(255,255,255,.9); line-height:1.7; }
 
-    .rec-card { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
-    .rec-header { background: var(--navy); padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
-    .rec-header .rh-icon { font-size: 30px; flex-shrink: 0; }
-    .rec-header .rh-info .rh-num { font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 700; margin-bottom: 2px; }
-    .rec-header .rh-info .rh-name { font-size: 15px; font-weight: 800; color: #fff; }
-    .rec-header .rh-info .rh-tag { font-size: 10px; color: rgba(255,255,255,0.75); margin-top: 2px; }
-    .rec-body { padding: 14px 16px; }
-    .rec-reason { font-size: 12px; color: var(--sub); line-height: 1.7; margin-bottom: 12px; }
-    .rec-coupon { background: var(--blue-light); border-radius: 6px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; }
-    .rc-label { font-size: 11px; font-weight: 700; color: var(--navy); }
-    .rc-badge { margin-left: auto; background: var(--navy); color: #fff; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 4px; white-space: nowrap; }
+    /* 추천 제품 카드 */
+    .rec-card { border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:12px; }
+    .rch { background:var(--navy); padding:14px 16px; display:flex; align-items:center; gap:12px; }
+    .rch .ri { font-size:30px; flex-shrink:0; }
+    .rch .rinfo .rnum { font-size:10px; color:rgba(255,255,255,.6); font-weight:700; margin-bottom:2px; }
+    .rch .rinfo .rname { font-size:15px; font-weight:800; color:#fff; }
+    .rch .rinfo .rtag { font-size:10px; color:rgba(255,255,255,.75); margin-top:2px; }
+    .rcb { padding:14px 16px; }
+    .rcb .rreason { font-size:12px; color:var(--sub); line-height:1.7; margin-bottom:12px; }
+    .coupon-row { background:var(--blue-light); border-radius:6px; padding:10px 14px; display:flex; align-items:center; gap:10px; }
+    .cl { font-size:11px; font-weight:700; color:var(--navy); }
+    .btn-coupon { margin-left:auto; background:var(--navy); color:#fff; font-size:11px; font-weight:800; padding:6px 14px; border-radius:4px; white-space:nowrap; border:none; cursor:pointer; font-family:inherit; }
+    .btn-coupon:hover { background:var(--navy2); }
 
-    .professional-tip { background: #fff8e1; border: 1px solid #ffe066; border-radius: 6px; padding: 12px 14px; margin-bottom: 14px; font-size: 12px; color: #7d5800; line-height: 1.7; }
+    /* 전문가 진단 추천 카드 */
+    .dx-card { border:1.5px solid var(--navy); border-radius:8px; overflow:hidden; margin-bottom:12px; }
+    .dxh { background:linear-gradient(110deg,var(--navy2),var(--navy)); padding:14px 16px; display:flex; align-items:center; gap:12px; }
+    .dxh .di { font-size:28px; flex-shrink:0; }
+    .dxh .dinfo .dnum { font-size:10px; color:rgba(255,255,255,.6); font-weight:700; }
+    .dxh .dinfo .dname { font-size:14px; font-weight:800; color:#fff; margin-bottom:2px; }
+    .dxh .dinfo .dtag { font-size:10px; color:rgba(255,255,255,.75); }
+    .dxb { padding:14px 16px; }
+    .dx-points { list-style:none; margin-bottom:0; }
+    .dx-points li { font-size:12px; color:var(--sub); line-height:1.8; padding-left:14px; position:relative; }
+    .dx-points li::before { content:'·'; position:absolute; left:4px; font-weight:900; color:var(--navy); }
+    .form-row { display:flex; gap:10px; }
+    .form-row .fg { flex:1; }
+    .fg { margin-bottom:12px; }
+    .btn-diagnose { width:100%; padding:14px; background:var(--green); color:#fff; border:none; border-radius:6px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; }
+    .btn-diagnose:hover { background:#155e36; }
 
-    /* ── FORM ── */
-    .form-group { margin-bottom: 14px; }
-    .form-label { font-size: 12px; font-weight: 700; color: #333; margin-bottom: 6px; display: block; }
-    .form-label .req { color: #cc0000; margin-left: 2px; }
-    .form-control { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; color: var(--text); background: #fff; outline: none; appearance: none; -webkit-appearance: none; font-family: inherit; }
-    .form-control:focus { border-color: var(--navy); }
-    select.form-control { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
-    .form-row { display: flex; gap: 10px; }
-    .form-row .form-group { flex: 1; }
+    .ptip { background:#fff8e1; border:1px solid #ffe066; border-radius:6px; padding:12px 14px; margin-bottom:14px; font-size:12px; color:#7d5800; line-height:1.7; }
 
-    /* ── COMPLETE ── */
-    .complete-section { display: none; padding: 32px 16px 0; text-align: center; }
-    .complete-icon { font-size: 52px; margin-bottom: 14px; }
-    .complete-section h2 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
-    .complete-section > p { font-size: 13px; color: var(--sub); line-height: 1.7; margin-bottom: 20px; }
-    .contract-card { background: #fff; border-radius: 8px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 12px; text-align: left; }
-    .contract-top { background: linear-gradient(110deg, var(--navy2), var(--navy)); padding: 16px 18px; }
-    .contract-top .tag { display: inline-block; background: rgba(255,255,255,0.2); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; }
-    .contract-top h3 { font-size: 14px; font-weight: 800; color: #fff; line-height: 1.4; }
-    .contract-top h3 em { color: #90c8ff; font-style: normal; }
-    .contract-body { padding: 14px 18px; }
-    .contract-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #eef0f5; font-size: 13px; }
-    .contract-row:last-child { border-bottom: none; }
-    .ci { font-size: 16px; flex-shrink: 0; }
-    .ct strong { color: var(--navy); display: block; margin-bottom: 2px; }
-    .ct span { font-size: 11px; color: var(--sub); }
+    /* ── 로그인 모달 ── */
+    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:200; align-items:flex-end; justify-content:center; }
+    .modal-overlay.open { display:flex; }
+    .modal-sheet { background:#fff; border-radius:16px 16px 0 0; width:100%; max-width:480px; padding:0 0 32px; animation:slideUp .3s ease; position:relative; }
+    @keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
+    .modal-bar { width:40px; height:4px; background:#ddd; border-radius:2px; margin:12px auto 0; }
+    .modal-head { padding:20px 20px 0; }
+    .modal-head .mlogo { font-size:16px; font-weight:900; color:var(--navy); letter-spacing:.08em; margin-bottom:4px; }
+    .modal-head h3 { font-size:17px; font-weight:800; margin-bottom:4px; }
+    .modal-head p { font-size:12px; color:var(--sub); line-height:1.6; margin-bottom:20px; }
+    .modal-body { padding:0 20px; }
+    .modal-body .form-ctrl { margin-bottom:10px; }
+    .btn-login { width:100%; padding:14px; background:var(--navy); color:#fff; border:none; border-radius:6px; font-size:15px; font-weight:800; cursor:pointer; font-family:inherit; margin-bottom:12px; }
+    .modal-links { text-align:center; }
+    .modal-links a { font-size:12px; color:var(--navy); text-decoration:none; font-weight:600; }
+    .modal-links a:hover { text-decoration:underline; }
+    .modal-close { position:absolute; top:14px; right:18px; font-size:24px; color:#999; cursor:pointer; background:none; border:none; line-height:1; }
 
-    .bottom-safe { height: 48px; }
-    footer { padding: 20px; text-align: center; font-size: 11px; color: #aaa; line-height: 1.9; border-top: 1px solid var(--border); background: #fff; }
+    /* ── STEP4 완료 ── */
+    .complete { display:none; padding:32px 16px 0; text-align:center; }
+    .complete-icon { font-size:52px; margin-bottom:14px; }
+    .complete h2 { font-size:20px; font-weight:800; margin-bottom:8px; }
+    .complete > p { font-size:13px; color:var(--sub); line-height:1.7; margin-bottom:20px; }
+    .contract-card { background:#fff; border-radius:8px; border:1px solid var(--border); overflow:hidden; margin-bottom:12px; text-align:left; }
+    .ct-top { background:linear-gradient(110deg,var(--navy2),var(--navy)); padding:16px 18px; }
+    .ct-top .tag { display:inline-block; background:rgba(255,255,255,.2); color:#fff; font-size:10px; font-weight:700; padding:3px 10px; border-radius:20px; margin-bottom:8px; }
+    .ct-top h3 { font-size:14px; font-weight:800; color:#fff; line-height:1.4; }
+    .ct-top h3 em { color:#90c8ff; font-style:normal; }
+    .ct-body { padding:14px 18px; }
+    .ct-row { display:flex; align-items:flex-start; gap:10px; padding:8px 0; border-bottom:1px solid #eef0f5; font-size:13px; }
+    .ct-row:last-child { border-bottom:none; }
+    .ci { font-size:16px; flex-shrink:0; }
+    .ct strong { color:var(--navy); display:block; margin-bottom:2px; }
+    .ct span { font-size:11px; color:var(--sub); }
+
+    .bottom-safe { height:48px; }
+    footer { padding:20px; text-align:center; font-size:11px; color:#aaa; line-height:1.9; border-top:1px solid var(--border); background:#fff; }
   </style>
 </head>
 <body>
 
   <header class="site-header">
     <div class="logo">CESCO</div>
-    <div class="header-badge">마이랩 위생 진단 서비스</div>
+    <div class="hbadge">마이랩 위생 진단 서비스</div>
   </header>
 
   <div class="step-bar">
-    <div class="step-item active" id="si1"><div class="step-circle" id="sc1">1</div><div class="step-text" id="st1">정보 입력</div></div>
+    <div class="step-item active" id="si1"><div class="step-circle">1</div><div class="step-text">정보 입력</div></div>
     <div class="step-divider"></div>
-    <div class="step-item" id="si2"><div class="step-circle" id="sc2">2</div><div class="step-text" id="st2">위생 진단</div></div>
+    <div class="step-item" id="si2"><div class="step-circle">2</div><div class="step-text">위생 진단</div></div>
     <div class="step-divider"></div>
-    <div class="step-item" id="si3"><div class="step-circle" id="sc3">3</div><div class="step-text" id="st3">결과·추천</div></div>
+    <div class="step-item" id="si3"><div class="step-circle">3</div><div class="step-text">결과·추천</div></div>
     <div class="step-divider"></div>
-    <div class="step-item" id="si4"><div class="step-circle" id="sc4">4</div><div class="step-text" id="st4">완료</div></div>
+    <div class="step-item" id="si4"><div class="step-circle">4</div><div class="step-text">완료</div></div>
   </div>
 
   <!-- ══ STEP 1 ══ -->
   <div id="step1">
-    <div class="hero-section">
-      <div class="hero-eyebrow">MYLAB × CESCO</div>
+    <div class="hero" style="padding:26px 24px 36px">
+      <div class="hero-eye">MYLAB × CESCO</div>
       <h1>마이랩 구매 고객을 위한<br /><em>맞춤 위생 진단</em> 서비스</h1>
-      <p>구매 제품과 공간에 맞는 위생 위험을 진단하고<br />최적의 마이랩 제품을 추천해 드립니다</p>
+      <p>구매 제품과 공간에 맞는 위생 위험을 진단하고<br />최적의 마이랩 제품 및 전문가 진단을 추천합니다</p>
     </div>
-    <div class="section-wrap" style="padding-top:22px">
+    <div class="sec" style="padding-top:22px">
       <div class="card">
         <div class="card-head">🧪 구매하신 마이랩 제품</div>
         <div class="card-body">
           <div class="cat-intro">해당하는 제품 카테고리를 선택해주세요</div>
           <div class="cat-grid">
-            <button class="cat-btn" onclick="selectCat(this,'주방 위생','주방세제 프리미엄')"><span class="cat-icon">🍽</span><span class="cat-name">주방 위생</span><span class="cat-sub">주방세제·기름때<br/>배수관세정제 등</span></button>
-            <button class="cat-btn" onclick="selectCat(this,'청소·욕실','다목적 욕실세정제')"><span class="cat-icon">🧹</span><span class="cat-name">청소·욕실</span><span class="cat-sub">욕실세정제·곰팡이<br/>배수구클리너 등</span></button>
-            <button class="cat-btn" onclick="selectCat(this,'개인위생','핸드워시 폼')"><span class="cat-icon">🧴</span><span class="cat-name">개인위생</span><span class="cat-sub">핸드워시·손소독제<br/>폼샴푸 등</span></button>
-            <button class="cat-btn" onclick="selectCat(this,'살균·소독','곡물발효 살균소독제')"><span class="cat-icon">🦠</span><span class="cat-name">살균·소독</span><span class="cat-sub">살균소독제<br/>살균클리닝티슈 등</span></button>
-            <button class="cat-btn" onclick="selectCat(this,'해충퇴치','모기 에어로솔')"><span class="cat-icon">🐛</span><span class="cat-name">해충퇴치</span><span class="cat-sub">모기·초파리 제품<br/>야외미스트 등</span></button>
-            <button class="cat-btn" onclick="selectCat(this,'반려동물','반려동물 탈취제')"><span class="cat-icon">🐾</span><span class="cat-name">반려동물</span><span class="cat-sub">탈취제 등</span></button>
+            <button class="cat-btn" onclick="selectCat(this,'주방 위생')"><span class="cat-icon">🍽</span><span class="cat-name">주방 위생</span><span class="cat-sub">주방세제·기름때<br/>배수관세정제 등</span></button>
+            <button class="cat-btn" onclick="selectCat(this,'청소·욕실')"><span class="cat-icon">🧹</span><span class="cat-name">청소·욕실</span><span class="cat-sub">욕실세정제·곰팡이<br/>배수구클리너 등</span></button>
+            <button class="cat-btn" onclick="selectCat(this,'개인위생')"><span class="cat-icon">🧴</span><span class="cat-name">개인위생</span><span class="cat-sub">핸드워시·손소독제<br/>폼샴푸 등</span></button>
+            <button class="cat-btn" onclick="selectCat(this,'살균·소독')"><span class="cat-icon">🦠</span><span class="cat-name">살균·소독</span><span class="cat-sub">살균소독제<br/>살균클리닝티슈 등</span></button>
+            <button class="cat-btn" onclick="selectCat(this,'해충퇴치')"><span class="cat-icon">🐛</span><span class="cat-name">해충퇴치</span><span class="cat-sub">모기·초파리 제품<br/>야외미스트 등</span></button>
+            <button class="cat-btn" onclick="selectCat(this,'반려동물')"><span class="cat-icon">🐾</span><span class="cat-name">반려동물</span><span class="cat-sub">탈취제 등</span></button>
           </div>
-          <button class="cat-btn-wide" onclick="selectCat(this,'세탁·섬유케어','세탁세제')"><span>👕</span><span>세탁·섬유케어 (세탁세제, 섬유유연제, 습기제거제 등)</span></button>
-          <button class="cat-btn-wide" onclick="selectCat(this,'기타','기타')"><span>📦</span><span>기타 / 잘 모르겠어요</span></button>
+          <button class="cat-btn-w" onclick="selectCat(this,'세탁·섬유케어')"><span>👕</span><span>세탁·섬유케어 (세탁세제, 섬유유연제, 습기제거제 등)</span></button>
+          <button class="cat-btn-w" onclick="selectCat(this,'기타')"><span>📦</span><span>기타 / 잘 모르겠어요</span></button>
         </div>
       </div>
+
       <div class="card">
-        <div class="card-head">🏠 어떤 공간에서 사용하시나요?</div>
+        <div class="card-head">🏠 공간 및 구매 채널</div>
         <div class="card-body">
-          <div class="space-grid">
-            <button class="space-btn" onclick="selectSpace(this,'가정집')"><span class="sp-icon">🏡</span><span class="sp-name">가정집</span></button>
-            <button class="space-btn" onclick="selectSpace(this,'요식업')"><span class="sp-icon">🍳</span><span class="sp-name">요식업</span></button>
-            <button class="space-btn" onclick="selectSpace(this,'일반사업체')"><span class="sp-icon">🏢</span><span class="sp-name">일반사업체</span></button>
+          <label class="form-label" style="margin-bottom:8px">어떤 공간에서 사용하시나요?</label>
+          <div class="space-grid" style="margin-bottom:16px">
+            <button class="sp-btn" onclick="selectSpace(this,'가정집')"><span class="sp-icon">🏡</span><span class="sp-name">가정집</span></button>
+            <button class="sp-btn" onclick="selectSpace(this,'요식업')"><span class="sp-icon">🍳</span><span class="sp-name">요식업</span></button>
+            <button class="sp-btn" onclick="selectSpace(this,'일반사업체')"><span class="sp-icon">🏢</span><span class="sp-name">일반사업체</span></button>
+          </div>
+          <div class="divider-label"><span>구매 채널</span></div>
+          <div class="fg" style="margin-bottom:16px">
+            <select class="form-ctrl" id="selCh" onchange="checkReady()">
+              <option value="">어디서 구매하셨나요?</option>
+              <option>쿠팡</option><option>스마트스토어</option><option>11번가</option><option>G마켓</option><option>옥션</option><option>세스코 자사몰</option><option>기타</option>
+            </select>
           </div>
           <button class="btn-primary" id="startBtn" disabled onclick="startQuiz()">위생 진단 시작하기 →</button>
-          <p class="btn-note">제품과 공간을 모두 선택해야 진단을 시작할 수 있습니다</p>
+          <p class="btn-note">제품·공간·구매 채널을 모두 선택해야 진단을 시작할 수 있습니다</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ══ STEP 2: 진단 퀴즈 ══ -->
+  <!-- ══ STEP 2 ══ -->
   <div id="step2" style="display:none">
-    <div class="hero-section" style="padding:20px 24px 34px">
-      <div class="hero-eyebrow">STEP 2</div>
+    <div class="hero" style="padding:20px 24px 34px">
+      <div class="hero-eye">STEP 2</div>
       <h1 style="font-size:18px">맞춤 위생 진단</h1>
-      <p>구매하신 제품과 공간에 맞는 질문입니다</p>
+      <p>구매 제품과 공간에 맞는 심화 질문입니다</p>
     </div>
-    <div class="quiz-wrap">
-      <div class="quiz-progress-row">
-        <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgressFill" style="width:25%"></div></div>
-        <div class="quiz-progress-text" id="quizProgressText">1 / 4</div>
+    <div class="qwrap">
+      <div class="qprow">
+        <div class="qpbar"><div class="qpfill" id="qpFill" style="width:25%"></div></div>
+        <div class="qptxt" id="qpTxt">1 / 4</div>
       </div>
-      <div class="quiz-card" id="quizCard">
+      <div class="qcard" id="qCard">
         <div class="sel-tags" id="selTags"></div>
-        <div class="quiz-q" id="quizQ"></div>
-        <div class="quiz-options" id="quizOpts"></div>
+        <div class="qqtxt" id="qQ"></div>
+        <div class="qopts" id="qOpts"></div>
       </div>
     </div>
   </div>
 
-  <!-- ══ STEP 3: 결과 + 추천 + 폼 ══ -->
+  <!-- ══ STEP 3 ══ -->
   <div id="step3" style="display:none">
-    <div class="hero-section" style="padding:20px 24px 34px">
-      <div class="hero-eyebrow">STEP 3</div>
-      <h1 style="font-size:18px">진단 결과 · 추천 제품</h1>
-      <p>진단 결과를 바탕으로 최적 제품을 추천합니다</p>
+    <div class="hero" style="padding:20px 24px 34px">
+      <div class="hero-eye">STEP 3</div>
+      <h1 style="font-size:18px">진단 결과 · 맞춤 추천</h1>
+      <p>진단 결과를 바탕으로 제품과 전문가 진단을 추천합니다</p>
     </div>
-    <div class="section-wrap" style="padding-top:18px">
+    <div class="sec" style="padding-top:18px">
+
       <div class="card">
         <div class="card-head">📊 위생 진단 결과</div>
         <div class="card-body" style="padding:16px">
-          <div class="result-level-card">
+          <div class="rl-card">
             <div class="rl-label">위생 위험도</div>
-            <div class="rl-grade" id="resultLevel">—</div>
-            <div class="rl-bar"><div class="rl-fill" id="resultFill" style="width:0%"></div></div>
-            <div class="rl-msg" id="resultMsg">—</div>
+            <div class="rl-grade" id="rlGrade">—</div>
+            <div class="rl-bar"><div class="rl-fill" id="rlFill" style="width:0%"></div></div>
+            <div class="rl-msg" id="rlMsg">—</div>
           </div>
-          <div id="professionalTip"></div>
+          <div id="pTip"></div>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-head">🎯 맞춤 추천 제품</div>
+        <div class="card-head">🎯 맞춤 마이랩 추천 제품</div>
         <div class="card-body" style="padding:12px 16px">
           <div id="recCards"></div>
           <div style="background:#f7f9fc;border-radius:6px;padding:10px 12px;font-size:11px;color:var(--sub);line-height:1.7">
@@ -252,41 +294,56 @@
       </div>
 
       <div class="card">
-        <div class="card-head">📋 전문가 무료 진단 신청</div>
-        <div class="card-body">
-          <p style="font-size:12px;color:var(--sub);margin-bottom:14px;line-height:1.6">세스코 전문가가 직접 방문해 위생 환경을 진단하고 맞춤 솔루션을 제안합니다.</p>
+        <div class="card-head">🔬 맞춤 전문가 진단 추천</div>
+        <div class="card-body" style="padding:12px 16px">
+          <p style="font-size:12px;color:var(--sub);line-height:1.6;margin-bottom:14px">진단 결과를 바탕으로 가장 필요한 <strong>세스코 무료 전문가 진단</strong>을 추천합니다.</p>
+          <div id="dxCards"></div>
           <div class="form-row">
-            <div class="form-group"><label class="form-label">이름 <span class="req">*</span></label><input class="form-control" type="text" id="fName" placeholder="홍길동" /></div>
-            <div class="form-group"><label class="form-label">연락처 <span class="req">*</span></label><input class="form-control" type="tel" id="fPhone" placeholder="010-0000-0000" oninput="formatPhone(this)" /></div>
+            <div class="fg"><label class="form-label">이름 <span class="req">*</span></label><input class="form-ctrl" type="text" id="fName" placeholder="홍길동" /></div>
+            <div class="fg"><label class="form-label">연락처 <span class="req">*</span></label><input class="form-ctrl" type="tel" id="fPhone" placeholder="010-0000-0000" oninput="fmtPhone(this)" /></div>
           </div>
-          <div class="form-group">
-            <label class="form-label">구매 채널 <span class="req">*</span></label>
-            <select class="form-control" id="fSource">
-              <option value="">어디서 구매하셨나요?</option>
-              <option>쿠팡</option><option>스마트스토어</option><option>11번가</option><option>G마켓</option><option>세스코 자사몰</option><option>기타</option>
-            </select>
-          </div>
-          <button class="btn-primary" onclick="submitForm()">신청 완료하기</button>
+          <button class="btn-diagnose" onclick="submitForm()">무료 진단 신청하기</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ══ STEP 4: 완료 ══ -->
-  <div id="step4" class="complete-section">
+  <!-- ══ STEP 4 ══ -->
+  <div id="step4" class="complete">
     <div class="complete-icon">🔬</div>
     <h2>신청이 완료됐습니다!</h2>
     <p>세스코 전문가가 방문해 위생 환경을 진단하고<br />맞춤 솔루션을 제안해 드립니다.</p>
     <div style="text-align:left;width:100%">
       <div class="contract-card">
-        <div class="contract-top">
+        <div class="ct-top">
           <div class="tag">이런 서비스를 제안드립니다</div>
           <h3>진단 결과에 따라<br /><em>세스코 전문 서비스</em>를 안내합니다</h3>
         </div>
-        <div class="contract-body">
-          <div class="contract-row"><div class="ci">🐛</div><div class="ct"><strong>IPM 해충방제 서비스</strong><span>해충 서식 환경 차단 + 정기 방문 관리</span></div></div>
-          <div class="contract-row"><div class="ci">💧</div><div class="ct"><strong>환경가전 위생 서비스</strong><span>정수기·공기청정기·비데 정기 교체 및 위생 관리</span></div></div>
-          <div class="contract-row"><div class="ci">🧪</div><div class="ct"><strong>마이랩 정기구독</strong><span>진단 결과에 맞는 위생용품 정기 배송</span></div></div>
+        <div class="ct-body">
+          <div class="ct-row"><div class="ci">🐛</div><div class="ct"><strong>IPM 해충방제 서비스</strong><span>해충 서식 환경 차단 + 정기 방문 관리</span></div></div>
+          <div class="ct-row"><div class="ci">💧</div><div class="ct"><strong>환경가전 위생 서비스</strong><span>정수기·공기청정기·비데 정기 관리</span></div></div>
+          <div class="ct-row"><div class="ci">🧪</div><div class="ct"><strong>마이랩 정기구독</strong><span>진단 결과에 맞는 위생용품 정기 배송</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 로그인 모달 ══ -->
+  <div class="modal-overlay" id="loginModal" onclick="closeModal(event)">
+    <div class="modal-sheet">
+      <button class="modal-close" onclick="closeModalBtn()">×</button>
+      <div class="modal-bar"></div>
+      <div class="modal-head">
+        <div class="mlogo">CESCO</div>
+        <h3>쿠폰을 받으려면<br />세스코 로그인이 필요해요</h3>
+        <p>세스코 계정으로 로그인하면<br /><strong>마이랩 첫구매 100원 쿠폰</strong>이 즉시 지급됩니다.</p>
+      </div>
+      <div class="modal-body">
+        <input class="form-ctrl" type="text" placeholder="이메일 또는 회원번호" />
+        <input class="form-ctrl" type="password" placeholder="비밀번호" />
+        <button class="btn-login">로그인하기</button>
+        <div class="modal-links">
+          <a href="#">회원가입 하기</a> &nbsp;·&nbsp; <a href="#">비밀번호 찾기</a>
         </div>
       </div>
     </div>
@@ -296,480 +353,464 @@
   <footer>세스코(주) &nbsp;|&nbsp; 고객센터 1588-1119<br />월~금 08:30~18:00 &nbsp;/&nbsp; 토 09:00~13:00<br />www.cesco.co.kr</footer>
 
 <script>
-/* ══════════════════════════════
-   데이터: 진단 문항 뱅크
-══════════════════════════════ */
+/* ══════════════════════════════════════
+   진단 문항 뱅크 — 10가지 전문진단 신호 포함
+══════════════════════════════════════ */
 const quizBank = {
   '주방 위생': [
-    { q: '주방에서 가장 고민이 되는 문제는 무엇인가요?',
-      opts: [
-        { icon:'🍳', text:'기름때·찌든때가 잘 안 지워져요', scores:{grease:3} },
-        { icon:'💧', text:'배수구에서 냄새나거나 자주 막혀요', scores:{drain:3} },
-        { icon:'🪲', text:'초파리·작은 벌레가 자주 나타나요', scores:{pest:3} },
-        { icon:'🦠', text:'식재료 위생, 세균이 걱정돼요', scores:{bacteria:3} },
-      ]
-    },
-    { q: '요리를 얼마나 자주 하시나요?',
-      opts: [
-        { icon:'🍚', text:'거의 매일 직접 요리해요', scores:{grease:1,bacteria:1} },
-        { icon:'🥘', text:'주 2~3회 정도요', scores:{grease:1} },
-        { icon:'🛵', text:'배달·외식 위주예요', scores:{bacteria:1} },
-        { icon:'🍽', text:'식당·카페를 운영해요', scores:{grease:2,bacteria:2,drain:1} },
-      ]
-    },
-    { q: '음식물 쓰레기나 배수구 관리는 어떻게 하시나요?',
-      opts: [
-        { icon:'✅', text:'매일 치우고 깨끗이 관리해요', scores:{} },
-        { icon:'📅', text:'2~3일에 한 번 정도요', scores:{drain:1,pest:1} },
-        { icon:'😓', text:'바빠서 잘 못 챙기는 편이에요', scores:{drain:3,pest:2} },
-      ]
-    },
-    { q: '가족 중 해당하는 분이 계신가요?',
-      opts: [
-        { icon:'👶', text:'영유아(7세 이하)가 있어요', scores:{bacteria:3} },
-        { icon:'👴', text:'어르신이 함께 생활해요', scores:{bacteria:2} },
-        { icon:'🐶', text:'반려동물을 키워요', scores:{pest:1,bacteria:1} },
-        { icon:'🙋', text:'해당 없어요', scores:{} },
-      ]
-    },
+    { q:'주방에서 가장 고민이 되는 문제는?',
+      opts:[
+        {icon:'🍳', text:'기름때·찌든때가 잘 안 지워져요',    scores:{grease:3}},
+        {icon:'💧', text:'배수구에서 냄새나거나 자주 막혀요', scores:{drain:3}},
+        {icon:'🪲', text:'초파리·작은 벌레가 자주 나타나요',  scores:{pest:3}},
+        {icon:'🦠', text:'식재료 위생, 세균이 걱정돼요',      scores:{bacteria:3}},
+      ]},
+    { q:'주방 후드·환풍기는 얼마나 자주 청소하시나요?',
+      opts:[
+        {icon:'🧹', text:'월 1회 이상 청소해요',              scores:{}},
+        {icon:'📅', text:'3~6개월에 한 번 정도요',            scores:{hood:2}},
+        {icon:'😅', text:'언제 했는지 기억이 없어요',          scores:{hood:3}},
+        {icon:'❌', text:'후드·환풍기가 없어요',              scores:{}},
+      ]},
+    { q:'배수구 상태는 어떤가요?',
+      opts:[
+        {icon:'✅', text:'잘 내려가고 냄새도 없어요',         scores:{}},
+        {icon:'💧', text:'가끔 느리게 내려가요',              scores:{drain:1}},
+        {icon:'😷', text:'배수구에서 냄새가 나요',            scores:{drain:2,odor:2}},
+        {icon:'🪲', text:'배수구에서 벌레가 올라온 적 있어요',scores:{drain:3,pest:2}},
+      ]},
+    { q:'가족 중 해당하는 분이 계신가요?',
+      opts:[
+        {icon:'👶', text:'영유아(7세 이하)가 있어요',         scores:{bacteria:3}},
+        {icon:'👴', text:'어르신이 함께 생활해요',            scores:{bacteria:2}},
+        {icon:'🐶', text:'반려동물을 키워요',                 scores:{pest:1,bacteria:1}},
+        {icon:'🙋', text:'해당 없어요',                       scores:{}},
+      ]},
   ],
   '청소·욕실': [
-    { q: '욕실·청소에서 가장 불편한 점은 무엇인가요?',
-      opts: [
-        { icon:'🖤', text:'검은 곰팡이가 자꾸 생겨요', scores:{mold:3} },
-        { icon:'🚿', text:'물때·비누때가 잘 안 지워져요', scores:{limescale:3} },
-        { icon:'💧', text:'배수구가 자주 막혀요', scores:{drain:3} },
-        { icon:'😷', text:'욕실에서 냄새가 나요', scores:{smell:3} },
-      ]
-    },
-    { q: '욕실 환기 상태는 어떤가요?',
-      opts: [
-        { icon:'🌬', text:'창문·환풍기를 매일 가동해요', scores:{} },
-        { icon:'🌀', text:'가끔 환기를 시켜요', scores:{mold:1} },
-        { icon:'🚫', text:'환기가 잘 안 되는 구조예요', scores:{mold:3,smell:1} },
-      ]
-    },
-    { q: '곰팡이나 물때가 생기는 빈도는?',
-      opts: [
-        { icon:'😰', text:'청소해도 금방 다시 생겨요', scores:{mold:3,limescale:2} },
-        { icon:'🤔', text:'가끔 발견돼요', scores:{mold:1,limescale:1} },
-        { icon:'✅', text:'아직 크게 문제없어요', scores:{} },
-      ]
-    },
-    { q: '욕실 청소 주기는 어떻게 되나요?',
-      opts: [
-        { icon:'✨', text:'거의 매일 청소해요', scores:{} },
-        { icon:'📅', text:'주 2~3회 청소해요', scores:{mold:1} },
-        { icon:'📆', text:'주 1회 이하예요', scores:{mold:2,limescale:2} },
-      ]
-    },
+    { q:'욕실·청소에서 가장 불편한 점은?',
+      opts:[
+        {icon:'🖤', text:'검은 곰팡이가 자꾸 생겨요',         scores:{mold:3}},
+        {icon:'🚿', text:'물때·비누때가 잘 안 지워져요',       scores:{limescale:3}},
+        {icon:'💧', text:'배수구가 자주 막혀요',              scores:{drain:3}},
+        {icon:'😷', text:'욕실에서 냄새가 나요',             scores:{smell:3}},
+      ]},
+    { q:'곰팡이가 주로 어디서 생기나요?',
+      opts:[
+        {icon:'🚿', text:'욕실 타일·줄눈',                   scores:{mold:2}},
+        {icon:'🪟', text:'창틀·실리콘 부분',                 scores:{mold:2,moisture:1}},
+        {icon:'🏠', text:'벽지 뒤나 가구 뒤 (심각)',         scores:{mold:3,moisture:3}},
+        {icon:'✅', text:'아직 곰팡이는 없어요',             scores:{}},
+      ]},
+    { q:'배수구 상태는 어떤가요?',
+      opts:[
+        {icon:'✅', text:'잘 내려가고 냄새 없어요',           scores:{}},
+        {icon:'💧', text:'가끔 느리게 내려가요',             scores:{drain:1}},
+        {icon:'😷', text:'배수구에서 냄새가 나요',           scores:{drain:2,odor:2}},
+        {icon:'🪲', text:'배수구에서 벌레가 올라온 적 있어요',scores:{drain:3,pest:2}},
+      ]},
+    { q:'욕실 청소 주기는?',
+      opts:[
+        {icon:'✨', text:'거의 매일 청소해요',                scores:{}},
+        {icon:'📅', text:'주 2~3회요',                       scores:{mold:1}},
+        {icon:'📆', text:'주 1회 이하예요',                  scores:{mold:2,limescale:2}},
+      ]},
   ],
   '해충퇴치': [
-    { q: '가장 걱정되거나 발견한 해충은?',
-      opts: [
-        { icon:'🦟', text:'모기 — 실내에서 자주 물려요', scores:{mosquito:3} },
-        { icon:'🪲', text:'초파리·날벌레가 주방에 생겨요', scores:{fruitfly:3} },
-        { icon:'🐜', text:'개미가 실내에서 보여요', scores:{ant:3} },
-        { icon:'🪳', text:'바퀴벌레·그리마가 나타나요', scores:{roach:3} },
-      ]
-    },
-    { q: '해충을 얼마나 자주 발견하시나요?',
-      opts: [
-        { icon:'😱', text:'거의 매일, 자주 발견해요', scores:{all:3} },
-        { icon:'🤔', text:'가끔 보여요', scores:{all:1} },
-        { icon:'🛡', text:'아직 없어요 (예방 목적)', scores:{prevention:2} },
-      ]
-    },
-    { q: '주로 어디서 해충을 발견하시나요?',
-      opts: [
-        { icon:'🍳', text:'주방·싱크대 주변', scores:{fruitfly:2,drain_pest:2} },
-        { icon:'🪟', text:'창문·베란다 주변', scores:{mosquito:2,outdoor:1} },
-        { icon:'🌳', text:'마당·실외 공간', scores:{outdoor:3,mosquito:1} },
-        { icon:'🚿', text:'욕실·화장실', scores:{roach:1,drain_pest:2} },
-      ]
-    },
-    { q: '영유아나 반려동물이 있나요?',
-      opts: [
-        { icon:'👶', text:'영유아(7세 이하)가 있어요', scores:{safe:3} },
-        { icon:'🐶', text:'반려동물이 있어요', scores:{safe:2} },
-        { icon:'🙋', text:'없어요', scores:{} },
-      ]
-    },
+    { q:'가장 걱정되거나 발견한 해충은?',
+      opts:[
+        {icon:'🦟', text:'모기 — 실내에서 자주 물려요',      scores:{mosquito:3}},
+        {icon:'🪲', text:'초파리·날벌레 — 주방에 생겨요',    scores:{fruitfly:3}},
+        {icon:'🐜', text:'개미 — 실내에서 보여요',           scores:{ant:3}},
+        {icon:'🪳', text:'바퀴벌레·그리마가 나타나요',       scores:{roach:3}},
+      ]},
+    { q:'해충을 얼마나 자주 발견하시나요?',
+      opts:[
+        {icon:'😱', text:'거의 매일, 자주 보여요',           scores:{all:3}},
+        {icon:'🤔', text:'가끔 보여요',                      scores:{all:1}},
+        {icon:'🛡', text:'아직 없어요 (예방 목적)',          scores:{prevention:2}},
+      ]},
+    { q:'주로 어디서 발견하시나요?',
+      opts:[
+        {icon:'🍳', text:'주방·싱크대 주변',                 scores:{fruitfly:2,drain:1}},
+        {icon:'🪟', text:'창문·베란다 주변',                 scores:{mosquito:2,fly:2}},
+        {icon:'🌳', text:'마당·실외 공간',                   scores:{fly:3,mosquito:1}},
+        {icon:'🚿', text:'욕실·화장실',                      scores:{roach:2,drain:2}},
+      ]},
+    { q:'영유아나 반려동물이 있나요?',
+      opts:[
+        {icon:'👶', text:'영유아(7세 이하)가 있어요',        scores:{safe:3}},
+        {icon:'🐶', text:'반려동물이 있어요',                scores:{safe:2}},
+        {icon:'🙋', text:'없어요',                           scores:{}},
+      ]},
   ],
   '개인위생': [
-    { q: '핸드워시를 가장 많이 쓰는 상황은?',
-      opts: [
-        { icon:'🚶', text:'외출 후 귀가할 때마다', scores:{bacteria:3} },
-        { icon:'👶', text:'영유아·어르신 케어 전후', scores:{sensitive:3,bacteria:2} },
-        { icon:'🍚', text:'식사·조리 전후', scores:{bacteria:2,food:2} },
-        { icon:'🏥', text:'의료·돌봄 업무 중', scores:{bacteria:3,antibac:3} },
-      ]
-    },
-    { q: '현재 쓰는 세정제에서 아쉬운 점은?',
-      opts: [
-        { icon:'💪', text:'세정력이 부족해요', scores:{antibac:3} },
-        { icon:'🌿', text:'씻고 나면 피부가 건조해요', scores:{sensitive:3} },
-        { icon:'🦠', text:'항균 기능이 부족한 것 같아요', scores:{antibac:3} },
-        { icon:'💨', text:'향이 너무 강하거나 약해요', scores:{natural:2} },
-      ]
-    },
-    { q: '피부 타입은 어떻게 되시나요?',
-      opts: [
-        { icon:'🌸', text:'민감성 — 자극에 예민해요', scores:{sensitive:3} },
-        { icon:'💧', text:'건성 — 건조함을 자주 느껴요', scores:{sensitive:2} },
-        { icon:'✨', text:'일반 — 특별히 예민하지 않아요', scores:{antibac:1} },
-      ]
-    },
-    { q: '빠른 손 소독(손소독제)도 필요하신가요?',
-      opts: [
-        { icon:'✅', text:'네, 야외·이동 중에도 필요해요', scores:{sanitizer:3} },
-        { icon:'❌', text:'아니요, 핸드워시로 충분해요', scores:{} },
-      ]
-    },
+    { q:'핸드워시를 가장 많이 쓰는 상황은?',
+      opts:[
+        {icon:'🚶', text:'외출 후 귀가할 때마다',            scores:{bacteria:3}},
+        {icon:'👶', text:'영유아·어르신 케어 전후',           scores:{sensitive:3,bacteria:2}},
+        {icon:'🍚', text:'식사·조리 전후',                   scores:{bacteria:2}},
+        {icon:'🏥', text:'의료·돌봄 업무 중',                scores:{bacteria:3,antibac:3}},
+      ]},
+    { q:'현재 쓰는 세정제에서 아쉬운 점은?',
+      opts:[
+        {icon:'💪', text:'세정력이 부족해요',                scores:{antibac:3}},
+        {icon:'🌿', text:'씻고 나면 피부가 건조해요',        scores:{sensitive:3}},
+        {icon:'🦠', text:'항균 기능이 부족한 것 같아요',     scores:{antibac:3}},
+        {icon:'💨', text:'향이 너무 강하거나 약해요',        scores:{natural:2}},
+      ]},
+    { q:'피부 타입은?',
+      opts:[
+        {icon:'🌸', text:'민감성 — 자극에 예민해요',         scores:{sensitive:3}},
+        {icon:'💧', text:'건성 — 건조함을 자주 느껴요',      scores:{sensitive:2}},
+        {icon:'✨', text:'일반 — 특별히 예민하지 않아요',    scores:{antibac:1}},
+      ]},
+    { q:'집안에 이상한 냄새나 화학 냄새 나는 공간이 있나요?',
+      opts:[
+        {icon:'💨', text:'네, 특정 공간에서 나요',           scores:{air:3,odor:2}},
+        {icon:'🌀', text:'냄새는 모르겠지만 환기를 잘 못 해요',scores:{air:2}},
+        {icon:'✅', text:'없어요, 쾌적한 편이에요',          scores:{}},
+      ]},
   ],
   '살균·소독': [
-    { q: '살균·소독이 특히 중요한 이유는 무엇인가요?',
-      opts: [
-        { icon:'🍽', text:'식당·카페 등 식품 공간을 운영해요', scores:{professional:3,strong:2} },
-        { icon:'👶', text:'영유아·면역취약자가 있어요', scores:{safe:3,bacteria:2} },
-        { icon:'😷', text:'감염병·세균 전파가 걱정돼요', scores:{bacteria:3} },
-        { icon:'🧹', text:'청소할 때 세균까지 없애고 싶어요', scores:{general:3} },
-      ]
-    },
-    { q: '주로 어느 공간을 살균·소독하시나요?',
-      opts: [
-        { icon:'🍳', text:'주방·식기·조리 도구', scores:{kitchen:3} },
-        { icon:'🚿', text:'욕실·화장실', scores:{bathroom:3} },
-        { icon:'🛋', text:'생활 공간 전체', scores:{all:2} },
-        { icon:'🤲', text:'손·피부 직접 소독', scores:{personal:2} },
-      ]
-    },
-    { q: '현재 사용 중인 살균 제품이 있나요?',
-      opts: [
-        { icon:'❌', text:'없어요, 처음 도입하려고요', scores:{basic:2} },
-        { icon:'🧴', text:'일반 락스를 쓰고 있어요', scores:{upgrade:2} },
-        { icon:'💦', text:'시판 살균 스프레이를 써요', scores:{upgrade:1} },
-        { icon:'✅', text:'전문 위생 제품을 이미 써요', scores:{advanced:1} },
-      ]
-    },
-    { q: '살균 시 가장 중요하게 생각하는 것은?',
-      opts: [
-        { icon:'🌿', text:'천연 성분 — 안전성이 최우선', scores:{safe:3} },
-        { icon:'💪', text:'강력한 살균력이 가장 중요해요', scores:{strong:3} },
-        { icon:'🍼', text:'아이·반려동물 주변에서도 사용 가능', scores:{safe:3,child:2} },
-        { icon:'⚡', text:'빠르고 편리하게 쓰고 싶어요', scores:{quick:2} },
-      ]
-    },
+    { q:'살균·소독이 특히 중요한 이유는?',
+      opts:[
+        {icon:'🍽', text:'식당·카페 등 식품 공간을 운영해요',scores:{professional:3,bacteria:2}},
+        {icon:'👶', text:'영유아·면역취약자가 있어요',       scores:{safe:3,bacteria:2}},
+        {icon:'😷', text:'감염병·세균 전파가 걱정돼요',      scores:{bacteria:3}},
+        {icon:'🧹', text:'청소할 때 세균까지 없애고 싶어요', scores:{general:3}},
+      ]},
+    { q:'주로 어느 공간을 살균·소독하시나요?',
+      opts:[
+        {icon:'🍳', text:'주방·식기·조리 도구',             scores:{kitchen:3}},
+        {icon:'🚿', text:'욕실·화장실',                     scores:{bathroom:3}},
+        {icon:'🛋', text:'생활 공간 전체',                  scores:{all:2}},
+        {icon:'🤲', text:'손·피부 직접 소독',               scores:{personal:2}},
+      ]},
+    { q:'손이 많이 닿는 표면(문손잡이·전등 스위치)을 얼마나 자주 소독하나요?',
+      opts:[
+        {icon:'✅', text:'주 1회 이상 소독해요',            scores:{}},
+        {icon:'📅', text:'가끔 생각날 때만요',              scores:{surface:2}},
+        {icon:'😅', text:'거의 못 해요',                    scores:{surface:3}},
+      ]},
+    { q:'살균 시 가장 중요하게 생각하는 것은?',
+      opts:[
+        {icon:'🌿', text:'천연 성분 — 안전성이 최우선',     scores:{safe:3}},
+        {icon:'💪', text:'강력한 살균력이 가장 중요해요',   scores:{strong:3}},
+        {icon:'🍼', text:'아이·반려동물 주변에서도 안전하게',scores:{safe:3}},
+        {icon:'⚡', text:'빠르고 편리하게 쓰고 싶어요',     scores:{quick:2}},
+      ]},
   ],
   '반려동물': [
-    { q: '반려동물 관련 가장 큰 위생 고민은?',
-      opts: [
-        { icon:'👃', text:'배변·체취 냄새가 고민이에요', scores:{deodorize:3} },
-        { icon:'🐾', text:'털·비듬으로 알레르기 걱정돼요', scores:{fabric:3} },
-        { icon:'🦠', text:'세균·바이러스 감염이 걱정돼요', scores:{bacteria:3} },
-        { icon:'🕷', text:'진드기·벼룩이 걱정돼요', scores:{pest:3} },
-      ]
-    },
-    { q: '반려동물이 주로 생활하는 공간은?',
-      opts: [
-        { icon:'🏠', text:'실내 전체를 자유롭게 돌아다녀요', scores:{deodorize:2,bacteria:1} },
-        { icon:'🛏', text:'특정 공간(소파·침대 등)만 사용해요', scores:{fabric:2} },
-        { icon:'🌿', text:'실외·마당 생활 위주예요', scores:{pest:2,outdoor:2} },
-      ]
-    },
-    { q: '산책 후 위생 관리는 어떻게 하시나요?',
-      opts: [
-        { icon:'🛁', text:'발·털을 꼼꼼히 씻겨요', scores:{} },
-        { icon:'💦', text:'대충 닦아주는 편이에요', scores:{bacteria:1,pest:1} },
-        { icon:'😅', text:'잘 챙기지 못해요', scores:{bacteria:2,pest:2} },
-      ]
-    },
-    { q: '가족 중 알레르기나 피부가 민감한 분이 있나요?',
-      opts: [
-        { icon:'🌸', text:'네, 특히 신경 써야 해요', scores:{sensitive:3,fabric:1} },
-        { icon:'🙋', text:'없어요', scores:{} },
-      ]
-    },
+    { q:'반려동물 관련 가장 큰 위생 고민은?',
+      opts:[
+        {icon:'👃', text:'배변·체취 냄새가 고민이에요',      scores:{deodorize:3,odor:2}},
+        {icon:'🐾', text:'털·비듬으로 알레르기 걱정돼요',    scores:{fabric:3,bedding:2}},
+        {icon:'🦠', text:'세균·바이러스 감염이 걱정돼요',    scores:{bacteria:3}},
+        {icon:'🕷', text:'진드기·벼룩이 걱정돼요',          scores:{pest:3}},
+      ]},
+    { q:'반려동물이 주로 생활하는 공간은?',
+      opts:[
+        {icon:'🏠', text:'실내 전체를 자유롭게 돌아다녀요', scores:{deodorize:2,bacteria:1}},
+        {icon:'🛏', text:'소파·침대도 자유롭게 올라가요',   scores:{bedding:3,fabric:2}},
+        {icon:'🌿', text:'실외·마당 생활 위주예요',         scores:{pest:2,fly:2}},
+      ]},
+    { q:'산책 후 위생 관리는 어떻게 하시나요?',
+      opts:[
+        {icon:'🛁', text:'발·털을 꼼꼼히 씻겨요',          scores:{}},
+        {icon:'💦', text:'대충 닦아주는 편이에요',          scores:{bacteria:1,pest:1}},
+        {icon:'😅', text:'잘 챙기지 못해요',                scores:{bacteria:2,pest:2}},
+      ]},
+    { q:'가족 중 알레르기나 피부가 민감한 분이 있나요?',
+      opts:[
+        {icon:'🌸', text:'네, 특히 신경 써야 해요',         scores:{sensitive:3,bedding:2}},
+        {icon:'🙋', text:'없어요',                          scores:{}},
+      ]},
   ],
   '세탁·섬유케어': [
-    { q: '세탁 후 가장 불편한 점은?',
-      opts: [
-        { icon:'👃', text:'세탁 후에도 냄새가 남아요', scores:{smell:3} },
-        { icon:'🦠', text:'세균·집먼지진드기가 걱정돼요', scores:{bacteria:3} },
-        { icon:'🌀', text:'세탁기 자체에서 냄새가 나요', scores:{drum:3} },
-        { icon:'💧', text:'세탁물이 잘 안 마르고 눅눅해요', scores:{moisture:2,smell:1} },
-      ]
-    },
-    { q: '가족 중 피부 민감하거나 알레르기가 있나요?',
-      opts: [
-        { icon:'🌸', text:'네, 세제 선택에 신경 써요', scores:{sensitive:3} },
-        { icon:'🙋', text:'없어요', scores:{} },
-      ]
-    },
-    { q: '세탁기 청소를 얼마나 자주 하나요?',
-      opts: [
-        { icon:'✅', text:'월 1회 이상 청소해요', scores:{} },
-        { icon:'📅', text:'3~6개월에 한 번 정도요', scores:{drum:2} },
-        { icon:'😅', text:'거의 안 해요', scores:{drum:3} },
-      ]
-    },
-    { q: '옷장·창고 등에 습기가 많은 공간이 있나요?',
-      opts: [
-        { icon:'💧', text:'네, 곰팡이 걱정이 돼요', scores:{moisture:3} },
-        { icon:'🙋', text:'없어요, 건조한 편이에요', scores:{} },
-      ]
-    },
+    { q:'세탁 후 가장 불편한 점은?',
+      opts:[
+        {icon:'👃', text:'세탁 후에도 냄새가 남아요',        scores:{smell:3,odor:1}},
+        {icon:'🦠', text:'세균·집먼지진드기가 걱정돼요',     scores:{bacteria:3,bedding:2}},
+        {icon:'🌀', text:'세탁기 자체에서 냄새가 나요',      scores:{drum:3}},
+        {icon:'💧', text:'세탁물이 잘 안 마르고 눅눅해요',  scores:{moisture:2,smell:1}},
+      ]},
+    { q:'침구(이불·베개·매트리스)를 마지막으로 관리한 건 언제인가요?',
+      opts:[
+        {icon:'🛏', text:'최근 1개월 이내예요',             scores:{}},
+        {icon:'📅', text:'3~6개월 전이에요',                scores:{bedding:2}},
+        {icon:'📆', text:'6개월 이상, 또는 모르겠어요',     scores:{bedding:3}},
+        {icon:'💡', text:'전문 관리 방법을 잘 몰라요',      scores:{bedding:2}},
+      ]},
+    { q:'세탁기 청소를 얼마나 자주 하나요?',
+      opts:[
+        {icon:'✅', text:'월 1회 이상 청소해요',            scores:{}},
+        {icon:'📅', text:'3~6개월에 한 번 정도요',          scores:{drum:2}},
+        {icon:'😅', text:'거의 안 해요',                    scores:{drum:3}},
+      ]},
+    { q:'옷장·창고 등에 습기·곰팡이 고민이 있나요?',
+      opts:[
+        {icon:'💧', text:'네, 곰팡이나 눅눅함이 걱정돼요',  scores:{moisture:3,mold:2}},
+        {icon:'🙋', text:'없어요, 건조한 편이에요',         scores:{}},
+      ]},
   ],
   '기타': [
-    { q: '가정 위생에서 가장 고민되는 것은?',
-      opts: [
-        { icon:'🍳', text:'주방 기름때·배수구 오염', scores:{kitchen:3} },
-        { icon:'🦠', text:'욕실 곰팡이·세균', scores:{bathroom:3} },
-        { icon:'🐛', text:'해충 출몰', scores:{pest:3} },
-        { icon:'🧹', text:'전반적 세균·냄새 관리', scores:{general:3} },
-      ]
-    },
-    { q: '청소·위생 관리를 얼마나 자주 하시나요?',
-      opts: [
-        { icon:'✨', text:'매일 깨끗이 관리해요', scores:{} },
-        { icon:'📅', text:'주 2~3회요', scores:{bacteria:1} },
-        { icon:'📆', text:'주 1회 이하예요', scores:{bacteria:2} },
-      ]
-    },
-    { q: '가족 구성은 어떻게 되시나요?',
-      opts: [
-        { icon:'👶', text:'영유아·어르신이 있어요', scores:{sensitive:3,bacteria:2} },
-        { icon:'🐶', text:'반려동물을 키워요', scores:{deodorize:2,pest:1} },
-        { icon:'👨‍👩‍👧', text:'일반 가족 구성이에요', scores:{general:1} },
-        { icon:'🏠', text:'1~2인 가구예요', scores:{general:1} },
-      ]
-    },
-    { q: '특히 신경 쓰이는 위생 위험 요소는?',
-      opts: [
-        { icon:'🦟', text:'해충 (모기·초파리·개미 등)', scores:{pest:3} },
-        { icon:'💧', text:'배수구·배관 냄새와 오염', scores:{drain:3} },
-        { icon:'🦠', text:'세균·바이러스 감염', scores:{bacteria:3} },
-        { icon:'🖤', text:'곰팡이·습기', scores:{mold:3} },
-      ]
-    },
+    { q:'가정 위생에서 가장 고민되는 것은?',
+      opts:[
+        {icon:'🍳', text:'주방 기름때·배수구 오염',         scores:{kitchen:3}},
+        {icon:'🦠', text:'욕실 곰팡이·세균',                scores:{bathroom:3}},
+        {icon:'🐛', text:'해충 출몰',                       scores:{pest:3}},
+        {icon:'🧹', text:'전반적 세균·냄새 관리',           scores:{general:3}},
+      ]},
+    { q:'에어컨 내부 청소는 어떻게 하시나요?',
+      opts:[
+        {icon:'❌', text:'에어컨이 없어요',                 scores:{}},
+        {icon:'✅', text:'정기적으로 청소해요',             scores:{}},
+        {icon:'😅', text:'에어컨 있는데 청소를 잘 못 해요', scores:{aircon:3}},
+        {icon:'🤔', text:'에어컨 켤 때 냄새가 난 적 있어요',scores:{aircon:3,odor:2}},
+      ]},
+    { q:'가족 구성은 어떻게 되시나요?',
+      opts:[
+        {icon:'👶', text:'영유아·어르신이 있어요',          scores:{sensitive:3,bacteria:2}},
+        {icon:'🐶', text:'반려동물을 키워요',               scores:{deodorize:2,pest:1}},
+        {icon:'👨‍👩‍👧', text:'일반 가족 구성이에요',              scores:{general:1}},
+        {icon:'🏠', text:'1~2인 가구예요',                  scores:{general:1}},
+      ]},
+    { q:'특히 신경 쓰이는 위생 위험 요소는?',
+      opts:[
+        {icon:'🦟', text:'해충 (모기·초파리·개미 등)',      scores:{pest:3,fly:2}},
+        {icon:'💧', text:'배수구·배관 냄새와 오염',         scores:{drain:3,odor:2}},
+        {icon:'🦠', text:'세균·바이러스 감염',              scores:{bacteria:3}},
+        {icon:'🖤', text:'곰팡이·습기',                     scores:{mold:3,moisture:2}},
+      ]},
   ],
 };
 
-/* ══════════════════════════════
-   데이터: 제품 카탈로그
-══════════════════════════════ */
+/* ══════════════════════════════════════
+   마이랩 제품 카탈로그
+══════════════════════════════════════ */
 const products = {
-  grease:          { name:'기름때세정제 파워',       tag:'주방 기름때 특화',      icon:'🍳', reason:'강력한 효소·계면활성제 성분이 주방 기름때와 찌든 오염을 빠르게 분해합니다. 식품 접촉 표면에 사용 후 물로 헹궈내도 안전한 성분을 사용합니다.' },
-  drain:           { name:'마스터 배수관세정제',      tag:'배수구 냄새·막힘 해결', icon:'💧', reason:'배관 내 유기물·비누찌꺼기·기름때를 분해해 냄새와 막힘의 근본 원인을 제거합니다. 월 1회 사용으로 꾸준한 관리가 가능합니다.' },
-  fruitfly:        { name:'초파리 유인제',           tag:'초파리 완전 박멸',      icon:'🪲', reason:'페로몬 유인 방식으로 초파리를 효과적으로 유인·포획합니다. 농약 성분 없이 안전하게 사용할 수 있습니다.' },
-  kitchen_bacteria:{ name:'마스터 락스',             tag:'주방 강력 살균',        icon:'🦠', reason:'주방 조리대·도마·행주의 세균과 바이러스를 강력 살균합니다. 식중독 예방에 특히 효과적입니다.' },
-  kitchen_general: { name:'마스터 주방세제',         tag:'주방 기본 세정',        icon:'🧴', reason:'식품 접촉 표면에 안전하며 기름기와 음식물 오염을 깨끗이 제거합니다. 피부 자극이 적어 매일 사용에 적합합니다.' },
-  mold:            { name:'곰팡이제거제',            tag:'욕실 곰팡이 뿌리 제거', icon:'🖤', reason:'욕실 타일 줄눈·코킹의 검은 곰팡이를 뿌리부터 제거합니다. 살균 성분이 재발을 억제하는 효과가 있습니다.' },
-  bathroom:        { name:'다목적 욕실세정제',        tag:'욕실 물때·얼룩 제거',   icon:'🚿', reason:'욕실 전면에 발생하는 물때, 비누찌꺼기, 얼룩을 한 번에 제거합니다. pH 조절 성분이 물때의 주성분인 석회질을 분해합니다.' },
-  bathroom_drain:  { name:'배수구클리너',            tag:'배수구 막힘 즉시 해결', icon:'🔧', reason:'욕실 배수구의 머리카락·비누찌꺼기를 용해해 막힘과 악취를 해결합니다. 철관·PVC 배관 모두 사용 가능합니다.' },
-  tissue:          { name:'다용도 살균클리닝 티슈',   tag:'간편 즉시 살균',        icon:'✨', reason:'즉시 사용 가능한 살균 티슈로 욕실 표면의 세균과 바이러스를 빠르게 제거합니다. 별도 헹굼 없이 편리하게 사용할 수 있습니다.' },
-  mosquito:        { name:'모기 에어로솔',           tag:'실내 모기 즉시 퇴치',   icon:'🦟', reason:'살충 성분이 실내 모기를 빠르게 퇴치합니다. 분사 후 30분이면 환기가 가능해 실내 사용에 안전합니다.' },
-  mosquito_repel:  { name:'모기 기피제',            tag:'야외 활동 시 모기 차단', icon:'🌿', reason:'DEET-free 피부 적용형 기피제로 야외활동 시 모기의 접근을 효과적으로 차단합니다. 어린이도 사용 가능한 성분입니다.' },
-  outdoor_mist:    { name:'야외도어 미스트 에어로솔', tag:'실외 해충 침입 차단',   icon:'🚪', reason:'출입구·창문 틀·베란다에 분사해 외부 해충의 실내 침입 경로를 차단합니다. 잔류 효과가 지속됩니다.' },
-  handwash:        { name:'핸드워시 폼',            tag:'부드러운 일반 손 세정', icon:'🙌', reason:'풍부한 거품이 손의 오염과 세균을 부드럽게 제거합니다. 보습 성분이 포함되어 세정 후 피부 건조함을 줄여줍니다.' },
-  antibac_handwash:{ name:'항균 핸드워시 폼',        tag:'항균 강화 손 세정',     icon:'🛡', reason:'일반 핸드워시 대비 항균 성분이 강화되어 식사 전·외출 후 세균 제거에 탁월합니다. 영유아 있는 가정에 특히 추천합니다.' },
-  sanitizer:       { name:'손소독제',               tag:'즉시 99.9% 살균',       icon:'💊', reason:'물 없이 즉시 세균·바이러스를 99.9% 살균합니다. 이동 중, 식사 직전 간편하게 사용 가능합니다.' },
-  sterilizer:      { name:'곡물발효 살균소독제',      tag:'천연 성분 강력 살균',   icon:'🌾', reason:'곡물 발효 유래 성분으로 식품 접촉 표면에도 안전하게 살균소독이 가능합니다. 가정·식당 모두 사용 가능합니다.' },
-  fabric_deodorizer:{ name:'섬유탈취제',            tag:'세탁 후 냄새 제거',      icon:'👕', reason:'세탁 후에도 남는 냄새와 땀 냄새를 분자 단위에서 제거하고 신선함을 유지합니다. 소파·침구류에도 사용 가능합니다.' },
-  drum_cleaner:    { name:'세탁조클리너',            tag:'세탁기 내부 살균',       icon:'🌀', reason:'세탁기 드럼 내부에 서식하는 세균·곰팡이·찌꺼기를 깨끗이 제거합니다. 월 1회 사용으로 세탁 효율과 위생을 유지합니다.' },
-  laundry:         { name:'세탁세제',               tag:'효소 기반 강력 세탁',    icon:'🧺', reason:'효소 기반 성분이 옷감 깊숙이 침투해 세균과 오염을 제거합니다. 피부 자극이 적은 성분으로 민감한 피부에도 적합합니다.' },
-  moisture:        { name:'습기제거제',              tag:'습기·곰팡이 예방',       icon:'💧', reason:'옷장·창고의 과도한 습기를 흡수하여 곰팡이 발생과 의류 손상을 예방합니다. 일정량 차면 교체하는 방식으로 편리합니다.' },
-  pet_deodorizer:  { name:'반려동물 탈취제',         tag:'반려동물 냄새 제거',     icon:'🐾', reason:'반려동물 체취와 배변 냄새를 분해·제거합니다. 동물에게 무해한 성분만 사용해 직접 닿아도 안전합니다.' },
+  grease:    {name:'기름때세정제 파워',      tag:'주방 기름때 특화',      icon:'🍳', reason:'강력한 효소·계면활성제가 주방 기름때와 찌든 오염을 빠르게 분해합니다.'},
+  drain:     {name:'마스터 배수관세정제',    tag:'배수구 냄새·막힘 해결', icon:'💧', reason:'배관 내 유기물을 분해해 냄새·막힘의 근본 원인을 제거합니다. 월 1회 사용으로 관리 가능합니다.'},
+  fruitfly:  {name:'초파리 유인제',         tag:'초파리 완전 박멸',      icon:'🪲', reason:'페로몬 유인 방식으로 초파리를 효과적으로 유인·포획합니다.'},
+  lax:       {name:'마스터 락스',           tag:'주방 강력 살균',        icon:'🦠', reason:'주방 조리대·도마·행주의 세균과 바이러스를 강력 살균합니다.'},
+  kitchen:   {name:'마스터 주방세제',       tag:'주방 기본 세정',        icon:'🧴', reason:'식품 접촉 표면에 안전하며 기름기와 음식물 오염을 깨끗이 제거합니다.'},
+  mold:      {name:'곰팡이제거제',          tag:'욕실 곰팡이 뿌리 제거', icon:'🖤', reason:'욕실 타일 줄눈·코킹의 검은 곰팡이를 뿌리부터 제거하고 재발을 억제합니다.'},
+  bathroom:  {name:'다목적 욕실세정제',     tag:'욕실 물때·얼룩 제거',   icon:'🚿', reason:'욕실 전면의 물때·비누찌꺼기·얼룩을 한 번에 제거합니다.'},
+  bdrain:    {name:'배수구클리너',          tag:'배수구 막힘 즉시 해결', icon:'🔧', reason:'욕실 배수구의 머리카락·찌꺼기를 용해해 막힘과 악취를 해결합니다.'},
+  tissue:    {name:'다용도 살균클리닝 티슈',tag:'간편 즉시 살균',        icon:'✨', reason:'즉시 사용 가능한 살균 티슈로 표면의 세균을 빠르게 제거합니다.'},
+  mosquito:  {name:'모기 에어로솔',         tag:'실내 모기 즉시 퇴치',   icon:'🦟', reason:'살충 성분이 실내 모기를 빠르게 퇴치하며 분사 30분 후 환기 가능합니다.'},
+  repellent: {name:'모기 기피제',           tag:'야외 활동 모기 차단',   icon:'🌿', reason:'DEET-free 성분으로 야외활동 시 모기의 접근을 효과적으로 차단합니다.'},
+  outdoor:   {name:'야외도어 미스트 에어로솔',tag:'실외 해충 침입 차단', icon:'🚪', reason:'출입구·창문 틀·베란다에 분사해 외부 해충의 실내 침입을 차단합니다.'},
+  handwash:  {name:'핸드워시 폼',           tag:'부드러운 손 세정',      icon:'🙌', reason:'보습 성분이 포함되어 세정 후 피부 건조함을 줄여줍니다.'},
+  antibac:   {name:'항균 핸드워시 폼',      tag:'항균 강화 손 세정',     icon:'🛡', reason:'항균 성분이 강화되어 식사 전·외출 후 세균 제거에 탁월합니다.'},
+  sanitizer: {name:'손소독제',             tag:'즉시 99.9% 살균',       icon:'💊', reason:'물 없이 즉시 세균·바이러스를 99.9% 살균합니다.'},
+  sterilizer:{name:'곡물발효 살균소독제',   tag:'천연 성분 강력 살균',   icon:'🌾', reason:'곡물 발효 유래 성분으로 식품 접촉 표면에도 안전하게 살균소독이 가능합니다.'},
+  deodorizer:{name:'섬유탈취제',           tag:'세탁 후 냄새 제거',      icon:'👕', reason:'세탁 후에도 남는 냄새를 분자 단위에서 제거합니다. 소파·침구류에도 사용 가능합니다.'},
+  drum:      {name:'세탁조클리너',          tag:'세탁기 내부 살균',       icon:'🌀', reason:'세탁기 드럼 내부의 세균·곰팡이·찌꺼기를 깨끗이 제거합니다.'},
+  laundry:   {name:'세탁세제',             tag:'효소 기반 강력 세탁',    icon:'🧺', reason:'효소 기반 성분이 옷감 깊숙이 침투해 세균과 오염을 제거합니다.'},
+  moisture:  {name:'습기제거제',            tag:'습기·곰팡이 예방',       icon:'💧', reason:'옷장·창고의 과도한 습기를 흡수하여 곰팡이 발생과 의류 손상을 예방합니다.'},
+  petdeodor: {name:'반려동물 탈취제',       tag:'반려동물 냄새 제거',     icon:'🐾', reason:'반려동물 체취와 배변 냄새를 분해·제거하며 동물에게 무해한 성분을 사용합니다.'},
 };
 
-/* ══════════════════════════════
-   추천 로직: 카테고리 × 최고 점수 차원 → 제품 2개
-══════════════════════════════ */
-const recMap = {
-  '주방 위생':    { grease:['grease','drain'], drain:['drain','kitchen_bacteria'], pest:['fruitfly','drain'], bacteria:['kitchen_bacteria','sterilizer'], _default:['kitchen_general','drain'] },
-  '청소·욕실':   { mold:['mold','bathroom'], limescale:['bathroom','bathroom_drain'], drain:['bathroom_drain','bathroom'], smell:['tissue','bathroom_drain'], _default:['bathroom','mold'] },
-  '해충퇴치':    { mosquito:['mosquito','mosquito_repel'], fruitfly:['fruitfly','drain'], ant:['outdoor_mist','fruitfly'], roach:['outdoor_mist','mosquito'], prevention:['outdoor_mist','mosquito'], _default:['mosquito','outdoor_mist'] },
-  '개인위생':    { antibac:['antibac_handwash','sanitizer'], sensitive:['handwash','antibac_handwash'], sanitizer:['sanitizer','antibac_handwash'], _default:['antibac_handwash','handwash'] },
-  '살균·소독':   { professional:['sterilizer','tissue'], safe:['sterilizer','antibac_handwash'], bacteria:['sterilizer','kitchen_bacteria'], _default:['sterilizer','tissue'] },
-  '반려동물':    { deodorize:['pet_deodorizer','fabric_deodorizer'], pest:['outdoor_mist','pet_deodorizer'], bacteria:['sterilizer','pet_deodorizer'], fabric:['fabric_deodorizer','drum_cleaner'], _default:['pet_deodorizer','fabric_deodorizer'] },
-  '세탁·섬유케어':{ smell:['fabric_deodorizer','drum_cleaner'], drum:['drum_cleaner','fabric_deodorizer'], bacteria:['laundry','drum_cleaner'], moisture:['moisture','drum_cleaner'], sensitive:['laundry','fabric_deodorizer'], _default:['laundry','fabric_deodorizer'] },
-  '기타':        { kitchen:['kitchen_general','drain'], bathroom:['bathroom','mold'], pest:['fruitfly','outdoor_mist'], general:['sterilizer','tissue'], drain:['drain','kitchen_bacteria'], bacteria:['sterilizer','antibac_handwash'], mold:['mold','bathroom'], _default:['sterilizer','kitchen_general'] },
+/* ══════════════════════════════════════
+   전문가 진단 카탈로그 (10종 — 진단정보.md 기반)
+══════════════════════════════════════ */
+const diagnoses = {
+  pest_env:  {name:'해충 발생 환경 정밀 진단',       icon:'🔬',
+    points:['해충 유입 경로·서식 가능 환경 분석','배설물·탈피각 등 실제 흔적 조사','틈새·구조 점검 및 습기·먹이원 확인']},
+  bedding:   {name:'침구·매트리스 오염 진단',        icon:'🛏',
+    points:['초정밀 현미경으로 침구 표면 오염도 측정','집먼지 진드기 밀도 평가','알레르기 유발 가능 수준 진단']},
+  surface:   {name:'표면 세균 오염 정밀 진단',       icon:'🦠',
+    points:['ATP 측정기로 생활공간 주요 표면 오염도 측정','손이 많이 닿는 구역·집기 세균 핫스팟 도출','변기·세면대·배수구 오염도 진단']},
+  air:       {name:'실내 공기질 & 라돈 진단',        icon:'💨',
+    points:['미세먼지·CO₂·VOCs 등 유해가스 수준 측정','라돈 농도 측정','환기 상태·공기 정체 여부 평가 및 원인 분석']},
+  drain:     {name:'배수구 오염도 정밀진단',         icon:'🔧',
+    points:['정밀 진단 내시경으로 배수구 내부 오염도 측정','악취 발생 원인 평가','해충 유입 가능성 평가']},
+  mold_dx:   {name:'곰팡이 & 습기 리스크 진단',      icon:'🌫',
+    points:['곰팡이 발생 구역 탐지 (벽지 뒤·가구 뒤·창틀·욕실 줄눈)','수분 측정기로 벽체 수분율 측정','곰팡이 발생 원인 평가']},
+  hood:      {name:'후드·덕트 기름때 오염 진단',     icon:'🍳',
+    points:['주방 후드 및 덕트 내부 기름때 오염도 진단','화재·위생 위험 요소 평가','청소 주기·방법 맞춤 안내']},
+  aircon:    {name:'에어컨 내부 미생물 오염도 진단', icon:'❄️',
+    points:['에어컨 내부 곰팡이·세균 오염 진단','냉방 사용 시 오염 확산 위험도 평가','필터·내부 청소 권장 사항 안내']},
+  fly_pest:  {name:'비래해충 유입 리스크 예측 진단', icon:'🦟',
+    points:['창문·출입구·배수구 등 해충 유입 경로 분석','모기·파리·초파리 유입 위험도 예측','차단 방법 및 적합 제품 안내']},
+  odor:      {name:'실내 악취원인 정밀 분석',        icon:'👃',
+    points:['생활공간 악취 원인 물질 분석','발생원 위치 파악','근본 제거 방안 제시']},
 };
 
-/* ══════════════════════════════
+/* ══════════════════════════════════════
+   제품 추천 맵
+══════════════════════════════════════ */
+const productRecMap = {
+  '주방 위생':     {grease:['grease','kitchen'], drain:['drain','lax'],       pest:['fruitfly','drain'],  bacteria:['lax','sterilizer'], hood:['kitchen','drain'],     _default:['kitchen','drain']},
+  '청소·욕실':    {mold:['mold','bathroom'],     limescale:['bathroom','bdrain'],drain:['bdrain','bathroom'],smell:['tissue','bdrain'], moisture:['mold','bathroom'],  _default:['bathroom','mold']},
+  '해충퇴치':     {mosquito:['mosquito','repellent'],fruitfly:['fruitfly','drain'],ant:['outdoor','fruitfly'],roach:['outdoor','mosquito'],fly:['outdoor','mosquito'],  _default:['mosquito','outdoor']},
+  '개인위생':     {antibac:['antibac','sanitizer'],sensitive:['handwash','antibac'],air:['antibac','sanitizer'],_default:['antibac','handwash']},
+  '살균·소독':    {professional:['sterilizer','tissue'],safe:['sterilizer','antibac'],bacteria:['sterilizer','lax'],surface:['tissue','sterilizer'],_default:['sterilizer','tissue']},
+  '반려동물':     {deodorize:['petdeodor','deodorizer'],fabric:['deodorizer','laundry'],bacteria:['sterilizer','petdeodor'],pest:['outdoor','petdeodor'],bedding:['deodorizer','laundry'],_default:['petdeodor','deodorizer']},
+  '세탁·섬유케어':{smell:['deodorizer','drum'],  drum:['drum','deodorizer'],  bacteria:['laundry','drum'],moisture:['moisture','drum'],  bedding:['laundry','deodorizer'],_default:['laundry','deodorizer']},
+  '기타':         {kitchen:['kitchen','drain'],  bathroom:['bathroom','mold'],pest:['fruitfly','outdoor'],general:['sterilizer','tissue'],aircon:['tissue','sterilizer'],odor:['tissue','sterilizer'],_default:['sterilizer','kitchen']},
+};
+
+/* ══════════════════════════════════════
+   전문가 진단 추천 맵 (10종 기반)
+══════════════════════════════════════ */
+const diagRecMap = {
+  '주방 위생':     {grease:['hood','drain'],      drain:['drain','surface'],  pest:['fly_pest','drain'],  bacteria:['surface','drain'],   hood:['hood','drain'],   odor:['odor','drain'],   _default:['drain','surface']},
+  '청소·욕실':    {mold:['mold_dx','surface'],    limescale:['surface','drain'],drain:['drain','mold_dx'],smell:['odor','drain'],        moisture:['mold_dx','drain'],_default:['surface','drain']},
+  '해충퇴치':     {mosquito:['fly_pest','pest_env'],fruitfly:['fly_pest','drain'],ant:['pest_env','fly_pest'],roach:['pest_env','drain'],fly:['fly_pest','pest_env'],_default:['pest_env','fly_pest']},
+  '개인위생':     {antibac:['surface','air'],      sensitive:['surface','bedding'],air:['air','surface'],  _default:['surface','air']},
+  '살균·소독':    {professional:['surface','drain'],safe:['surface','air'],   bacteria:['surface','drain'],surface:['surface','odor'],   _default:['surface','odor']},
+  '반려동물':     {deodorize:['odor','surface'],   pest:['pest_env','fly_pest'],bacteria:['surface','bedding'],fabric:['bedding','surface'],bedding:['bedding','surface'],_default:['odor','pest_env']},
+  '세탁·섬유케어':{smell:['odor','mold_dx'],       drum:['mold_dx','surface'],bacteria:['surface','bedding'],moisture:['mold_dx','air'],  bedding:['bedding','mold_dx'],_default:['bedding','mold_dx']},
+  '기타':         {kitchen:['hood','drain'],       bathroom:['surface','drain'],pest:['pest_env','fly_pest'],general:['surface','odor'],  drain:['drain','odor'],  mold:['mold_dx','surface'],aircon:['aircon','air'],odor:['odor','surface'],_default:['surface','odor']},
+};
+
+/* ══════════════════════════════════════
    상태 변수
-══════════════════════════════ */
-let selCat = '', selSpace = '';
-let questions = [], curQ = 0;
-let scores = {};
+══════════════════════════════════════ */
+let selCat='', selSpace='';
+let questions=[], curQ=0, scores={};
 
-/* ══════════════════════════════
+/* ══════════════════════════════════════
    STEP 1
-══════════════════════════════ */
+══════════════════════════════════════ */
 function selectCat(btn, cat) {
-  document.querySelectorAll('.cat-btn,.cat-btn-wide').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  selCat = cat;
-  checkReady();
+  document.querySelectorAll('.cat-btn,.cat-btn-w').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected'); selCat=cat; checkReady();
 }
 function selectSpace(btn, space) {
-  document.querySelectorAll('.space-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  selSpace = space;
-  checkReady();
+  document.querySelectorAll('.sp-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected'); selSpace=space; checkReady();
 }
 function checkReady() {
-  document.getElementById('startBtn').disabled = !(selCat && selSpace);
+  const ch=document.getElementById('selCh').value;
+  document.getElementById('startBtn').disabled=!(selCat && selSpace && ch);
 }
 
-/* ══════════════════════════════
-   STEP 2: 퀴즈 진행
-══════════════════════════════ */
+/* ══════════════════════════════════════
+   STEP 2 퀴즈
+══════════════════════════════════════ */
 function startQuiz() {
-  questions = quizBank[selCat] || quizBank['기타'];
-  scores = {};
-  curQ = 0;
-  document.getElementById('step1').style.display = 'none';
-  document.getElementById('step2').style.display = 'block';
-  setStep(2);
-  renderQuestion();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  questions=quizBank[selCat]||quizBank['기타']; scores={}; curQ=0;
+  document.getElementById('step1').style.display='none';
+  document.getElementById('step2').style.display='block';
+  setStep(2); renderQ(); window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function renderQuestion() {
-  const q = questions[curQ];
-  const total = questions.length;
-  const pct = Math.round(((curQ + 1) / total) * 100);
-  document.getElementById('quizProgressFill').style.width = pct + '%';
-  document.getElementById('quizProgressText').textContent = (curQ + 1) + ' / ' + total;
-  document.getElementById('selTags').innerHTML = `<span class="sel-tag">🧪 ${selCat}</span><span class="sel-tag">🏠 ${selSpace}</span>`;
-  document.getElementById('quizQ').textContent = q.q;
-
-  const optsEl = document.getElementById('quizOpts');
-  const singleCol = q.opts.length === 3 || q.opts.some(o => o.text.length > 18);
-  optsEl.className = 'quiz-options' + (singleCol ? ' single-col' : '');
-  optsEl.innerHTML = q.opts.map((o, i) =>
-    `<button class="quiz-opt" onclick="selectAnswer(${i})" data-idx="${i}">
-      <span class="opt-icon">${o.icon}</span>
-      <span class="opt-text">${o.text}</span>
-    </button>`
-  ).join('');
+function renderQ() {
+  const q=questions[curQ], total=questions.length;
+  document.getElementById('qpFill').style.width=Math.round(((curQ+1)/total)*100)+'%';
+  document.getElementById('qpTxt').textContent=(curQ+1)+' / '+total;
+  document.getElementById('selTags').innerHTML=`<span class="sel-tag">🧪 ${selCat}</span><span class="sel-tag">🏠 ${selSpace}</span>`;
+  document.getElementById('qQ').textContent=q.q;
+  const sc=q.opts.length===3||q.opts.some(o=>o.text.length>20);
+  const el=document.getElementById('qOpts');
+  el.className='qopts'+(sc?' sc':'');
+  el.innerHTML=q.opts.map((o,i)=>`<button class="qopt" onclick="pickAnswer(${i})"><span class="oi">${o.icon}</span><span class="ot">${o.text}</span></button>`).join('');
 }
-
-function selectAnswer(idx) {
-  const opt = questions[curQ].opts[idx];
-  // 점수 누적
-  Object.entries(opt.scores).forEach(([k, v]) => { scores[k] = (scores[k] || 0) + v; });
-  // 선택 표시
-  document.querySelectorAll('.quiz-opt').forEach((b, i) => {
-    if (i === idx) b.classList.add('selected');
-  });
-  // 300ms 후 다음 질문
-  setTimeout(() => {
+function pickAnswer(idx) {
+  const opt=questions[curQ].opts[idx];
+  Object.entries(opt.scores).forEach(([k,v])=>{scores[k]=(scores[k]||0)+v;});
+  document.querySelectorAll('.qopt')[idx].classList.add('selected');
+  setTimeout(()=>{
     curQ++;
-    if (curQ < questions.length) {
-      // 페이드 전환
-      const card = document.getElementById('quizCard');
-      card.classList.add('fade-out');
-      setTimeout(() => {
-        card.classList.remove('fade-out');
-        renderQuestion();
-      }, 220);
-    } else {
-      showResult();
-    }
-  }, 320);
+    if(curQ<questions.length){
+      const c=document.getElementById('qCard');
+      c.classList.add('fade-out');
+      setTimeout(()=>{c.classList.remove('fade-out'); renderQ();},220);
+    } else { showResult(); }
+  },320);
 }
 
-/* ══════════════════════════════
-   STEP 3: 결과 계산 & 렌더
-══════════════════════════════ */
+/* ══════════════════════════════════════
+   STEP 3 결과
+══════════════════════════════════════ */
 function showResult() {
-  // 위험도 계산
-  const total = Object.values(scores).reduce((a, b) => a + b, 0);
-  let level, msg, pct;
-  if (total <= 2)      { level = '양호'; pct = 15; msg = '현재 위생 상태가 양호합니다. 지금 관리를 유지하면서 예방 제품으로 관리하세요.'; }
-  else if (total <= 5) { level = '주의'; pct = 45; msg = '일부 위험 요소가 발견됩니다. 적절한 제품으로 선제적 관리를 시작하시기 바랍니다.'; }
-  else if (total <= 9) { level = '위험'; pct = 72; msg = '복합 위험 요소가 확인됩니다. 아래 추천 제품으로 즉시 관리를 시작하고 전문가 진단을 권장합니다.'; }
-  else                 { level = '시급'; pct = 92; msg = '위험 수준이 높습니다. 추천 제품과 함께 세스코 전문가의 방문 진단을 빠르게 신청해 주세요.'; }
+  const total=Object.values(scores).reduce((a,b)=>a+b,0);
+  let grade,pct,msg;
+  if(total<=2)      {grade='양호';pct=15;msg='현재 위생 상태가 양호합니다. 예방 제품으로 지금 관리를 유지하세요.';}
+  else if(total<=5) {grade='주의';pct=45;msg='일부 위험 요소가 발견됩니다. 추천 제품으로 선제적 관리를 시작하시기 바랍니다.';}
+  else if(total<=9) {grade='위험';pct=72;msg='복합 위험 요소가 확인됩니다. 추천 제품으로 즉시 관리를 시작하고 전문가 진단을 권장합니다.';}
+  else              {grade='시급';pct=92;msg='위험 수준이 높습니다. 추천 제품과 함께 세스코 전문가의 방문 진단을 빠르게 신청해 주세요.';}
+  document.getElementById('rlGrade').textContent=grade;
+  document.getElementById('rlFill').style.width=pct+'%';
+  document.getElementById('rlMsg').textContent=msg;
 
-  document.getElementById('resultLevel').textContent = level;
-  document.getElementById('resultFill').style.width = pct + '%';
-  document.getElementById('resultMsg').textContent = msg;
+  const tip=document.getElementById('pTip');
+  if((scores.roach||0)>=3||(scores.ant||0)>=3){
+    tip.innerHTML=`<div class="ptip">⚠️ <strong>전문가 진단을 강력 권장합니다</strong><br />선택하신 해충 유형은 제품만으로 완전한 제거가 어렵습니다. 세스코 전문가의 방문 진단으로 근본 서식처를 제거해야 재발을 막을 수 있습니다.</div>`;
+  } else { tip.innerHTML=''; }
 
-  // 전문가 진단 팁 (해충 카테고리에서 바퀴/개미 고위험 시)
-  const tip = document.getElementById('professionalTip');
-  if ((scores.roach || 0) >= 3 || (scores.ant || 0) >= 3) {
-    tip.innerHTML = `<div class="professional-tip">⚠️ <strong>전문가 진단을 강력 권장합니다</strong><br />선택하신 해충 유형(바퀴벌레·개미)은 제품만으로 완전한 제거가 어렵습니다. 세스코 전문가의 방문 진단을 통해 근본 서식처를 제거해야 재발을 막을 수 있습니다.</div>`;
-  } else {
-    tip.innerHTML = '';
-  }
-
-  // 추천 제품 계산
-  const map = recMap[selCat] || recMap['기타'];
-  const topDim = Object.entries(scores).sort((a, b) => b[1] - a[1])[0];
-  const dim = topDim ? topDim[0] : '_default';
-  const recPair = map[dim] || map['_default'];
-
-  const recEl = document.getElementById('recCards');
-  recEl.innerHTML = recPair.map((pk, i) => {
-    const p = products[pk];
-    if (!p) return '';
-    return `
-      <div class="rec-card">
-        <div class="rec-header">
-          <div class="rh-icon">${p.icon}</div>
-          <div class="rh-info">
-            <div class="rh-num">추천 ${i+1}</div>
-            <div class="rh-name">${p.name}</div>
-            <div class="rh-tag">${p.tag}</div>
-          </div>
-        </div>
-        <div class="rec-body">
-          <div class="rec-reason">${p.reason}</div>
-          <div class="rec-coupon">
-            <span class="rc-label">🎟 첫구매 쿠폰</span>
-            <span class="rc-badge">100원 쿠폰 적용</span>
-          </div>
-        </div>
-      </div>`;
+  // 제품 추천
+  const pmap=productRecMap[selCat]||productRecMap['기타'];
+  const topD=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0];
+  const dim=topD?topD[0]:'_default';
+  const pPair=(pmap[dim]||pmap['_default']).slice(0,2);
+  document.getElementById('recCards').innerHTML=pPair.map((pk,i)=>{
+    const p=products[pk]; if(!p)return'';
+    return`<div class="rec-card">
+      <div class="rch"><div class="ri">${p.icon}</div><div class="rinfo"><div class="rnum">추천 ${i+1}</div><div class="rname">${p.name}</div><div class="rtag">${p.tag}</div></div></div>
+      <div class="rcb"><div class="rreason">${p.reason}</div>
+      <div class="coupon-row"><span class="cl">🎟 첫구매 쿠폰</span><button class="btn-coupon" onclick="openModal()">100원 쿠폰 받기</button></div></div></div>`;
   }).join('');
 
-  document.getElementById('step2').style.display = 'none';
-  document.getElementById('step3').style.display = 'block';
-  setStep(3);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // 전문가 진단 추천
+  const dmap=diagRecMap[selCat]||diagRecMap['기타'];
+  const dPair=(dmap[dim]||dmap['_default']).slice(0,2);
+  document.getElementById('dxCards').innerHTML=dPair.map((dk,i)=>{
+    const d=diagnoses[dk]; if(!d)return'';
+    return`<div class="dx-card">
+      <div class="dxh"><div class="di">${d.icon}</div><div class="dinfo"><div class="dnum">추천 진단 ${i+1}</div><div class="dname">${d.name}</div><div class="dtag">세스코 전문가 무료 방문 진단</div></div></div>
+      <div class="dxb"><ul class="dx-points">${d.points.map(pt=>`<li>${pt}</li>`).join('')}</ul></div></div>`;
+  }).join('');
+
+  document.getElementById('step2').style.display='none';
+  document.getElementById('step3').style.display='block';
+  setStep(3); window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ══════════════════════════════
-   STEP 4: 신청 완료
-══════════════════════════════ */
+/* ══════════════════════════════════════
+   로그인 모달
+══════════════════════════════════════ */
+function openModal() {
+  document.getElementById('loginModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModalBtn() {
+  document.getElementById('loginModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeModal(e) {
+  if(e.target===document.getElementById('loginModal')) closeModalBtn();
+}
+
+/* ══════════════════════════════════════
+   STEP 4
+══════════════════════════════════════ */
 function submitForm() {
-  const name  = document.getElementById('fName').value.trim();
-  const phone = document.getElementById('fPhone').value.trim();
-  const src   = document.getElementById('fSource').value;
-  if (!name || !phone || !src) { alert('모든 항목을 입력해주세요.'); return; }
-  document.getElementById('step3').style.display = 'none';
-  document.getElementById('step4').style.display = 'block';
-  setStep(4);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  const name=document.getElementById('fName').value.trim();
+  const phone=document.getElementById('fPhone').value.trim();
+  if(!name||!phone){alert('이름과 연락처를 입력해주세요.');return;}
+  document.getElementById('step3').style.display='none';
+  document.getElementById('step4').style.display='block';
+  setStep(4); window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ══════════════════════════════
+/* ══════════════════════════════════════
    공통 유틸
-══════════════════════════════ */
+══════════════════════════════════════ */
 function setStep(n) {
-  for (let i = 1; i <= 4; i++) {
-    const si = document.getElementById('si' + i);
-    si.className = 'step-item' + (i < n ? ' done' : i === n ? ' active' : '');
+  for(let i=1;i<=4;i++){
+    document.getElementById('si'+i).className='step-item'+(i<n?' done':i===n?' active':'');
   }
 }
-function formatPhone(input) {
-  let v = input.value.replace(/[^0-9]/g, '');
-  if (v.length > 11) v = v.slice(0, 11);
-  if (v.length > 7)      input.value = v.replace(/(\d{3})(\d{4})(\d{0,4})/, '$1-$2-$3');
-  else if (v.length > 3) input.value = v.replace(/(\d{3})(\d{0,4})/, '$1-$2');
-  else                   input.value = v;
+function fmtPhone(input) {
+  let v=input.value.replace(/[^0-9]/g,'');
+  if(v.length>11)v=v.slice(0,11);
+  if(v.length>7)      input.value=v.replace(/(\d{3})(\d{4})(\d{0,4})/,'$1-$2-$3');
+  else if(v.length>3) input.value=v.replace(/(\d{3})(\d{0,4})/,'$1-$2');
+  else                input.value=v;
 }
 </script>
 </body>
