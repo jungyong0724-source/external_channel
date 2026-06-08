@@ -770,30 +770,27 @@
         <div class="card-body" style="padding:0">
           <div class="service-box" style="border:none;margin-bottom:0">
             <div class="service-box-head">
-              ✅ 아래 서비스를 무료로 신청하실 수 있습니다 (중복 선택 가능)
+              ✅ 아래 무료 서비스를 함께 신청하실 수 있습니다
             </div>
 
-            <!-- 서비스 1: 필터 교체 -->
+            <!-- 서비스 통합 신청 -->
             <div class="service-option" id="svc1Wrap">
-              <input type="checkbox" id="filterCheck"
+              <input type="checkbox" id="freeServiceCheck"
                 onchange="syncSvcUI('svc1Wrap', this)" />
               <div class="so-content">
-                <div class="so-title">🔧 무료 필터 교체 서비스 (1회)
+                <div class="so-title">🎁 무료 서비스 신청 (2가지 동시 제공)
                   <span class="so-badge">무료</span>
                 </div>
-                <div class="so-desc">등록 제품용 필터 무료 제공 + 세스코 전문가 방문 교체<br />필터 종류: 정수기 필터, 공기청정기 필터 등</div>
-              </div>
-            </div>
-
-            <!-- 서비스 2: 해충 진단 -->
-            <div class="service-option" id="svc2Wrap">
-              <input type="checkbox" id="diagCheck"
-                onchange="syncSvcUI('svc2Wrap', this)" />
-              <div class="so-content">
-                <div class="so-title">🐛 무료 해충 진단 서비스 (1회)
-                  <span class="so-badge">무료</span>
+                <div class="so-desc" style="margin-top:6px">
+                  <div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:4px">
+                    <span style="color:var(--navy);font-weight:700;flex-shrink:0">①</span>
+                    <span><strong>무료 필터 교체</strong> — 필터 무료 제공 + 세스코 전문가 방문 교체 (1회)</span>
+                  </div>
+                  <div style="display:flex;align-items:flex-start;gap:6px">
+                    <span style="color:var(--navy);font-weight:700;flex-shrink:0">②</span>
+                    <span><strong>무료 해충 진단</strong> — 전문가 방문 · 해충 서식 환경 정밀 진단 (1회)</span>
+                  </div>
                 </div>
-                <div class="so-desc">세스코 방역 전문가 방문 · 해충 서식 환경 정밀 진단<br />진단 결과지 제공 + 맞춤 솔루션 안내</div>
               </div>
             </div>
           </div>
