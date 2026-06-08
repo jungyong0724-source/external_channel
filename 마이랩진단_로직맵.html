@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마이랩 위생진단 — 셀프진단 로직 맵</title>
+<style>
+  /* ===== 기본 변수 ===== */
+  :root {
+    --navy: #003087;
+    --navy-light: #e8eef8;
+    --navy-mid: #1a4a8a;
+    --green: #1a7a45;
+    --green-light: #e8f5ee;
+    --gray-bg: #f2f4f8;
+    --gray-border: #d0d5e0;
+    --white: #ffffff;
+
+    /* 차원 컬러 */
+    --c-grease: #e87c22;
+    --c-drain: #5b8dee;
+    --c-pest: #e84040;
+    --c-bacteria: #22b573;
+    --c-mold: #8e4ec6;
+    --c-smell: #e8a020;
+    --c-safe: #2bc5b4;
+    --c-air: #56c0f0;
+    --c-moisture: #6f8ab7;
+    --c-bedding: #c97d4b;
+    --c-deodorize: #e86d9a;
+    --c-drum: #7a7a7a;
+    --c-hood: #d94f0e;
+    --c-aircon: #20b4d8;
+    --c-limescale: #aab8cc;
+    --c-fabric: #b88ed0;
+    --c-antibac: #3abf6e;
+    --c-surface: #22b573;
+    --c-professional: #003087;
+    --c-mosquito: #e84040;
+    --c-fruitfly: #e8a020;
+    --c-ant: #b47d2e;
+    --c-roach: #7a4522;
+    --c-general: #888;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, sans-serif;
+    background: var(--gray-bg);
+    color: #1a1a2e;
+    font-size: 13px;
+  }
+
+  /* ===== 헤더 ===== */
+  .header {
+    background: var(--navy);
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,48,135,0.3);
+  }
+  .header-logo {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: white;
+  }
+  .header-logo span { color: #6ee7b7; }
+  .header-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+  }
+  .header-badge {
+    margin-left: auto;
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ===== 레이아웃 ===== */
+  .layout {
+    display: flex;
+    height: calc(100vh - 56px);
+  }
+
+  /* ===== 사이드바 ===== */
+  .sidebar {
+    width: 180px;
+    min-width: 180px;
+    background: var(--white);
+    border-right: 2px solid var(--gray-border);
+    overflow-y: auto;
+    padding: 12px 8px;
+  }
+  .sidebar-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 0 8px 8px;
+    border-bottom: 1px solid var(--gray-border);
+    margin-bottom: 8px;
+  }
+  .tab-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 9px 10px;
+    margin-bottom: 3px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    color: #444;
+    transition: all 0.15s;
+    line-height: 1.3;
+  }
+  .tab-btn:hover { background: var(--navy-light); color: var(--navy); }
+  .tab-btn.active { background: var(--navy); color: white; font-weight: 700; }
+  .tab-btn .tab-icon { margin-right: 6px; }
+
+  /* 탭 구분선 */
+  .tab-divider {
+    height: 1px;
+    background: var(--gray-border);
+    margin: 8px 0;
+  }
+
+  /* ===== 메인 영역 ===== */
+  .main {
+    flex: 1;
+    overflow: auto;
+    padding: 20px 24px;
+  }
+
+  /* ===== 패널 ===== */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ===== 카테고리 헤더 ===== */
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .cat-icon {
+    font-size: 28px;
+  }
+  .cat-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--navy);
+  }
+  .cat-desc {
+    font-size: 12px;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  /* ===== 플로우 레이아웃 ===== */
+  .flow-wrap {
+    overflow-x: auto;
+    padding-bottom: 12px;
+  }
+  .flow-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    min-width: max-content;
+  }
+
+  /* ===== 플로우 단계 ===== */
+  .flow-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .stage-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  /* ===== 노드 카드 ===== */
+  .node {
+    border-radius: 10px;
+    padding: 10px 14px;
+    min-width: 130px;
+    max-width: 170px;
+    text-align: center;
+    position: relative;
+    line-height: 1.4;
+  }
+  .node-input {
+    background: var(--gray-bg);
+    border: 2px solid var(--gray-border);
+  }
+  .node-question {
+    background: var(--white);
+    border: 2px solid var(--navy);
+  }
+  .node-question .q-num {
+    display: inline-block;
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 18px;
+    margin-bottom: 4px;
+  }
+  .node-question .q-text {
+    font-size: 11px;
+    color: #333;
+    font-weight: 500;
+  }
+  .node-question .q-opts {
+    margin-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    justify-content: center;
+  }
+  .opt-chip {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* ===== 차원 노드 ===== */
+  .dim-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+  }
+  .node-dim {
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    white-space: nowrap;
+    min-width: 90px;
+    text-align: center;
+  }
+
+  /* ===== 추천 박스 ===== */
+  .rec-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .node-product {
+    background: var(--navy-light);
+    border: 1.5px solid var(--navy);
+    border-radius: 8px;
+    padding: 8px 10px;
+    min-width: 140px;
+    max-width: 180px;
+  }
+  .node-product .rec-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .node-product .rec-dim-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    padding: 1px 5px;
+    border-radius: 8px;
+    margin-bottom: 3px;
+    color: white;
+  }
+  .node-product .prod-name {
+    font-size: 10px;
+    color: #2a3a6e;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .node-diagnosis {
+    background: var(--green-light);
+    border: 1.5px solid var(--green);
+    border-radius: 8px;
+    padding: 8px 10px;
+    min-width: 140px;
+    max-width: 180px;
+  }
+  .node-diagnosis .rec-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .node-diagnosis .diag-name {
+    font-size: 10px;
+    color: #1a4a2e;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* ===== 화살표 ===== */
+  .arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    color: var(--navy);
+    font-size: 18px;
+    align-self: center;
+    padding-top: 24px; /* stage-label 높이 보정 */
+  }
+  .arrow-small {
+    font-size: 13px;
+    color: #aaa;
+    margin: 0 4px;
+  }
+
+  /* ===== 전체구조 패널 ===== */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr 60px 1fr;
+    gap: 0;
+    align-items: start;
+    margin-bottom: 32px;
+  }
+  .ov-stage {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    border: 2px solid var(--gray-border);
+  }
+  .ov-stage-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ov-stage-title .step-badge {
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+  .ov-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    font-size: 11px;
+  }
+  .ov-item.gray { background: var(--gray-bg); }
+  .ov-item.navy { background: var(--navy-light); color: var(--navy); font-weight: 600; }
+  .ov-item.green { background: var(--green-light); color: var(--green); font-weight: 600; }
+  .ov-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: var(--navy);
+    padding-top: 40px;
+  }
+
+  /* 점수 등급 표 */
+  .score-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 12px;
+  }
+  .score-table th, .score-table td {
+    padding: 8px 12px;
+    border: 1px solid var(--gray-border);
+    text-align: center;
+  }
+  .score-table th { background: var(--navy); color: white; font-weight: 700; }
+  .score-table tr:nth-child(even) td { background: var(--gray-bg); }
+  .grade-good { color: #22b573; font-weight: 700; }
+  .grade-warn { color: #e8a020; font-weight: 700; }
+  .grade-danger { color: #e87c22; font-weight: 700; }
+  .grade-urgent { color: #e84040; font-weight: 700; }
+
+  /* ===== 진단 10종 패널 ===== */
+  .diag-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .diag-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    border: 2px solid var(--green);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .diag-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(26,122,69,0.15);
+  }
+  .diag-icon { font-size: 28px; margin-bottom: 8px; }
+  .diag-name { font-size: 13px; font-weight: 700; color: var(--navy); line-height: 1.4; margin-bottom: 6px; }
+  .diag-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .diag-cat-chip {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: var(--gray-bg);
+    color: #555;
+    font-weight: 500;
+  }
+
+  /* ===== 카테고리 섹션 구분선 ===== */
+  .section-divider {
+    border: none;
+    border-top: 1px dashed var(--gray-border);
+    margin: 16px 0;
+  }
+
+  /* ===== 유틸 ===== */
+  .mt8 { margin-top: 8px; }
+  .text-sm { font-size: 11px; }
+  .text-xs { font-size: 10px; }
+  .fw700 { font-weight: 700; }
+  .color-navy { color: var(--navy); }
+  .color-green { color: var(--green); }
+
+  /* ===== 인쇄 CSS ===== */
+  @media print {
+    @page {
+      size: A3 landscape;
+      margin: 12mm 10mm;
+    }
+    body { font-size: 11px; background: white; }
+    .header { position: relative; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .layout { height: auto; display: block; }
+    .sidebar { display: none; }
+    .main { padding: 10px 0; overflow: visible; }
+    .panel { display: block !important; page-break-before: always; }
+    .panel:first-child { page-break-before: avoid; }
+    .flow-wrap { overflow-x: visible; }
+    .flow-row { flex-wrap: wrap; min-width: 0; }
+    .node-question { break-inside: avoid; }
+    .rec-group { break-inside: avoid; }
+    * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 헤더 ===== -->
+<div class="header">
+  <div class="header-logo">MY<span>LAB</span></div>
+  <div>
+    <div class="header-title">마이랩 위생진단 — 셀프진단 로직 맵</div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:1px;">CESCO Marketing · 내부 보고용 · 2026</div>
+  </div>
+  <div class="header-badge">8 카테고리 · 4문항 · 10종 전문가 진단</div>
+</div>
+
+<!-- ===== 레이아웃 ===== -->
+<div class="layout">
+
+  <!-- 사이드바 -->
+  <nav class="sidebar">
+    <div class="sidebar-title">카테고리</div>
+    <button class="tab-btn active" onclick="showTab('kitchen')"><span class="tab-icon">🍳</span>주방 위생</button>
+    <button class="tab-btn" onclick="showTab('bathroom')"><span class="tab-icon">🚿</span>청소·욕실</button>
+    <button class="tab-btn" onclick="showTab('pest')"><span class="tab-icon">🦟</span>해충퇴치</button>
+    <button class="tab-btn" onclick="showTab('hygiene')"><span class="tab-icon">🧴</span>개인위생</button>
+    <button class="tab-btn" onclick="showTab('sanitize')"><span class="tab-icon">🧼</span>살균·소독</button>
+    <button class="tab-btn" onclick="showTab('pet')"><span class="tab-icon">🐾</span>반려동물</button>
+    <button class="tab-btn" onclick="showTab('laundry')"><span class="tab-icon">👕</span>세탁·섬유케어</button>
+    <button class="tab-btn" onclick="showTab('etc')"><span class="tab-icon">🏠</span>기타</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="showTab('overview')"><span class="tab-icon">🗺</span>전체 구조</button>
+    <button class="tab-btn" onclick="showTab('diagcatalog')"><span class="tab-icon">🔬</span>진단 10종</button>
+  </nav>
+
+  <!-- 메인 -->
+  <main class="main">
+
+    <!-- ====================== 주방 위생 ====================== -->
+    <div class="panel active" id="panel-kitchen">
+      <div class="cat-header">
+        <div class="cat-icon">🍳</div>
+        <div>
+          <div class="cat-title">주방 위생</div>
+          <div class="cat-desc">기름때 · 배수구 · 초파리 · 세균 — 4가지 핵심 차원으로 분기</div>
+        </div>
+      </div>
+      <div class="flow-wrap">
+        <div class="flow-row">
+          <!-- 입력 -->
+          <div class="flow-stage">
+            <div class="stage-label">입력</div>
+            <div class="node node-input">
+              <div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">카테고리 선택</div>
+              <div style="font-size:18px;margin-bottom:2px;">🍳</div>
+              <div style="font-size:10px;color:#888;">주방 위생</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <!-- Q1 -->
+          <div class="flow-stage">
+            <div class="stage-label">Q1</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">1</div>
+              <div class="q-text fw700">주방에서 가장 신경 쓰이는<br>고민은?</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-grease);color:white;">기름때</span>
+                <span class="opt-chip" style="background:var(--c-drain);color:white;">배수구</span>
+                <span class="opt-chip" style="background:var(--c-pest);color:white;">초파리</span>
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">세균</span>
+              </div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <!-- Q2 -->
+          <div class="flow-stage">
+            <div class="stage-label">Q2</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">2</div>
+              <div class="q-text fw700">후드·환풍기 청소 빈도</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-hood);color:white;">매월</span>
+                <span class="opt-chip" style="background:#ccc;color:#555;">분기 1회</span>
+                <span class="opt-chip" style="background:#aaa;color:white;">거의 안함</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ 후드오염(hood) 신호 감지</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <!-- Q3 -->
+          <div class="flow-stage">
+            <div class="stage-label">Q3</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">3</div>
+              <div class="q-text fw700">배수구 상태는?</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-drain);color:white;">막힘</span>
+                <span class="opt-chip" style="background:var(--c-smell);color:white;">냄새</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">양호</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ drain / odor 차원 누적</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <!-- Q4 -->
+          <div class="flow-stage">
+            <div class="stage-label">Q4</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">4</div>
+              <div class="q-text fw700">가족 구성</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">영유아</span>
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">고령자</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">일반</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ bacteria 차원 가중</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <!-- 차원 결정 -->
+          <div class="flow-stage">
+            <div class="stage-label">최고점 차원</div>
+            <div class="dim-group">
+              <div class="node-dim" style="background:var(--c-grease);">🔥 grease (기름때)</div>
+              <div class="node-dim" style="background:var(--c-drain);">💧 drain (배수구)</div>
+              <div class="node-dim" style="background:var(--c-pest);">🦟 pest (초파리)</div>
+              <div class="node-dim" style="background:var(--c-bacteria);">🦠 bacteria (세균)</div>
+              <div class="node-dim" style="background:var(--c-hood);">💨 hood (후드오염)</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <!-- 추천 -->
+          <div class="flow-stage">
+            <div class="stage-label">추천 결과</div>
+            <div class="rec-group">
+              <div class="node-product">
+                <div class="rec-label">📦 추천 제품</div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-grease);">grease</span><div class="prod-name">기름때세정제파워 · 마스터주방세제</div></div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-drain);">drain</span><div class="prod-name">배수관세정제 · 마스터락스</div></div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-pest);">pest</span><div class="prod-name">초파리유인제 · 배수관세정제</div></div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-bacteria);">bacteria</span><div class="prod-name">마스터락스 · 곡물발효살균소독제</div></div>
+                <div><span class="rec-dim-tag" style="background:var(--c-hood);">hood</span><div class="prod-name">주방세제 · 배수관세정제</div></div>
+              </div>
+              <div class="node-diagnosis">
+                <div class="rec-label">🔬 전문가 진단</div>
+                <div class="diag-name">grease → 후드·덕트 기름때 오염 진단<br>배수구 오염도 정밀진단</div>
+                <hr class="section-divider">
+                <div class="diag-name">drain → 배수구 오염도 정밀진단<br>표면 세균 오염 정밀 진단</div>
+                <hr class="section-divider">
+                <div class="diag-name">pest → 비래해충 유입 리스크 예측 진단<br>배수구 오염도 정밀진단</div>
+                <hr class="section-divider">
+                <div class="diag-name">bacteria → 표면 세균 오염 정밀 진단<br>배수구 오염도 정밀진단</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== 청소·욕실 ====================== -->
+    <div class="panel" id="panel-bathroom">
+      <div class="cat-header">
+        <div class="cat-icon">🚿</div>
+        <div>
+          <div class="cat-title">청소·욕실</div>
+          <div class="cat-desc">곰팡이 · 물때 · 배수구 · 냄새 — 습기/오염 중심 분기</div>
+        </div>
+      </div>
+      <div class="flow-wrap">
+        <div class="flow-row">
+          <div class="flow-stage">
+            <div class="stage-label">입력</div>
+            <div class="node node-input">
+              <div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">카테고리 선택</div>
+              <div style="font-size:18px;margin-bottom:2px;">🚿</div>
+              <div style="font-size:10px;color:#888;">청소·욕실</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q1</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">1</div>
+              <div class="q-text fw700">욕실에서 주요 불편점은?</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-mold);color:white;">곰팡이</span>
+                <span class="opt-chip" style="background:var(--c-limescale);color:#333;">물때</span>
+                <span class="opt-chip" style="background:var(--c-drain);color:white;">배수구</span>
+                <span class="opt-chip" style="background:var(--c-smell);color:white;">냄새</span>
+              </div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q2</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">2</div>
+              <div class="q-text fw700">곰팡이 발생 위치</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-mold);color:white;">욕실 줄눈</span>
+                <span class="opt-chip" style="background:var(--c-moisture);color:white;">벽지뒤 심각</span>
+                <span class="opt-chip" style="background:var(--c-moisture);color:white;">가구뒤 심각</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ mold/moisture 차원</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q3</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">3</div>
+              <div class="q-text fw700">배수구 상태</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-drain);color:white;">막힘</span>
+                <span class="opt-chip" style="background:var(--c-smell);color:white;">냄새</span>
+                <span class="opt-chip" style="background:var(--c-pest);color:white;">벌레</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">양호</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ drain/odor/pest 누적</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q4</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">4</div>
+              <div class="q-text fw700">청소 주기</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-mold);color:white;">주 1회 미만</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">주 1~2회</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">매일</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ mold 심화 보정</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">최고점 차원</div>
+            <div class="dim-group">
+              <div class="node-dim" style="background:var(--c-mold);">🍄 mold (곰팡이)</div>
+              <div class="node-dim" style="background:var(--c-drain);">💧 drain (배수구)</div>
+              <div class="node-dim" style="background:var(--c-limescale);">🪨 limescale (물때)</div>
+              <div class="node-dim" style="background:var(--c-moisture);">💦 moisture (습기)</div>
+              <div class="node-dim" style="background:var(--c-pest);">🦟 pest (해충)</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">추천 결과</div>
+            <div class="rec-group">
+              <div class="node-product">
+                <div class="rec-label">📦 추천 제품</div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-mold);">mold</span><div class="prod-name">곰팡이제거제 · 다목적욕실세정제</div></div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-drain);">drain</span><div class="prod-name">배수구클리너 · 다목적욕실세정제</div></div>
+                <div><span class="rec-dim-tag" style="background:var(--c-limescale);">limescale</span><div class="prod-name">다목적욕실세정제 · 배수구클리너</div></div>
+              </div>
+              <div class="node-diagnosis">
+                <div class="rec-label">🔬 전문가 진단</div>
+                <div class="diag-name">mold → 곰팡이&amp;습기 리스크 진단<br>표면 세균 오염 정밀 진단</div>
+                <hr class="section-divider">
+                <div class="diag-name">drain → 배수구 오염도 정밀진단<br>곰팡이&amp;습기 리스크 진단</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== 해충퇴치 ====================== -->
+    <div class="panel" id="panel-pest">
+      <div class="cat-header">
+        <div class="cat-icon">🦟</div>
+        <div>
+          <div class="cat-title">해충퇴치</div>
+          <div class="cat-desc">모기 · 초파리 · 개미 · 바퀴벌레 + 안전 성분 고려</div>
+        </div>
+      </div>
+      <div class="flow-wrap">
+        <div class="flow-row">
+          <div class="flow-stage">
+            <div class="stage-label">입력</div>
+            <div class="node node-input">
+              <div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">카테고리 선택</div>
+              <div style="font-size:18px;margin-bottom:2px;">🦟</div>
+              <div style="font-size:10px;color:#888;">해충퇴치</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q1</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">1</div>
+              <div class="q-text fw700">주로 발견되는 해충 종류</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-mosquito);color:white;">모기</span>
+                <span class="opt-chip" style="background:var(--c-fruitfly);color:white;">초파리</span>
+                <span class="opt-chip" style="background:var(--c-ant);color:white;">개미</span>
+                <span class="opt-chip" style="background:var(--c-roach);color:white;">바퀴벌레</span>
+              </div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q2</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">2</div>
+              <div class="q-text fw700">발견 빈도</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:#e84040;color:white;">매일</span>
+                <span class="opt-chip" style="background:#e87c22;color:white;">주 2~3회</span>
+                <span class="opt-chip" style="background:#aaa;color:white;">가끔</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ 심각도(severity) 가중</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q3</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">3</div>
+              <div class="q-text fw700">주요 발견 위치</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-drain);color:white;">배수구 근처</span>
+                <span class="opt-chip" style="background:var(--c-pest);color:white;">음식물 주변</span>
+                <span class="opt-chip" style="background:var(--c-pest);color:white;">창문/출입구</span>
+                <span class="opt-chip" style="background:var(--c-roach);color:white;">어두운 곳</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ 위치별 해충 유형 분류</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q4</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">4</div>
+              <div class="q-text fw700">영유아·반려동물 여부</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-safe);color:white;">영유아 있음</span>
+                <span class="opt-chip" style="background:var(--c-safe);color:white;">반려동물 있음</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">해당 없음</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ safe 안전성분 고려</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">최고점 차원</div>
+            <div class="dim-group">
+              <div class="node-dim" style="background:var(--c-mosquito);">🦟 mosquito (모기)</div>
+              <div class="node-dim" style="background:var(--c-fruitfly);">🪰 fruitfly (초파리)</div>
+              <div class="node-dim" style="background:var(--c-ant);">🐜 ant (개미)</div>
+              <div class="node-dim" style="background:var(--c-roach);">🪳 roach (바퀴)</div>
+              <div class="node-dim" style="background:var(--c-safe);">🛡 safe (안전성분)</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">추천 결과</div>
+            <div class="rec-group">
+              <div class="node-product">
+                <div class="rec-label">📦 추천 제품</div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-mosquito);">mosquito</span><div class="prod-name">모기에어로솔 · 모기기피제</div></div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-fruitfly);">fruitfly</span><div class="prod-name">초파리유인제 · 배수관세정제</div></div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-ant);">ant</span><div class="prod-name">야외도어미스트 · 초파리유인제</div></div>
+                <div><span class="rec-dim-tag" style="background:var(--c-roach);">roach</span><div class="prod-name">야외도어미스트 · 모기에어로솔</div></div>
+              </div>
+              <div class="node-diagnosis">
+                <div class="rec-label">🔬 전문가 진단</div>
+                <div class="diag-name">mosquito → 비래해충 유입 리스크 예측 진단<br>해충 발생 환경 정밀 진단</div>
+                <hr class="section-divider">
+                <div class="diag-name">fruitfly → 비래해충 유입 리스크 예측 진단<br>배수구 오염도 정밀진단</div>
+                <hr class="section-divider">
+                <div class="diag-name">roach → 해충 발생 환경 정밀 진단<br>배수구 오염도 정밀진단</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== 개인위생 ====================== -->
+    <div class="panel" id="panel-hygiene">
+      <div class="cat-header">
+        <div class="cat-icon">🧴</div>
+        <div>
+          <div class="cat-title">개인위생</div>
+          <div class="cat-desc">항균 · 민감성 · 공기질 — 사용 환경별 세분화</div>
+        </div>
+      </div>
+      <div class="flow-wrap">
+        <div class="flow-row">
+          <div class="flow-stage">
+            <div class="stage-label">입력</div>
+            <div class="node node-input">
+              <div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">카테고리 선택</div>
+              <div style="font-size:18px;margin-bottom:2px;">🧴</div>
+              <div style="font-size:10px;color:#888;">개인위생</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q1</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">1</div>
+              <div class="q-text fw700">주 사용 상황</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">요리/조리</span>
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">외출 후</span>
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">다중이용</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ bacteria 차원</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q2</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">2</div>
+              <div class="q-text fw700">기존 제품 불만족 이유</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-antibac);color:white;">항균력 부족</span>
+                <span class="opt-chip" style="background:var(--c-safe);color:white;">피부 자극</span>
+                <span class="opt-chip" style="background:#aaa;color:white;">기타</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ antibac / sensitive</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q3</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">3</div>
+              <div class="q-text fw700">피부 타입</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-safe);color:white;">민감성</span>
+                <span class="opt-chip" style="background:var(--c-safe);color:white;">건성</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">보통</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ sensitive 차원 가중</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q4</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">4</div>
+              <div class="q-text fw700">실내 냄새·환기 상태</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-air);color:white;">냄새 심함</span>
+                <span class="opt-chip" style="background:var(--c-air);color:white;">환기 잘 안 됨</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">양호</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ air(공기질) 차원</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">최고점 차원</div>
+            <div class="dim-group">
+              <div class="node-dim" style="background:var(--c-antibac);">🧪 antibac (항균)</div>
+              <div class="node-dim" style="background:var(--c-safe);">🌿 sensitive (민감성)</div>
+              <div class="node-dim" style="background:var(--c-bacteria);">🦠 bacteria (세균)</div>
+              <div class="node-dim" style="background:var(--c-air);">💨 air (공기질)</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">추천 결과</div>
+            <div class="rec-group">
+              <div class="node-product">
+                <div class="rec-label">📦 추천 제품</div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-antibac);">antibac</span><div class="prod-name">항균핸드워시폼 · 손소독제</div></div>
+                <div><span class="rec-dim-tag" style="background:var(--c-safe);">sensitive</span><div class="prod-name">핸드워시폼 · 항균핸드워시폼</div></div>
+              </div>
+              <div class="node-diagnosis">
+                <div class="rec-label">🔬 전문가 진단</div>
+                <div class="diag-name">antibac → 표면 세균 오염 정밀 진단<br>실내 공기질&amp;라돈 진단</div>
+                <hr class="section-divider">
+                <div class="diag-name">air → 실내 공기질&amp;라돈 진단<br>표면 세균 오염 정밀 진단</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== 살균·소독 ====================== -->
+    <div class="panel" id="panel-sanitize">
+      <div class="cat-header">
+        <div class="cat-icon">🧼</div>
+        <div>
+          <div class="cat-title">살균·소독</div>
+          <div class="cat-desc">요식업 / 영유아 / 감염 예방 — 전문·안전 성분 선택</div>
+        </div>
+      </div>
+      <div class="flow-wrap">
+        <div class="flow-row">
+          <div class="flow-stage">
+            <div class="stage-label">입력</div>
+            <div class="node node-input">
+              <div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">카테고리 선택</div>
+              <div style="font-size:18px;margin-bottom:2px;">🧼</div>
+              <div style="font-size:10px;color:#888;">살균·소독</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q1</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">1</div>
+              <div class="q-text fw700">살균이 필요한 이유</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-professional);color:white;">요식업 운영</span>
+                <span class="opt-chip" style="background:var(--c-safe);color:white;">영유아 있음</span>
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">감염 예방</span>
+              </div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q2</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">2</div>
+              <div class="q-text fw700">주요 살균 공간</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-grease);color:white;">주방</span>
+                <span class="opt-chip" style="background:var(--c-mold);color:white;">욕실</span>
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">거실/개인</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ kitchen/bathroom/personal</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q3</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">3</div>
+              <div class="q-text fw700">손이 닿는 표면 소독 빈도</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-surface);color:white;">하루 여러 번</span>
+                <span class="opt-chip" style="background:#aaa;color:white;">하루 1회</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">가끔</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ surface 차원 가중</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q4</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">4</div>
+              <div class="q-text fw700">성분 우선순위</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-safe);color:white;">안전성 우선</span>
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">살균력 우선</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ safe / strong</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">최고점 차원</div>
+            <div class="dim-group">
+              <div class="node-dim" style="background:var(--c-professional);">🏭 professional (요식업)</div>
+              <div class="node-dim" style="background:var(--c-safe);">🛡 safe (영유아)</div>
+              <div class="node-dim" style="background:var(--c-bacteria);">🦠 bacteria (감염)</div>
+              <div class="node-dim" style="background:var(--c-surface);">🧽 surface (표면)</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">추천 결과</div>
+            <div class="rec-group">
+              <div class="node-product">
+                <div class="rec-label">📦 추천 제품</div>
+                <div class="prod-name" style="font-weight:600;color:#2a3a6e;">곡물발효살균소독제<br>다용도살균클리닝티슈</div>
+                <div style="font-size:9px;color:#888;margin-top:4px;">(모든 차원 공통 + 조합 다양)</div>
+              </div>
+              <div class="node-diagnosis">
+                <div class="rec-label">🔬 전문가 진단</div>
+                <div class="diag-name">professional → 표면 세균 오염 정밀 진단<br>배수구 오염도 정밀진단</div>
+                <hr class="section-divider">
+                <div class="diag-name">safe → 표면 세균 오염 정밀 진단<br>실내 공기질&amp;라돈 진단</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== 반려동물 ====================== -->
+    <div class="panel" id="panel-pet">
+      <div class="cat-header">
+        <div class="cat-icon">🐾</div>
+        <div>
+          <div class="cat-title">반려동물</div>
+          <div class="cat-desc">탈취 · 털/비듬 · 세균 · 진드기 — 반려동물 생활환경 최적화</div>
+        </div>
+      </div>
+      <div class="flow-wrap">
+        <div class="flow-row">
+          <div class="flow-stage">
+            <div class="stage-label">입력</div>
+            <div class="node node-input">
+              <div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">카테고리 선택</div>
+              <div style="font-size:18px;margin-bottom:2px;">🐾</div>
+              <div style="font-size:10px;color:#888;">반려동물</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q1</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">1</div>
+              <div class="q-text fw700">반려동물 관련 주요 고민</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-deodorize);color:white;">냄새</span>
+                <span class="opt-chip" style="background:var(--c-fabric);color:white;">털/비듬</span>
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">세균</span>
+                <span class="opt-chip" style="background:var(--c-pest);color:white;">진드기</span>
+              </div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q2</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">2</div>
+              <div class="q-text fw700">반려동물 주 생활 공간</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-deodorize);color:white;">실내 전체</span>
+                <span class="opt-chip" style="background:var(--c-bedding);color:white;">침구/방</span>
+                <span class="opt-chip" style="background:var(--c-pest);color:white;">실외 산책</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ deodorize/bedding/fly</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q3</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">3</div>
+              <div class="q-text fw700">산책 후 관리 방식</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">발닦이 철저</span>
+                <span class="opt-chip" style="background:var(--c-pest);color:white;">그냥 들어옴</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">실내 전용</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ bacteria / pest 누적</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q4</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">4</div>
+              <div class="q-text fw700">알레르기 가족 여부</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-safe);color:white;">알레르기 있음</span>
+                <span class="opt-chip" style="background:var(--c-bedding);color:white;">침구 예민</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">없음</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ sensitive / bedding</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">최고점 차원</div>
+            <div class="dim-group">
+              <div class="node-dim" style="background:var(--c-deodorize);">💜 deodorize (냄새)</div>
+              <div class="node-dim" style="background:var(--c-pest);">🕷 pest (진드기)</div>
+              <div class="node-dim" style="background:var(--c-fabric);">🪮 fabric (털/비듬)</div>
+              <div class="node-dim" style="background:var(--c-bedding);">🛏 bedding (침구)</div>
+              <div class="node-dim" style="background:var(--c-bacteria);">🦠 bacteria (세균)</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">추천 결과</div>
+            <div class="rec-group">
+              <div class="node-product">
+                <div class="rec-label">📦 추천 제품</div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-deodorize);">deodorize</span><div class="prod-name">반려동물탈취제 · 섬유탈취제</div></div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-pest);">pest</span><div class="prod-name">야외도어미스트 · 반려동물탈취제</div></div>
+                <div><span class="rec-dim-tag" style="background:var(--c-fabric);">fabric</span><div class="prod-name">섬유탈취제 · 세탁세제</div></div>
+              </div>
+              <div class="node-diagnosis">
+                <div class="rec-label">🔬 전문가 진단</div>
+                <div class="diag-name">deodorize → 실내 악취원인 정밀 분석<br>표면 세균 오염 정밀 진단</div>
+                <hr class="section-divider">
+                <div class="diag-name">pest → 해충 발생 환경 정밀 진단<br>비래해충 유입 리스크 예측 진단</div>
+                <hr class="section-divider">
+                <div class="diag-name">bedding → 침구·매트리스 오염 진단<br>표면 세균 오염 정밀 진단</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== 세탁·섬유케어 ====================== -->
+    <div class="panel" id="panel-laundry">
+      <div class="cat-header">
+        <div class="cat-icon">👕</div>
+        <div>
+          <div class="cat-title">세탁·섬유케어</div>
+          <div class="cat-desc">냄새 · 세균 · 세탁기 오염 · 습기 — 생활 패브릭 전반</div>
+        </div>
+      </div>
+      <div class="flow-wrap">
+        <div class="flow-row">
+          <div class="flow-stage">
+            <div class="stage-label">입력</div>
+            <div class="node node-input">
+              <div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">카테고리 선택</div>
+              <div style="font-size:18px;margin-bottom:2px;">👕</div>
+              <div style="font-size:10px;color:#888;">세탁·섬유케어</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q1</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">1</div>
+              <div class="q-text fw700">세탁 관련 주요 불편점</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-smell);color:white;">냄새</span>
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">세균</span>
+                <span class="opt-chip" style="background:var(--c-drum);color:white;">세탁기</span>
+                <span class="opt-chip" style="background:var(--c-moisture);color:white;">습기</span>
+              </div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q2</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">2</div>
+              <div class="q-text fw700">침구 세탁 관리 주기</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-bedding);color:white;">한달 이상</span>
+                <span class="opt-chip" style="background:#aaa;color:white;">2주 1회</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">주 1회</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ bedding(집먼지진드기) 차원</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q3</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">3</div>
+              <div class="q-text fw700">세탁기 청소 빈도</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-drum);color:white;">거의 안함</span>
+                <span class="opt-chip" style="background:#aaa;color:white;">분기 1회</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">월 1회</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ drum(곰팡이) 차원</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q4</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">4</div>
+              <div class="q-text fw700">습기가 많은 공간 여부</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-moisture);color:white;">지하/반지하</span>
+                <span class="opt-chip" style="background:var(--c-moisture);color:white;">건조 잘 안됨</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">양호</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ moisture / mold 차원</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">최고점 차원</div>
+            <div class="dim-group">
+              <div class="node-dim" style="background:var(--c-smell);">👃 smell (냄새)</div>
+              <div class="node-dim" style="background:var(--c-drum);">🥁 drum (세탁기)</div>
+              <div class="node-dim" style="background:var(--c-bedding);">🛏 bedding (침구)</div>
+              <div class="node-dim" style="background:var(--c-moisture);">💦 moisture (습기)</div>
+              <div class="node-dim" style="background:var(--c-mold);">🍄 mold (곰팡이)</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">추천 결과</div>
+            <div class="rec-group">
+              <div class="node-product">
+                <div class="rec-label">📦 추천 제품</div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-smell);">smell</span><div class="prod-name">섬유탈취제 · 세탁조클리너</div></div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-drum);">drum</span><div class="prod-name">세탁조클리너 · 섬유탈취제</div></div>
+                <div style="margin-bottom:4px;"><span class="rec-dim-tag" style="background:var(--c-bedding);">bedding</span><div class="prod-name">세탁세제 · 섬유탈취제</div></div>
+                <div><span class="rec-dim-tag" style="background:var(--c-moisture);">moisture</span><div class="prod-name">습기제거제 · 세탁조클리너</div></div>
+              </div>
+              <div class="node-diagnosis">
+                <div class="rec-label">🔬 전문가 진단</div>
+                <div class="diag-name">smell → 실내 악취원인 정밀 분석<br>곰팡이&amp;습기 리스크 진단</div>
+                <hr class="section-divider">
+                <div class="diag-name">bedding → 침구·매트리스 오염 진단<br>곰팡이&amp;습기 리스크 진단</div>
+                <hr class="section-divider">
+                <div class="diag-name">drum → 곰팡이&amp;습기 리스크 진단<br>표면 세균 오염 정밀 진단</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== 기타 ====================== -->
+    <div class="panel" id="panel-etc">
+      <div class="cat-header">
+        <div class="cat-icon">🏠</div>
+        <div>
+          <div class="cat-title">기타</div>
+          <div class="cat-desc">에어컨 · 가족 구성 · 복합 고민 — 범용 진단 연계</div>
+        </div>
+      </div>
+      <div class="flow-wrap">
+        <div class="flow-row">
+          <div class="flow-stage">
+            <div class="stage-label">입력</div>
+            <div class="node node-input">
+              <div style="font-size:11px;font-weight:700;color:#555;margin-bottom:4px;">카테고리 선택</div>
+              <div style="font-size:18px;margin-bottom:2px;">🏠</div>
+              <div style="font-size:10px;color:#888;">기타</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q1</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">1</div>
+              <div class="q-text fw700">주요 고민 분야</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-grease);color:white;">주방</span>
+                <span class="opt-chip" style="background:var(--c-mold);color:white;">욕실</span>
+                <span class="opt-chip" style="background:var(--c-pest);color:white;">해충</span>
+                <span class="opt-chip" style="background:var(--c-general);color:white;">전반적</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ kitchen/bathroom/pest/general</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q2</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">2</div>
+              <div class="q-text fw700">에어컨 청소 여부</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-aircon);color:white;">2년 이상 미청소</span>
+                <span class="opt-chip" style="background:#aaa;color:white;">작년 청소</span>
+                <span class="opt-chip" style="background:#b0bec5;color:white;">최근 청소</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ aircon(에어컨 미생물)</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q3</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">3</div>
+              <div class="q-text fw700">가족 구성</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-safe);color:white;">영유아</span>
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">고령자</span>
+                <span class="opt-chip" style="background:var(--c-deodorize);color:white;">반려동물</span>
+              </div>
+              <div style="font-size:9px;color:#888;margin-top:5px;">→ sensitive/bacteria/deodorize</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">Q4</div>
+            <div class="node node-question" style="max-width:190px;">
+              <div class="q-num">4</div>
+              <div class="q-text fw700">특별 위험 요소</div>
+              <div class="q-opts mt8">
+                <span class="opt-chip" style="background:var(--c-pest);color:white;">해충 목격</span>
+                <span class="opt-chip" style="background:var(--c-drain);color:white;">배수구 문제</span>
+                <span class="opt-chip" style="background:var(--c-bacteria);color:white;">잦은 감기</span>
+                <span class="opt-chip" style="background:var(--c-mold);color:white;">곰팡이</span>
+              </div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">최고점 차원</div>
+            <div class="dim-group">
+              <div class="node-dim" style="background:var(--c-aircon);">❄ aircon (에어컨)</div>
+              <div class="node-dim" style="background:var(--c-pest);">🦟 pest (해충)</div>
+              <div class="node-dim" style="background:var(--c-bacteria);">🦠 bacteria (세균)</div>
+              <div class="node-dim" style="background:var(--c-mold);">🍄 mold (곰팡이)</div>
+              <div class="node-dim" style="background:var(--c-general);">🏠 general (범용)</div>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+
+          <div class="flow-stage">
+            <div class="stage-label">추천 결과</div>
+            <div class="rec-group">
+              <div class="node-product">
+                <div class="rec-label">📦 추천 제품</div>
+                <div><span class="rec-dim-tag" style="background:var(--c-aircon);">aircon</span><div class="prod-name">다용도살균클리닝티슈<br>곡물발효살균소독제</div></div>
+              </div>
+              <div class="node-diagnosis">
+                <div class="rec-label">🔬 전문가 진단</div>
+                <div class="diag-name">aircon → 에어컨 내부 미생물 오염도 진단<br>실내 공기질&amp;라돈 진단</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== 전체 구조 ====================== -->
+    <div class="panel" id="panel-overview">
+      <div class="cat-header">
+        <div class="cat-icon">🗺</div>
+        <div>
+          <div class="cat-title">전체 구조 — 셀프진단 흐름</div>
+          <div class="cat-desc">Step 1 입력 → Step 2 진단 → Step 3 출력 전체 흐름</div>
+        </div>
+      </div>
+
+      <!-- 3단계 개요 -->
+      <div class="overview-grid">
+        <div class="ov-stage">
+          <div class="ov-stage-title"><span class="step-badge">1</span>입력 단계</div>
+          <div class="ov-item gray">📦 제품 카테고리 선택 (8종)</div>
+          <div class="ov-item gray" style="margin-top:6px;">
+            <div style="width:100%;">
+              <div style="font-size:10px;font-weight:700;color:#555;margin-bottom:6px;">8가지 카테고리</div>
+              <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                <span style="background:#003087;color:white;padding:3px 8px;border-radius:8px;font-size:10px;">🍳 주방 위생</span>
+                <span style="background:#1a7a45;color:white;padding:3px 8px;border-radius:8px;font-size:10px;">🚿 청소·욕실</span>
+                <span style="background:#e84040;color:white;padding:3px 8px;border-radius:8px;font-size:10px;">🦟 해충퇴치</span>
+                <span style="background:#22b573;color:white;padding:3px 8px;border-radius:8px;font-size:10px;">🧴 개인위생</span>
+                <span style="background:#2bc5b4;color:white;padding:3px 8px;border-radius:8px;font-size:10px;">🧼 살균·소독</span>
+                <span style="background:#e86d9a;color:white;padding:3px 8px;border-radius:8px;font-size:10px;">🐾 반려동물</span>
+                <span style="background:#7a7a7a;color:white;padding:3px 8px;border-radius:8px;font-size:10px;">👕 세탁·섬유</span>
+                <span style="background:#888;color:white;padding:3px 8px;border-radius:8px;font-size:10px;">🏠 기타</span>
+              </div>
+            </div>
+          </div>
+          <div class="ov-item gray" style="margin-top:6px;">🏠 공간 유형 선택</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;padding:0 8px;margin-bottom:4px;">
+            <span style="background:#f2f4f8;border:1px solid #ccc;padding:2px 7px;border-radius:8px;font-size:10px;">가정집</span>
+            <span style="background:#f2f4f8;border:1px solid #ccc;padding:2px 7px;border-radius:8px;font-size:10px;">요식업</span>
+            <span style="background:#f2f4f8;border:1px solid #ccc;padding:2px 7px;border-radius:8px;font-size:10px;">일반사업체</span>
+          </div>
+          <div class="ov-item gray">🛒 구매 채널 선택</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;padding:0 8px;">
+            <span style="background:#f2f4f8;border:1px solid #ccc;padding:2px 7px;border-radius:8px;font-size:10px;">쿠팡</span>
+            <span style="background:#f2f4f8;border:1px solid #ccc;padding:2px 7px;border-radius:8px;font-size:10px;">스마트스토어</span>
+            <span style="background:#f2f4f8;border:1px solid #ccc;padding:2px 7px;border-radius:8px;font-size:10px;">기타</span>
+          </div>
+        </div>
+        <div class="ov-arrow">→</div>
+
+        <div class="ov-stage">
+          <div class="ov-stage-title"><span class="step-badge">2</span>진단 단계</div>
+          <div class="ov-item navy">📋 카테고리별 4문항</div>
+          <div style="padding:4px 8px;font-size:10px;color:#555;line-height:1.8;">
+            • 한 문항씩 순차 표시<br>
+            • 선택 시 자동 다음 진행<br>
+            • 선택지별 점수(scores) 누적<br>
+            • 최고 점수 차원 결정<br>
+            • 복수 응답 합산 처리
+          </div>
+          <div style="margin-top:8px;padding:8px;background:#e8eef8;border-radius:8px;">
+            <div style="font-size:10px;font-weight:700;color:#003087;margin-bottom:6px;">차원(Dimension) 예시</div>
+            <div style="display:flex;flex-wrap:wrap;gap:3px;">
+              <span class="opt-chip" style="background:var(--c-grease);color:white;">grease</span>
+              <span class="opt-chip" style="background:var(--c-drain);color:white;">drain</span>
+              <span class="opt-chip" style="background:var(--c-pest);color:white;">pest</span>
+              <span class="opt-chip" style="background:var(--c-bacteria);color:white;">bacteria</span>
+              <span class="opt-chip" style="background:var(--c-mold);color:white;">mold</span>
+              <span class="opt-chip" style="background:var(--c-safe);color:white;">safe</span>
+              <span class="opt-chip" style="background:var(--c-air);color:white;">air</span>
+              <span class="opt-chip" style="background:var(--c-aircon);color:white;">aircon</span>
+            </div>
+          </div>
+          <div style="margin-top:8px;padding:8px;background:#e8eef8;border-radius:8px;">
+            <div style="font-size:10px;font-weight:700;color:#003087;margin-bottom:4px;">위험도 등급 산정</div>
+            <table class="score-table" style="font-size:10px;">
+              <thead><tr><th>점수</th><th>등급</th></tr></thead>
+              <tbody>
+                <tr><td>0~2점</td><td class="grade-good">양호</td></tr>
+                <tr><td>3~5점</td><td class="grade-warn">주의</td></tr>
+                <tr><td>6~9점</td><td class="grade-danger">위험</td></tr>
+                <tr><td>10점+</td><td class="grade-urgent">시급</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="ov-arrow">→</div>
+
+        <div class="ov-stage">
+          <div class="ov-stage-title"><span class="step-badge">3</span>출력 단계</div>
+          <div class="ov-item green">🏆 위험도 등급 표시</div>
+          <div class="ov-item navy" style="margin-top:6px;">📦 추천 마이랩 제품 2종</div>
+          <div style="padding:4px 8px 8px;font-size:10px;color:#555;">
+            → 100원 쿠폰 받기 버튼<br>
+            → 로그인 모달 연동
+          </div>
+          <div class="ov-item green">🔬 추천 전문가 진단 2종</div>
+          <div style="padding:4px 8px 8px;font-size:10px;color:#555;">
+            → 무료 진단 신청 폼 연동<br>
+            → 10종 진단 풀 카탈로그
+          </div>
+          <div style="margin-top:8px;padding:8px;background:#e8f5ee;border-radius:8px;font-size:10px;">
+            <span style="font-weight:700;color:#1a7a45;">진단 신청 전환 포인트</span><br>
+            위험도 "위험/시급" 등급 사용자에게<br>긴급 배너 + 무료진단 CTA 강조 노출
+          </div>
+        </div>
+      </div>
+
+      <!-- 카테고리-차원-진단 연결 매트릭스 -->
+      <div style="margin-top:24px;">
+        <div style="font-size:14px;font-weight:800;color:var(--navy);margin-bottom:12px;">카테고리 × 전문가 진단 연결 매트릭스</div>
+        <div style="overflow-x:auto;">
+          <table style="border-collapse:collapse;font-size:10px;width:100%;min-width:780px;">
+            <thead>
+              <tr style="background:var(--navy);color:white;">
+                <th style="padding:8px 10px;text-align:left;min-width:90px;">카테고리</th>
+                <th style="padding:8px 6px;text-align:center;">해충발생<br>환경</th>
+                <th style="padding:8px 6px;text-align:center;">침구<br>매트리스</th>
+                <th style="padding:8px 6px;text-align:center;">표면<br>세균</th>
+                <th style="padding:8px 6px;text-align:center;">공기질<br>라돈</th>
+                <th style="padding:8px 6px;text-align:center;">배수구<br>오염</th>
+                <th style="padding:8px 6px;text-align:center;">곰팡이<br>습기</th>
+                <th style="padding:8px 6px;text-align:center;">후드<br>덕트</th>
+                <th style="padding:8px 6px;text-align:center;">에어컨<br>미생물</th>
+                <th style="padding:8px 6px;text-align:center;">비래해충<br>유입</th>
+                <th style="padding:8px 6px;text-align:center;">악취원인<br>분석</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:white;">
+                <td style="padding:7px 10px;font-weight:700;color:#003087;">🍳 주방위생</td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;"></td>
+              </tr>
+              <tr style="background:#f8f9fb;">
+                <td style="padding:7px 10px;font-weight:700;color:#003087;">🚿 청소욕실</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#f0f8f0;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#f0f8f0;">●</td>
+                <td style="text-align:center;background:#f0f8f0;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+              </tr>
+              <tr style="background:white;">
+                <td style="padding:7px 10px;font-weight:700;color:#003087;">🦟 해충퇴치</td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;"></td>
+              </tr>
+              <tr style="background:#f8f9fb;">
+                <td style="padding:7px 10px;font-weight:700;color:#003087;">🧴 개인위생</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#f0f8f0;">●</td>
+                <td style="text-align:center;background:#f0f8f0;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+              </tr>
+              <tr style="background:white;">
+                <td style="padding:7px 10px;font-weight:700;color:#003087;">🧼 살균소독</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+              </tr>
+              <tr style="background:#f8f9fb;">
+                <td style="padding:7px 10px;font-weight:700;color:#003087;">🐾 반려동물</td>
+                <td style="text-align:center;background:#f0f8f0;">●</td>
+                <td style="text-align:center;background:#f0f8f0;">●</td>
+                <td style="text-align:center;background:#f0f8f0;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#f0f8f0;">●</td>
+                <td style="text-align:center;background:#f0f8f0;">●</td>
+              </tr>
+              <tr style="background:white;">
+                <td style="padding:7px 10px;font-weight:700;color:#003087;">👕 세탁섬유</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#fff5f5;">●</td>
+              </tr>
+              <tr style="background:#f8f9fb;">
+                <td style="padding:7px 10px;font-weight:700;color:#003087;">🏠 기타</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#f0f8f0;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;background:#f0f8f0;">●</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:8px;font-size:10px;color:#888;">● = 해당 카테고리에서 추천 연계되는 진단</div>
+      </div>
+    </div>
+
+    <!-- ====================== 진단 10종 ====================== -->
+    <div class="panel" id="panel-diagcatalog">
+      <div class="cat-header">
+        <div class="cat-icon">🔬</div>
+        <div>
+          <div class="cat-title">전문가 진단 10종 카탈로그</div>
+          <div class="cat-desc">세스코 마이랩 제공 — 셀프진단 결과에 따라 2종 자동 추천</div>
+        </div>
+      </div>
+      <div class="diag-grid">
+        <div class="diag-card">
+          <div class="diag-icon">🔬</div>
+          <div class="diag-name">해충 발생 환경 정밀 진단</div>
+          <div class="diag-cats">
+            <span class="diag-cat-chip">해충퇴치</span>
+            <span class="diag-cat-chip">반려동물</span>
+            <span class="diag-cat-chip">주방위생</span>
+          </div>
+        </div>
+        <div class="diag-card">
+          <div class="diag-icon">🛏</div>
+          <div class="diag-name">침구·매트리스 오염 진단</div>
+          <div class="diag-cats">
+            <span class="diag-cat-chip">반려동물</span>
+            <span class="diag-cat-chip">세탁·섬유케어</span>
+          </div>
+        </div>
+        <div class="diag-card">
+          <div class="diag-icon">🦠</div>
+          <div class="diag-name">표면 세균 오염 정밀 진단</div>
+          <div class="diag-cats">
+            <span class="diag-cat-chip">주방위생</span>
+            <span class="diag-cat-chip">청소·욕실</span>
+            <span class="diag-cat-chip">개인위생</span>
+            <span class="diag-cat-chip">살균·소독</span>
+            <span class="diag-cat-chip">반려동물</span>
+            <span class="diag-cat-chip">세탁·섬유케어</span>
+          </div>
+        </div>
+        <div class="diag-card">
+          <div class="diag-icon">💨</div>
+          <div class="diag-name">실내 공기질 &amp; 라돈 진단</div>
+          <div class="diag-cats">
+            <span class="diag-cat-chip">개인위생</span>
+            <span class="diag-cat-chip">살균·소독</span>
+            <span class="diag-cat-chip">기타</span>
+          </div>
+        </div>
+        <div class="diag-card">
+          <div class="diag-icon">🔧</div>
+          <div class="diag-name">배수구 오염도 정밀진단</div>
+          <div class="diag-cats">
+            <span class="diag-cat-chip">주방위생</span>
+            <span class="diag-cat-chip">청소·욕실</span>
+            <span class="diag-cat-chip">해충퇴치</span>
+            <span class="diag-cat-chip">살균·소독</span>
+          </div>
+        </div>
+        <div class="diag-card">
+          <div class="diag-icon">🌫</div>
+          <div class="diag-name">곰팡이 &amp; 습기 리스크 진단</div>
+          <div class="diag-cats">
+            <span class="diag-cat-chip">청소·욕실</span>
+            <span class="diag-cat-chip">세탁·섬유케어</span>
+          </div>
+        </div>
+        <div class="diag-card">
+          <div class="diag-icon">🍳</div>
+          <div class="diag-name">후드·덕트 기름때 오염 진단</div>
+          <div class="diag-cats">
+            <span class="diag-cat-chip">주방위생</span>
+          </div>
+        </div>
+        <div class="diag-card">
+          <div class="diag-icon">❄️</div>
+          <div class="diag-name">에어컨 내부 미생물 오염도 진단</div>
+          <div class="diag-cats">
+            <span class="diag-cat-chip">기타</span>
+          </div>
+        </div>
+        <div class="diag-card">
+          <div class="diag-icon">🦟</div>
+          <div class="diag-name">비래해충 유입 리스크 예측 진단</div>
+          <div class="diag-cats">
+            <span class="diag-cat-chip">주방위생</span>
+            <span class="diag-cat-chip">해충퇴치</span>
+            <span class="diag-cat-chip">반려동물</span>
+          </div>
+        </div>
+        <div class="diag-card">
+          <div class="diag-icon">👃</div>
+          <div class="diag-name">실내 악취원인 정밀 분석</div>
+          <div class="diag-cats">
+            <span class="diag-cat-chip">반려동물</span>
+            <span class="diag-cat-chip">세탁·섬유케어</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 범례 -->
+      <div style="margin-top:28px;background:white;border-radius:12px;padding:16px;border:1px solid var(--gray-border);">
+        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:12px;">차원(Dimension) 색상 범례</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="opt-chip" style="background:var(--c-grease);color:white;">🔥 grease — 기름때</span>
+          <span class="opt-chip" style="background:var(--c-drain);color:white;">💧 drain — 배수구</span>
+          <span class="opt-chip" style="background:var(--c-pest);color:white;">🦟 pest — 초파리/해충</span>
+          <span class="opt-chip" style="background:var(--c-bacteria);color:white;">🦠 bacteria — 세균</span>
+          <span class="opt-chip" style="background:var(--c-hood);color:white;">💨 hood — 후드오염</span>
+          <span class="opt-chip" style="background:var(--c-mold);color:white;">🍄 mold — 곰팡이</span>
+          <span class="opt-chip" style="background:var(--c-limescale);color:#333;">🪨 limescale — 물때</span>
+          <span class="opt-chip" style="background:var(--c-moisture);color:white;">💦 moisture — 습기</span>
+          <span class="opt-chip" style="background:var(--c-mosquito);color:white;">🦟 mosquito — 모기</span>
+          <span class="opt-chip" style="background:var(--c-fruitfly);color:white;">🪰 fruitfly — 초파리</span>
+          <span class="opt-chip" style="background:var(--c-ant);color:white;">🐜 ant — 개미</span>
+          <span class="opt-chip" style="background:var(--c-roach);color:white;">🪳 roach — 바퀴</span>
+          <span class="opt-chip" style="background:var(--c-antibac);color:white;">🧪 antibac — 항균</span>
+          <span class="opt-chip" style="background:var(--c-safe);color:white;">🛡 safe — 안전성분</span>
+          <span class="opt-chip" style="background:var(--c-air);color:white;">💨 air — 공기질</span>
+          <span class="opt-chip" style="background:var(--c-deodorize);color:white;">💜 deodorize — 탈취</span>
+          <span class="opt-chip" style="background:var(--c-fabric);color:white;">🪮 fabric — 섬유</span>
+          <span class="opt-chip" style="background:var(--c-bedding);color:white;">🛏 bedding — 침구</span>
+          <span class="opt-chip" style="background:var(--c-smell);color:white;">👃 smell — 냄새</span>
+          <span class="opt-chip" style="background:var(--c-drum);color:white;">🥁 drum — 세탁기</span>
+          <span class="opt-chip" style="background:var(--c-aircon);color:white;">❄ aircon — 에어컨</span>
+          <span class="opt-chip" style="background:var(--c-professional);color:white;">🏭 professional — 요식업</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  function showTab(id) {
+    // 모든 패널 숨기기
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    // 모든 탭 버튼 비활성화
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+    // 대상 패널 활성화
+    const panel = document.getElementById('panel-' + id);
+    if (panel) panel.classList.add('active');
+
+    // 클릭된 버튼 활성화
+    event.currentTarget.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
