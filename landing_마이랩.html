@@ -23,19 +23,20 @@
     }
 
     /* STEP BAR */
-    .step-bar { display: flex; align-items: center; justify-content: center; padding: 16px 24px 0; }
+    .step-bar { display: flex; align-items: center; justify-content: center; padding: 16px 16px 0; background: #fdf8f4; position: sticky; top: 0; z-index: 10; }
     .step-item { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
     .step-circle {
-      width: 28px; height: 28px; border-radius: 50%;
+      width: 26px; height: 26px; border-radius: 50%;
       background: #e0d5cc; color: #888;
-      font-size: 12px; font-weight: 700;
+      font-size: 11px; font-weight: 700;
       display: flex; align-items: center; justify-content: center;
     }
     .step-circle.active { background: var(--orange); color: #fff; }
     .step-circle.done { background: #1a8a4a; color: #fff; }
-    .step-text { font-size: 10px; color: #999; font-weight: 600; }
+    .step-text { font-size: 9px; color: #999; font-weight: 600; white-space: nowrap; }
     .step-text.active { color: var(--orange); }
-    .step-line { height: 2px; flex: 0.8; background: #e0d5cc; margin-bottom: 16px; }
+    .step-text.done { color: #1a8a4a; }
+    .step-line { height: 2px; flex: 0.6; background: #e0d5cc; margin-bottom: 14px; }
     .step-line.done { background: #1a8a4a; }
 
     /* HERO */
@@ -75,11 +76,54 @@
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
 
+    /* 제품 카테고리 선택 */
+    .cat-intro {
+      background: var(--orange-light); border-radius: 10px;
+      padding: 12px 14px; margin-bottom: 18px;
+      font-size: 13px; color: var(--orange-dark); line-height: 1.6;
+    }
+    .cat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .cat-btn {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; padding: 18px 10px;
+      background: #fffaf6;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      cursor: pointer; text-align: center;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .cat-btn:active, .cat-btn:hover { background: var(--orange-light); border-color: var(--orange); }
+    .cat-btn .cat-icon { font-size: 28px; line-height: 1; }
+    .cat-btn .cat-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .cat-btn .cat-sub { font-size: 10px; color: var(--sub); line-height: 1.4; }
+    .cat-btn-full {
+      width: 100%; display: flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 14px;
+      background: #fafafa; border: 1.5px solid #ddd;
+      border-radius: 14px; cursor: pointer;
+      font-family: inherit; font-size: 13px; font-weight: 700; color: #888;
+      margin-bottom: 0;
+    }
+    .cat-btn-full:active, .cat-btn-full:hover { background: #f0f0f0; }
+
     /* 체크리스트 */
     .check-intro {
       background: var(--orange-light); border-radius: 10px;
       padding: 12px 14px; margin-bottom: 16px;
       font-size: 13px; color: var(--orange-dark); line-height: 1.6;
+    }
+    .check-intro .selected-badge {
+      display: inline-block;
+      background: var(--orange); color: #fff;
+      font-size: 11px; font-weight: 700;
+      padding: 2px 10px; border-radius: 20px;
+      margin-left: 6px;
     }
     .check-item {
       display: flex; align-items: flex-start; gap: 12px;
@@ -94,12 +138,10 @@
       width: 100%; padding: 15px; background: var(--orange);
       color: #fff; border: none; border-radius: 12px;
       font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px;
+      font-family: inherit;
     }
 
     /* 결과 */
-    .result-section { display: none; }
-
-    /* 판정 헤더 */
     .verdict-wrap {
       border-radius: 14px; padding: 22px 20px 18px;
       text-align: center; margin-bottom: 14px;
@@ -114,7 +156,6 @@
     .verdict-fill { height: 100%; border-radius: 4px; background: #fff; transition: width 0.9s ease; }
     .verdict-msg { font-size: 13px; color: rgba(255,255,255,0.92); line-height: 1.65; }
 
-    /* 항목별 진단 분석 */
     .q-analysis-title {
       font-size: 13px; font-weight: 700; color: var(--text);
       margin: 16px 0 10px; display: flex; align-items: center; gap: 6px;
@@ -135,7 +176,6 @@
     }
     .qa-comment { font-size: 12px; color: #444; line-height: 1.7; }
 
-    /* 카테고리 요약 */
     .risk-breakdown { margin-bottom: 16px; border-top: 1px solid #f5ede5; padding-top: 12px; }
     .risk-row {
       display: flex; justify-content: space-between; align-items: center;
@@ -160,16 +200,29 @@
       width: 100%; padding: 13px 14px;
       border: 1.5px solid var(--border); border-radius: 10px;
       font-size: 14px; color: var(--text); background: #fdfaf7;
-      outline: none; appearance: none;
+      outline: none; appearance: none; -webkit-appearance: none;
+      font-family: inherit;
     }
     .form-control:focus { border-color: var(--orange); background: #fff; }
+    select.form-control {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+    }
     .form-row { display: flex; gap: 10px; }
     .form-row .form-group { flex: 1; }
+
+    .selected-product-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--orange-light); border: 1.5px solid var(--border);
+      border-radius: 20px; padding: 5px 12px;
+      font-size: 12px; font-weight: 700; color: var(--orange-dark);
+      margin-bottom: 14px;
+    }
 
     .submit-btn {
       width: 100%; padding: 16px; background: var(--orange);
       color: #fff; border: none; border-radius: 12px;
-      font-size: 15px; font-weight: 800; cursor: pointer;
+      font-size: 15px; font-weight: 800; cursor: pointer; font-family: inherit;
     }
 
     /* 완료 */
@@ -210,36 +263,94 @@
 </head>
 <body>
 
-  <div class="step-bar">
+  <!-- 스텝 바 (4단계) -->
+  <div class="step-bar" id="stepBar">
     <div class="step-item">
       <div class="step-circle active" id="s1">1</div>
-      <div class="step-text active">위생 체크</div>
+      <div class="step-text active" id="st1">제품 선택</div>
     </div>
     <div class="step-line" id="line1"></div>
     <div class="step-item">
       <div class="step-circle" id="s2">2</div>
-      <div class="step-text" id="st2">진단 신청</div>
+      <div class="step-text" id="st2">위생 체크</div>
     </div>
     <div class="step-line" id="line2"></div>
     <div class="step-item">
       <div class="step-circle" id="s3">3</div>
-      <div class="step-text" id="st3">신청 완료</div>
+      <div class="step-text" id="st3">진단 신청</div>
+    </div>
+    <div class="step-line" id="line3"></div>
+    <div class="step-item">
+      <div class="step-circle" id="s4">4</div>
+      <div class="step-text" id="st4">완료</div>
     </div>
   </div>
 
+  <!-- HERO -->
   <div class="hero">
     <div class="logo">CESCO</div>
     <div class="icon-wrap">🔍</div>
     <h1>혹시 우리 집에<br /><em>보이지 않는 불청객</em>이<br />있진 않을까요?</h1>
-    <p>세스코 전문가의 무료 위생 진단으로<br />정확하게 확인해드립니다.</p>
+    <p>구매하신 제품을 선택하면<br />맞춤 위생 진단을 무료로 해드립니다.</p>
   </div>
 
   <div style="height:40px"></div>
 
-  <!-- STEP 1: 체크리스트 -->
+  <!-- ───── STEP 1: 제품 선택 ───── -->
   <div class="card" id="step1Card">
-    <div class="card-title"><span class="num">1</span>우리 집 위생 체크리스트</div>
-    <div class="check-intro">해당하는 항목을 모두 체크해주세요. 위험도를 분석해드립니다.</div>
+    <div class="card-title"><span class="num">1</span>어떤 마이랩 제품을 구매하셨나요?</div>
+    <div class="cat-intro">구매하신 제품 카테고리를 선택해주세요.<br />제품에 맞는 맞춤 위생 체크리스트를 보여드립니다.</div>
+
+    <div class="cat-grid">
+      <button class="cat-btn" onclick="selectCategory('주방 위생', '주방세제 프리미엄')">
+        <span class="cat-icon">🍽</span>
+        <span class="cat-name">주방 위생</span>
+        <span class="cat-sub">주방세제·기름때세정제<br />배수관세정제 등</span>
+      </button>
+      <button class="cat-btn" onclick="selectCategory('청소·욕실', '다목적 욕실세정제')">
+        <span class="cat-icon">🧹</span>
+        <span class="cat-name">청소·욕실</span>
+        <span class="cat-sub">욕실세정제·곰팡이제거제<br />배수구클리너 등</span>
+      </button>
+      <button class="cat-btn" onclick="selectCategory('개인위생', '핸드워시 폼')">
+        <span class="cat-icon">🧴</span>
+        <span class="cat-name">개인위생</span>
+        <span class="cat-sub">핸드워시·손소독제<br />폼샴푸 등</span>
+      </button>
+      <button class="cat-btn" onclick="selectCategory('살균·소독', '곡물발효 살균소독제')">
+        <span class="cat-icon">🦠</span>
+        <span class="cat-name">살균·소독</span>
+        <span class="cat-sub">살균소독제<br />다용도 살균티슈 등</span>
+      </button>
+      <button class="cat-btn" onclick="selectCategory('해충퇴치', '모기 에어로솔')">
+        <span class="cat-icon">🐛</span>
+        <span class="cat-name">해충퇴치</span>
+        <span class="cat-sub">모기·초파리 제품<br />야외미스트 등</span>
+      </button>
+      <button class="cat-btn" onclick="selectCategory('반려동물', '반려동물 탈취제')">
+        <span class="cat-icon">🐾</span>
+        <span class="cat-name">반려동물</span>
+        <span class="cat-sub">탈취제 등<br />반려동물 전용</span>
+      </button>
+    </div>
+    <button class="cat-btn-full" onclick="selectCategory('세탁·섬유케어', '세탁세제')">
+      <span style="font-size:20px">👕</span>
+      <span>세탁·섬유케어 (세탁세제, 섬유유연제, 습기제거제 등)</span>
+    </button>
+    <div style="height:12px"></div>
+    <button class="cat-btn-full" onclick="selectCategory('기타', '기타')">
+      <span style="font-size:18px">📦</span>
+      <span>기타 / 모르겠어요</span>
+    </button>
+  </div>
+
+  <!-- ───── STEP 2: 위생 체크리스트 ───── -->
+  <div class="card" id="step2Card" style="display:none">
+    <div class="card-title"><span class="num">2</span>우리 집 위생 체크리스트</div>
+    <div class="check-intro">
+      해당하는 항목을 모두 체크해주세요. 위험도를 분석해드립니다.<br />
+      <span id="selectedCatBadge" style="display:none">선택 제품: <span class="selected-badge" id="catBadgeText"></span></span>
+    </div>
 
     <div id="checklist">
       <div class="check-item"><input type="checkbox" class="ck" /><label class="ck-label">주방 싱크대 주변에 작은 벌레가 보인 적 있다<small>초파리·바퀴 등 해충 위험</small></label></div>
@@ -253,9 +364,9 @@
     <button class="calc-btn" onclick="calcRisk()">위험도 분석하기 →</button>
   </div>
 
-  <!-- STEP 1-2: 결과 + 신청 폼 -->
-  <div class="card" id="step2Card" style="display:none">
-    <div class="card-title"><span class="num">2</span>위생 위험도 분석 결과</div>
+  <!-- ───── STEP 3: 결과 + 신청 폼 ───── -->
+  <div class="card" id="step3Card" style="display:none">
+    <div class="card-title"><span class="num">3</span>위생 위험도 분석 결과</div>
 
     <div class="verdict-wrap">
       <div class="verdict-label">셀프 진단 결과</div>
@@ -265,7 +376,6 @@
     </div>
 
     <div id="qAnalysis"></div>
-
     <div class="risk-breakdown" id="riskBreakdown"></div>
 
     <div class="card-title" style="margin-top:4px"><span class="num">✓</span>무료 위생 진단 신청</div>
@@ -298,6 +408,7 @@
 
     <div class="form-group">
       <label class="form-label">구매하신 마이랩 제품</label>
+      <div id="selectedProductTag" style="display:none; margin-bottom:8px;"></div>
       <select class="form-control" id="fProduct">
         <option value="">선택해주세요</option>
         <optgroup label="주방">
@@ -310,7 +421,7 @@
           <option>마스터 기름때세정제 파우더</option>
           <option>마스터 키친 핸드워시 폼</option>
         </optgroup>
-        <optgroup label="청소">
+        <optgroup label="청소·욕실">
           <option>다목적 욕실세정제</option>
           <option>곰팡이제거제</option>
           <option>배수구클리너</option>
@@ -358,8 +469,8 @@
     <button class="submit-btn" onclick="submitForm()">무료 진단 신청 완료</button>
   </div>
 
-  <!-- STEP 3: 완료 -->
-  <div id="step3Section" class="complete-section">
+  <!-- ───── STEP 4: 완료 ───── -->
+  <div id="step4Section" class="complete-section">
     <div class="complete-icon">🔬</div>
     <h2>진단 신청이 완료됐습니다!</h2>
     <p>세스코 전문가가 방문해 위생 상태를 정확히<br />진단하고 맞춤 솔루션을 제안해드립니다.</p>
@@ -399,10 +510,43 @@
   <footer>세스코(주) · 고객센터 1588-1119<br />월~금 08:30~18:00 / 토 09:00~13:00<br />www.cesco.co.kr</footer>
 
   <script>
-    const categories = ['해충 위험', '곰팡이·세균', '기기 위생', '취약 환경'];
-    const catMap = [0, 1, 0, 2, 3, 3];
+    let selectedCategory = '';
+    let selectedProduct = '';
 
-    // 체크 항목별 진단 코멘트
+    function setStep(step) {
+      const ids = ['s1','s2','s3','s4'];
+      const tids = ['st1','st2','st3','st4'];
+      const lids = ['line1','line2','line3'];
+      ids.forEach((id, i) => {
+        const el = document.getElementById(id);
+        const t = document.getElementById(tids[i]);
+        if (i + 1 < step) { el.className = 'step-circle done'; t.className = 'step-text done'; }
+        else if (i + 1 === step) { el.className = 'step-circle active'; t.className = 'step-text active'; }
+        else { el.className = 'step-circle'; t.className = 'step-text'; }
+      });
+      lids.forEach((id, i) => {
+        document.getElementById(id).className = i + 1 < step ? 'step-line done' : 'step-line';
+      });
+    }
+
+    function selectCategory(cat, defaultProduct) {
+      selectedCategory = cat;
+      selectedProduct = defaultProduct;
+
+      // 뱃지 표시
+      if (cat !== '기타' && cat !== '기타') {
+        document.getElementById('selectedCatBadge').style.display = 'inline';
+        document.getElementById('catBadgeText').textContent = cat;
+      }
+
+      // step1 → step2
+      document.getElementById('step1Card').style.display = 'none';
+      document.getElementById('step2Card').style.display = 'block';
+      setStep(2);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const catMap = [0, 1, 0, 2, 3, 3];
     const qData = [
       {
         q: "주방 싱크대 주변 벌레 발견",
@@ -438,8 +582,7 @@
 
     function calcRisk() {
       const checks = document.querySelectorAll('.ck');
-      const checked = Array.from(checks).filter(c => c.checked);
-      const count = checked.length;
+      const count = Array.from(checks).filter(c => c.checked).length;
 
       let level, desc, pct;
       if (count === 0) {
@@ -464,9 +607,7 @@
           analysisItems.push(`
             <div class="q-analysis-item">
               <div class="qa-header">
-                <span>${d.icon}</span>
-                <span>${d.q}</span>
-                <span class="qa-badge">${d.category}</span>
+                <span>${d.icon}</span><span>${d.q}</span><span class="qa-badge">${d.category}</span>
               </div>
               <div class="qa-comment">${d.comment}</div>
             </div>
@@ -494,12 +635,24 @@
       });
       document.getElementById('riskBreakdown').innerHTML = html;
 
-      document.getElementById('step1Card').style.display = 'none';
-      document.getElementById('step2Card').style.display = 'block';
-      document.getElementById('s1').className = 'step-circle done';
-      document.getElementById('line1').className = 'step-line done';
-      document.getElementById('s2').className = 'step-circle active';
-      document.getElementById('st2').className = 'step-text active';
+      // 제품 태그 표시 + select 프리필
+      if (selectedCategory && selectedCategory !== '기타') {
+        document.getElementById('selectedProductTag').style.display = 'block';
+        document.getElementById('selectedProductTag').innerHTML = `<span class="selected-product-tag">🧪 선택 카테고리: ${selectedCategory}</span>`;
+        // fProduct 프리필
+        const sel = document.getElementById('fProduct');
+        for (let i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].text === selectedProduct) {
+            sel.selectedIndex = i;
+            break;
+          }
+        }
+      }
+
+      // step2 → step3
+      document.getElementById('step2Card').style.display = 'none';
+      document.getElementById('step3Card').style.display = 'block';
+      setStep(3);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -510,12 +663,9 @@
       const product = document.getElementById('fProduct').value;
       const source = document.getElementById('fSource').value;
       if (!name || !phone || !type || !product || !source) { alert('모든 항목을 입력해주세요.'); return; }
-      document.getElementById('step2Card').style.display = 'none';
-      document.getElementById('step3Section').style.display = 'block';
-      document.getElementById('s2').className = 'step-circle done';
-      document.getElementById('line2').className = 'step-line done';
-      document.getElementById('s3').className = 'step-circle active';
-      document.getElementById('st3').className = 'step-text active';
+      document.getElementById('step3Card').style.display = 'none';
+      document.getElementById('step4Section').style.display = 'block';
+      setStep(4);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>

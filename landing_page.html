@@ -6,609 +6,225 @@
   <title>세스코 정품 등록 — 필터 50% 할인 쿠폰 받기</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
-      --navy: #003087;
-      --blue: #0055cc;
-      --light-blue: #e8f0fe;
-      --text: #1a1a2e;
-      --sub: #555;
-      --border: #dce6f5;
-      --green: #1a8a4a;
+      --navy: #003087; --blue: #0055cc; --light-blue: #e8f0fe;
+      --text: #1a1a2e; --sub: #555; --border: #dce6f5; --green: #1a8a4a;
     }
+    body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f5f7fb; color: var(--text); max-width: 480px; margin: 0 auto; }
 
-    body {
-      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-      background: #f5f7fb;
-      color: var(--text);
-      max-width: 480px;
-      margin: 0 auto;
-    }
-
-    /* ─── STEP BAR ─── */
-    .step-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px 24px 0;
-      background: #f5f7fb;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    .step-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      flex: 1;
-    }
-    .step-circle {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: #d0daf0;
-      color: #888;
-      font-size: 12px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .step-circle.active {
-      background: var(--navy);
-      color: #fff;
-    }
-    .step-circle.done {
-      background: var(--green);
-      color: #fff;
-    }
-    .step-text {
-      font-size: 10px;
-      color: #999;
-      font-weight: 600;
-      white-space: nowrap;
-    }
+    /* STEP BAR */
+    .step-bar { display: flex; align-items: center; justify-content: center; padding: 16px 16px 0; background: #f5f7fb; position: sticky; top: 0; z-index: 10; }
+    .step-item { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+    .step-circle { width: 26px; height: 26px; border-radius: 50%; background: #d0daf0; color: #888; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .step-circle.active { background: var(--navy); color: #fff; }
+    .step-circle.done { background: var(--green); color: #fff; }
+    .step-text { font-size: 9px; color: #999; font-weight: 600; white-space: nowrap; }
     .step-text.active { color: var(--navy); }
     .step-text.done { color: var(--green); }
-    .step-line {
-      height: 2px;
-      flex: 0.8;
-      background: #d0daf0;
-      margin-bottom: 16px;
-    }
+    .step-line { height: 2px; flex: 0.6; background: #d0daf0; margin-bottom: 14px; }
     .step-line.done { background: var(--green); }
 
-    /* ─── HERO ─── */
-    .hero {
-      background: linear-gradient(145deg, var(--navy) 0%, #0050b3 100%);
-      padding: 32px 24px 52px;
-      text-align: center;
-      position: relative;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -24px; left: 0; right: 0;
-      height: 48px;
-      background: #f5f7fb;
-      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-    }
-    .hero .logo {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      color: rgba(255,255,255,0.55);
-      margin-bottom: 16px;
-    }
-    .hero .icon-wrap {
-      width: 64px; height: 64px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-      margin: 0 auto 16px;
-    }
-    .hero h1 {
-      font-size: 24px;
-      font-weight: 800;
-      color: #fff;
-      line-height: 1.35;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-    }
-    .hero h1 em {
-      color: #7ecbff;
-      font-style: normal;
-    }
-    .hero p {
-      font-size: 13px;
-      color: rgba(255,255,255,0.75);
-      line-height: 1.7;
-    }
+    /* HERO */
+    .hero { background: linear-gradient(145deg, var(--navy) 0%, #0050b3 100%); padding: 32px 24px 52px; text-align: center; position: relative; }
+    .hero::after { content: ''; position: absolute; bottom: -24px; left: 0; right: 0; height: 48px; background: #f5f7fb; border-radius: 50% 50% 0 0 / 100% 100% 0 0; }
+    .hero .logo { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: rgba(255,255,255,0.55); margin-bottom: 16px; }
+    .hero .icon-wrap { width: 64px; height: 64px; background: rgba(255,255,255,0.15); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 16px; }
+    .hero h1 { font-size: 23px; font-weight: 800; color: #fff; line-height: 1.35; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .hero h1 em { color: #7ecbff; font-style: normal; }
+    .hero p { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.7; }
 
-    /* ─── CARD ─── */
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 24px 20px;
-      margin: 0 16px 16px;
-      box-shadow: 0 2px 12px rgba(0,48,135,0.06);
-    }
-    .card-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .card-title .num {
-      width: 22px; height: 22px;
-      background: var(--navy);
-      color: #fff;
-      border-radius: 50%;
-      font-size: 11px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
+    /* CARD */
+    .card { background: #fff; border-radius: 16px; padding: 24px 20px; margin: 0 16px 16px; box-shadow: 0 2px 12px rgba(0,48,135,0.06); }
+    .card-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .card-title .num { width: 22px; height: 22px; background: var(--navy); color: #fff; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
-    /* ─── BENEFIT CARDS ─── */
-    .benefit-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .benefit-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      background: var(--light-blue);
-      border-radius: 12px;
-      padding: 14px 16px;
-      border-left: 3px solid var(--blue);
-    }
-    .benefit-item .b-emoji {
-      font-size: 20px;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .benefit-item .b-content strong {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 3px;
-    }
-    .benefit-item .b-content span {
-      font-size: 12px;
-      color: var(--sub);
-      line-height: 1.5;
-    }
+    /* 혜택 카드 */
+    .coupon-preview { border-radius: 14px; overflow: hidden; margin-bottom: 12px; border: 1.5px solid var(--border); }
+    .cp-top { background: linear-gradient(110deg, var(--navy), #0055cc); padding: 14px 18px; display: flex; align-items: center; gap: 12px; }
+    .cp-top .cp-icon { font-size: 28px; }
+    .cp-top .cp-info strong { display: block; font-size: 14px; font-weight: 800; color: #fff; line-height: 1.3; }
+    .cp-top .cp-info span { font-size: 11px; color: rgba(255,255,255,0.7); }
+    .cp-bottom { background: var(--light-blue); padding: 10px 18px; font-size: 12px; color: #334; display: flex; align-items: center; gap: 6px; }
+    .cp-bottom .dot { width: 4px; height: 4px; background: var(--blue); border-radius: 50%; flex-shrink: 0; }
 
-    /* ─── FORM ─── */
-    .form-group {
-      margin-bottom: 14px;
-    }
-    .form-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--sub);
-      margin-bottom: 6px;
-      display: block;
-    }
-    .form-label .required {
-      color: #cc0000;
-      font-weight: 700;
-      margin-left: 2px;
-    }
-    .form-control {
-      width: 100%;
-      padding: 13px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      font-size: 14px;
-      color: var(--text);
-      background: #fafbff;
-      outline: none;
-      appearance: none;
-      -webkit-appearance: none;
-    }
-    .form-control:focus {
-      border-color: var(--blue);
-      background: #fff;
-    }
-    select.form-control {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 36px;
-    }
+    .coupon-preview.orange { border-color: #f5c08a; }
+    .coupon-preview.orange .cp-top { background: linear-gradient(110deg, #7a3000, #d95f00); }
+    .coupon-preview.orange .cp-bottom { background: #fff8f0; }
+    .coupon-preview.orange .cp-bottom .dot { background: #d95f00; }
 
-    /* ─── TOGGLE / CHECKBOX ─── */
-    .check-group {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 14px;
-      background: #f8faff;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    .check-group input[type="checkbox"] {
-      width: 18px; height: 18px;
-      accent-color: var(--navy);
-      flex-shrink: 0;
-      margin-top: 1px;
-      cursor: pointer;
-    }
-    .check-group .check-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.5;
-    }
-    .check-group .check-label span {
-      display: block;
-      font-size: 11px;
-      font-weight: 400;
-      color: var(--sub);
-      margin-top: 2px;
-    }
-    .check-group.checked {
-      border-color: var(--navy);
-      background: var(--light-blue);
-    }
+    .divider { display: flex; align-items: center; gap: 10px; margin: 4px 0 12px; }
+    .divider-line { flex: 1; height: 1px; background: #e8edf5; }
+    .divider span { font-size: 10px; color: #bbb; white-space: nowrap; }
 
-    /* 연락처 동적 영역 */
-    .phone-field {
-      display: none;
-      margin-top: 10px;
-      padding: 12px 14px;
-      background: #fff;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-    }
-    .phone-field.visible { display: block; }
-    .phone-field .form-label { margin-bottom: 6px; }
-
-    /* ─── CTA 버튼 ─── */
-    .cta-btn {
-      width: 100%;
-      padding: 16px;
-      background: var(--navy);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-      letter-spacing: -0.01em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      text-decoration: none;
-      text-align: center;
-    }
+    /* CTA */
+    .cta-btn { width: 100%; padding: 16px; background: var(--navy); color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; letter-spacing: -0.01em; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; text-align: center; }
     .cta-btn:hover { background: #002070; }
     .cta-btn.green { background: #03c75a; }
     .cta-btn.green:hover { background: #029a4b; }
+    .cta-note { text-align: center; font-size: 11px; color: #aaa; margin-top: 10px; }
 
-    /* ─── STEP 3 완료 ─── */
-    .complete-section {
-      display: none;
-      padding: 32px 16px 0;
-    }
-    .complete-top {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    .complete-icon {
-      font-size: 52px;
-      margin-bottom: 12px;
-    }
-    .complete-top h2 {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-    .complete-top p {
-      font-size: 13px;
-      color: var(--sub);
-      line-height: 1.7;
-    }
+    /* FORM */
+    .form-group { margin-bottom: 14px; }
+    .form-label { font-size: 12px; font-weight: 600; color: var(--sub); margin-bottom: 6px; display: block; }
+    .form-label .required { color: #cc0000; font-weight: 700; margin-left: 2px; }
+    .form-control { width: 100%; padding: 13px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 14px; color: var(--text); background: #fafbff; outline: none; appearance: none; -webkit-appearance: none; }
+    .form-control:focus { border-color: var(--blue); background: #fff; }
+    select.form-control { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
 
-    /* 쿠폰 박스 */
-    .coupon-box {
-      background: var(--light-blue);
-      border: 1.5px solid #a8c4f0;
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-    .coupon-box .coupon-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--navy);
-      margin-bottom: 12px;
-    }
-    .coupon-box .coupon-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: #333;
-      padding: 5px 0;
-      border-bottom: 1px solid #d0dff5;
-    }
-    .coupon-box .coupon-row:last-child { border-bottom: none; }
-    .coupon-box .coupon-row .dot {
-      width: 4px; height: 4px;
-      background: var(--blue);
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
+    /* 체크그룹 */
+    .check-group { display: flex; align-items: flex-start; gap: 10px; padding: 14px; background: #f8faff; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; }
+    .check-group input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--navy); flex-shrink: 0; margin-top: 1px; cursor: pointer; }
+    .check-group .check-label { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.5; }
+    .check-group .check-label span { display: block; font-size: 11px; font-weight: 400; color: var(--sub); margin-top: 2px; }
+    .check-group.checked { border-color: var(--navy); background: var(--light-blue); }
+    .phone-field { display: none; margin-top: 10px; padding: 12px 14px; background: #fff; border: 1.5px solid var(--border); border-radius: 10px; }
+    .phone-field.visible { display: block; }
 
-    /* 알림 완료 박스 */
-    .alarm-complete-box {
-      display: none;
-      background: #f0fff7;
-      border: 1.5px solid #a8dfc0;
-      border-radius: 14px;
-      padding: 16px 20px;
-      margin-bottom: 16px;
-      font-size: 13px;
-      color: #1a5c38;
-      font-weight: 600;
-    }
-    .alarm-complete-box .alarm-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 4px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    /* 완료 푸터 텍스트 */
-    .complete-sub {
-      font-size: 11px;
-      color: #aaa;
-      text-align: center;
-      margin-top: 12px;
-      margin-bottom: 8px;
-    }
-
-    /* ─── CESCO 로그인 목업 ─── */
-    .cesco-login-wrap {
-      background: #f0f4fa;
-    }
-    .cesco-login-header {
-      background: #003087;
-      padding: 18px 20px 14px;
-    }
-    .cesco-login-header .cesco-logo-text {
-      color: #fff;
-      font-size: 19px;
-      font-weight: 900;
-      letter-spacing: 0.06em;
-    }
-    .cesco-login-header .cesco-tagline {
-      color: rgba(255,255,255,0.6);
-      font-size: 10px;
-      margin-top: 3px;
-      letter-spacing: 0.04em;
-    }
-    .cesco-login-card {
-      background: #fff;
-      margin: 14px 16px;
-      border-radius: 12px;
-      padding: 22px 20px 18px;
-      box-shadow: 0 2px 10px rgba(0,48,135,0.08);
-    }
-    .cesco-login-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #1a1a2e;
-      margin-bottom: 16px;
-    }
-    .login-input {
-      width: 100%;
-      padding: 12px 14px;
-      border: 1.5px solid #dce6f5;
-      border-radius: 8px;
-      font-size: 14px;
-      color: #1a1a2e;
-      background: #fafbff;
-      outline: none;
-      margin-bottom: 8px;
-      box-sizing: border-box;
-      font-family: inherit;
-    }
+    /* CESCO 로그인 목업 */
+    .cesco-login-wrap { background: #f0f4fa; }
+    .cesco-login-header { background: #003087; padding: 18px 20px 14px; }
+    .cesco-login-header .cesco-logo-text { color: #fff; font-size: 19px; font-weight: 900; letter-spacing: 0.06em; }
+    .cesco-login-header .cesco-tagline { color: rgba(255,255,255,0.6); font-size: 10px; margin-top: 3px; letter-spacing: 0.04em; }
+    .cesco-login-card { background: #fff; margin: 14px 16px; border-radius: 12px; padding: 22px 20px 18px; box-shadow: 0 2px 10px rgba(0,48,135,0.08); }
+    .cesco-login-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 16px; }
+    .login-input { width: 100%; padding: 12px 14px; border: 1.5px solid #dce6f5; border-radius: 8px; font-size: 14px; color: #1a1a2e; background: #fafbff; outline: none; margin-bottom: 8px; box-sizing: border-box; font-family: inherit; }
     .login-input::placeholder { color: #c0c8d8; }
     .login-input:focus { border-color: #003087; background: #fff; }
-    .login-btn {
-      width: 100%;
-      padding: 13px;
-      background: #003087;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-bottom: 14px;
-      font-family: inherit;
-    }
-    .login-sub-links {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      font-size: 11px;
-      color: #aaa;
-      margin-bottom: 16px;
-    }
+    .login-btn { width: 100%; padding: 13px; background: #003087; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-bottom: 14px; font-family: inherit; }
+    .login-sub-links { display: flex; justify-content: center; gap: 14px; font-size: 11px; color: #aaa; margin-bottom: 16px; }
     .login-sub-links a { color: #888; text-decoration: none; }
-    .sns-section {
-      margin-bottom: 16px;
-    }
-    .sns-label-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
+    .sns-section { margin-bottom: 16px; }
+    .sns-label-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
     .sns-line { flex: 1; height: 1px; background: #eee; }
     .sns-label { font-size: 11px; color: #bbb; white-space: nowrap; }
-    .sns-btn-row {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-    .sns-btn {
-      width: 42px; height: 42px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      border: 1.5px solid #e8e8e8;
-      background: #fff;
-      cursor: default;
-      color: #555;
-    }
+    .sns-btn-row { display: flex; justify-content: center; gap: 10px; }
+    .sns-btn { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 1.5px solid #e8e8e8; background: #fff; cursor: default; color: #555; }
     .sns-btn.kakao { background: #FEE500; border-color: #FEE500; }
     .sns-btn.naver { background: #03C75A; border-color: #03C75A; color: #fff; font-size: 12px; font-weight: 900; }
-    .sns-btn.google { background: #fff; }
+    .signup-area { border-top: 1px solid #f0f0f0; padding-top: 16px; text-align: center; }
+    .balloon { display: inline-block; background: #fff8e1; border: 2px solid #ffc107; border-radius: 10px; padding: 9px 14px; font-size: 12px; font-weight: 700; color: #7d5000; line-height: 1.55; position: relative; margin-bottom: 18px; text-align: left; }
+    .balloon::after { content: ''; position: absolute; bottom: -14px; right: 18px; border: 8px solid transparent; border-top-color: #ffc107; }
+    .balloon::before { content: ''; position: absolute; bottom: -10px; right: 20px; border: 6px solid transparent; border-top-color: #fff8e1; z-index: 1; }
+    .signup-cta-row { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 13px; color: #666; }
+    .signup-cta-row button { background: none; border: none; color: #003087; font-weight: 800; font-size: 13px; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; font-family: inherit; padding: 0; }
 
-    /* ─── 말풍선 ─── */
-    .signup-area {
-      border-top: 1px solid #f0f0f0;
-      padding-top: 16px;
-      text-align: center;
-    }
-    .balloon {
-      display: inline-block;
-      background: #fff8e1;
-      border: 2px solid #ffc107;
-      border-radius: 10px;
-      padding: 9px 14px;
-      font-size: 12px;
-      font-weight: 700;
-      color: #7d5000;
-      line-height: 1.55;
-      position: relative;
-      margin-bottom: 18px;
-      text-align: left;
-    }
-    /* 꼬리 외곽선 */
-    .balloon::after {
-      content: '';
-      position: absolute;
-      bottom: -14px;
-      right: 18px;
-      border: 8px solid transparent;
-      border-top-color: #ffc107;
-    }
-    /* 꼬리 내부 */
-    .balloon::before {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      right: 20px;
-      border: 6px solid transparent;
-      border-top-color: #fff8e1;
-      z-index: 1;
-    }
-    .signup-cta-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      font-size: 13px;
-      color: #666;
-    }
-    .signup-cta-row button {
-      background: none;
-      border: none;
-      color: #003087;
-      font-weight: 800;
-      font-size: 13px;
-      cursor: pointer;
-      text-decoration: underline;
-      text-underline-offset: 2px;
-      font-family: inherit;
-      padding: 0;
-    }
+    /* STEP 4 완료 */
+    .complete-section { display: none; padding: 32px 16px 0; }
+    .complete-top { text-align: center; margin-bottom: 24px; }
+    .complete-icon { font-size: 52px; margin-bottom: 12px; }
+    .complete-top h2 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+    .complete-top p { font-size: 13px; color: var(--sub); line-height: 1.7; }
+    .coupon-box { background: var(--light-blue); border: 1.5px solid #a8c4f0; border-radius: 14px; padding: 20px; margin-bottom: 16px; }
+    .coupon-box .coupon-header { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 800; color: var(--navy); margin-bottom: 12px; }
+    .coupon-box .coupon-row { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #333; padding: 5px 0; border-bottom: 1px solid #d0dff5; }
+    .coupon-box .coupon-row:last-child { border-bottom: none; }
+    .coupon-box .coupon-row .dot { width: 4px; height: 4px; background: var(--blue); border-radius: 50%; flex-shrink: 0; }
+    .alarm-complete-box { display: none; background: #f0fff7; border: 1.5px solid #a8dfc0; border-radius: 14px; padding: 16px 20px; margin-bottom: 16px; font-size: 13px; color: #1a5c38; font-weight: 600; }
+    .alarm-complete-box .alarm-title { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; font-size: 14px; font-weight: 700; }
+    .complete-sub { font-size: 11px; color: #aaa; text-align: center; margin-top: 12px; margin-bottom: 8px; }
 
-    /* ─── FOOTER ─── */
     .bottom-safe { height: 48px; }
-    footer {
-      padding: 24px;
-      text-align: center;
-      font-size: 11px;
-      color: #aaa;
-      line-height: 1.8;
-    }
+    footer { padding: 24px; text-align: center; font-size: 11px; color: #aaa; line-height: 1.8; }
   </style>
 </head>
 <body>
 
-  <!-- 스텝 바 -->
+  <!-- 스텝 바 (4단계) -->
   <div class="step-bar" id="stepBar">
     <div class="step-item">
       <div class="step-circle active" id="s1">1</div>
-      <div class="step-text active" id="st1">회원가입</div>
+      <div class="step-text active" id="st1">혜택 확인</div>
     </div>
     <div class="step-line" id="line1"></div>
     <div class="step-item">
       <div class="step-circle" id="s2">2</div>
-      <div class="step-text" id="st2">제품 등록</div>
+      <div class="step-text" id="st2">로그인</div>
     </div>
     <div class="step-line" id="line2"></div>
     <div class="step-item">
       <div class="step-circle" id="s3">3</div>
-      <div class="step-text" id="st3">완료</div>
+      <div class="step-text" id="st3">제품 등록</div>
+    </div>
+    <div class="step-line" id="line3"></div>
+    <div class="step-item">
+      <div class="step-circle" id="s4">4</div>
+      <div class="step-text" id="st4">완료</div>
     </div>
   </div>
 
-  <!-- ───────────── STEP 1: 세스코 로그인 목업 + 말풍선 ───────────── -->
+  <!-- ───── STEP 1: 혜택 소개 ───── -->
   <div id="step1Card">
-    <div class="cesco-login-wrap">
+    <div class="hero">
+      <div class="logo">CESCO</div>
+      <div class="icon-wrap">🎁</div>
+      <h1>쿠팡에서 세스코 제품을<br />구매하셨나요?<br /><em>혜택 2가지를 드립니다</em></h1>
+      <p>정품 등록만 하시면 즉시 지급됩니다.</p>
+    </div>
+    <div style="height:40px"></div>
 
-      <!-- 헤더 -->
+    <div class="card">
+      <div class="card-title">🎟 받을 수 있는 혜택</div>
+
+      <!-- 쿠폰 1 -->
+      <div class="coupon-preview">
+        <div class="cp-top">
+          <div class="cp-icon">🔧</div>
+          <div class="cp-info">
+            <strong>12개월분 필터 50% 할인 쿠폰</strong>
+            <span>정품 등록 완료 시 즉시 발급</span>
+          </div>
+        </div>
+        <div class="cp-bottom">
+          <div class="dot"></div>
+          세스코 공식몰에서 필터·소모품 구매 시 사용 가능
+        </div>
+      </div>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <span>추가 혜택</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <!-- 쿠폰 2 -->
+      <div class="coupon-preview orange">
+        <div class="cp-top">
+          <div class="cp-icon">🧪</div>
+          <div class="cp-info">
+            <strong>마이랩 첫구매 100원 쿠폰</strong>
+            <span>정품 등록 완료 시 동시 지급</span>
+          </div>
+        </div>
+        <div class="cp-bottom">
+          <div class="dot"></div>
+          첫 구매 후 100% 적립쿠폰 추가 지급
+        </div>
+      </div>
+
+      <div style="height:20px"></div>
+
+      <button class="cta-btn" onclick="goStep2()">
+        쿠폰 다운로드하기 →
+      </button>
+      <p class="cta-note">무료 회원가입 또는 로그인 후 정품 등록 시 즉시 발급됩니다</p>
+    </div>
+  </div>
+
+  <!-- ───── STEP 2: 로그인/회원가입 ───── -->
+  <div id="step2Card" style="display:none">
+    <div class="cesco-login-wrap">
       <div class="cesco-login-header">
         <div class="cesco-logo-text">CESCO</div>
         <div class="cesco-tagline">Science. ON Life</div>
       </div>
-
-      <!-- 로그인 카드 -->
       <div class="cesco-login-card">
         <div class="cesco-login-title">로그인</div>
-
         <input class="login-input" type="text" placeholder="아이디 (이메일)" autocomplete="username" />
         <input class="login-input" type="password" placeholder="비밀번호" autocomplete="current-password" />
-        <button class="login-btn" onclick="goStep2()">로그인</button>
-
+        <button class="login-btn" onclick="goStep3()">로그인</button>
         <div class="login-sub-links">
-          <a href="#">아이디 찾기</a>
-          <span>|</span>
-          <a href="#">비밀번호 찾기</a>
+          <a href="#">아이디 찾기</a><span>|</span><a href="#">비밀번호 찾기</a>
         </div>
-
-        <!-- SNS 로그인 -->
         <div class="sns-section">
           <div class="sns-label-row">
             <div class="sns-line"></div>
@@ -621,30 +237,26 @@
             <div class="sns-btn google">G</div>
           </div>
         </div>
-
-        <!-- 말풍선 + 회원가입 유도 -->
         <div class="signup-area">
           <div class="balloon">
-            🎟 회원 가입 후 정품 등록 시<br />
-            <strong>필터 50% 쿠폰 즉시 증정</strong> (필터 등 소모품류)
+            🎟 쿠폰 2종이 기다리고 있습니다!<br />
+            <strong>지금 바로 회원가입하고 받으세요</strong>
           </div>
           <div class="signup-cta-row">
             세스코 회원이 아니시라면?&nbsp;
-            <button onclick="goStep2()">회원가입하기</button>
+            <button onclick="goStep3()">회원가입하기</button>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- ───────────── STEP 2: 제품 등록 폼 ───────────── -->
-  <div class="card" id="step2Card" style="display:none">
+  <!-- ───── STEP 3: 제품 등록 ───── -->
+  <div class="card" id="step3Card" style="display:none">
     <div class="card-title">
-      <span class="num">2</span> 제품 등록
+      <span class="num">3</span> 제품 등록
     </div>
 
-    <!-- 구매 채널 -->
     <div class="form-group">
       <label class="form-label" for="channelSelect">구매 채널<span class="required">*</span></label>
       <select class="form-control" id="channelSelect">
@@ -659,7 +271,6 @@
       </select>
     </div>
 
-    <!-- 제품 종류 -->
     <div class="form-group">
       <label class="form-label" for="productSelect">제품 종류<span class="required">*</span></label>
       <select class="form-control" id="productSelect">
@@ -671,52 +282,40 @@
       </select>
     </div>
 
-    <!-- 장비 일련번호 -->
     <div class="form-group">
-      <label class="form-label" for="serialInput">장비 일련번호<span class="required">*</span></label>
-      <input
-        type="text"
-        class="form-control"
-        id="serialInput"
-        placeholder="제품 하단 스티커에서 확인"
-        autocomplete="off"
-      />
+      <label class="form-label" for="purchaseDate">구매일<span class="required">*</span></label>
+      <input type="date" class="form-control" id="purchaseDate" />
     </div>
 
-    <!-- 교체 알림 서비스 -->
+    <div class="form-group">
+      <label class="form-label" for="installDate">설치일</label>
+      <input type="date" class="form-control" id="installDate" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="serialInput">장비 일련번호<span class="required">*</span></label>
+      <input type="text" class="form-control" id="serialInput" placeholder="제품 하단 스티커에서 확인" autocomplete="off" />
+    </div>
+
     <div class="form-group">
       <label class="form-label">교체 알림 서비스</label>
       <label class="check-group" id="alarmCheckGroup" onclick="toggleAlarm(this)">
         <input type="checkbox" id="alarmCheck" checked onchange="toggleAlarmField()" />
-        <div class="check-label">
-          교체 시기 알림 서비스 신청 (카카오 알림톡)
+        <div class="check-label">교체 시기 알림 서비스 신청 (카카오 알림톡)
           <span>교체 30일·7일 전 미리 알려드립니다</span>
         </div>
       </label>
-
-      <!-- 연락처 (알림 신청 시 표시) -->
       <div class="phone-field visible" id="phoneField">
         <label class="form-label" for="phoneInput">연락처 (휴대폰 번호)<span class="required">*</span></label>
-        <input
-          type="tel"
-          class="form-control"
-          id="phoneInput"
-          placeholder="010-0000-0000"
-          maxlength="13"
-          oninput="formatPhone(this)"
-        />
+        <input type="tel" class="form-control" id="phoneInput" placeholder="010-0000-0000" maxlength="13" oninput="formatPhone(this)" />
       </div>
     </div>
 
-    <!-- 무료 서비스 -->
     <div class="form-group">
       <label class="form-label">무료 서비스 신청</label>
-
-      <!-- 무료 필터 교체 서비스 -->
       <label class="check-group" id="filterCheckGroup" style="margin-bottom:8px;">
         <input type="checkbox" id="filterCheck" />
-        <div class="check-label">
-          무료 필터 교체 서비스 신청 (1회)
+        <div class="check-label">무료 필터 교체 서비스 신청 (1회)
           <span>필터 무료 제공 + 전문가 방문 교체 · 완전 무료</span>
         </div>
       </label>
@@ -732,180 +331,71 @@
           </div>
         </div>
       </div>
-
-      <!-- 해충 진단 서비스 -->
       <label class="check-group" id="diagCheckGroup">
         <input type="checkbox" id="diagCheck" />
-        <div class="check-label">
-          해충 진단 서비스 신청 (무료)
+        <div class="check-label">해충 진단 서비스 신청 (무료)
           <span>세스코 전문가 방문 · 해충 서식 환경 진단</span>
         </div>
       </label>
-      <div style="margin-top:8px; background:#f0f4ff; border-radius:10px; padding:12px 14px; border:1px solid #d0dcf5; font-size:12px;">
-        <div style="display:flex; flex-direction:column; gap:5px;">
-          <div style="display:flex; align-items:flex-start; gap:8px; color:#333;">
-            <span style="color:var(--blue); font-weight:700; flex-shrink:0;">✓</span>
-            <span><strong>해충 서식 환경 간이 진단</strong> — 주방·욕실·수납공간 등 해충 서식 가능 구역 확인</span>
-          </div>
-          <div style="display:flex; align-items:flex-start; gap:8px; color:#333;">
-            <span style="color:var(--blue); font-weight:700; flex-shrink:0;">✓</span>
-            <span><strong>맞춤 방제 솔루션 안내</strong> — 진단 결과에 따라 세스코 IPM 서비스 연계 제안</span>
-          </div>
-        </div>
-      </div>
-
       <div style="font-size:11px; color:#888; margin-top:10px;">
         💡 정품 등록 완료 후 담당자가 연락드려 방문 일정을 조율합니다.
       </div>
     </div>
 
-    <button class="cta-btn" onclick="submitForm()">
-      제품 등록 완료하기 →
-    </button>
+    <button class="cta-btn" onclick="submitForm()">제품 등록 완료하기 →</button>
   </div>
 
-  <!-- ───────────── STEP 3: 완료 ───────────── -->
-  <div id="step3Section" class="complete-section">
+  <!-- ───── STEP 4: 완료 ───── -->
+  <div id="step4Section" class="complete-section">
     <div class="complete-top">
       <div class="complete-icon">✅</div>
       <h2>정품 등록이 완료됐습니다!</h2>
-      <p>세스코 공식몰에서 할인 쿠폰을<br />바로 사용하실 수 있습니다.</p>
+      <p>세스코 공식몰에서 쿠폰을<br />바로 사용하실 수 있습니다.</p>
     </div>
 
-    <!-- 쿠폰 지급 확인 박스 -->
     <div class="coupon-box">
       <div class="coupon-header">🎟 쿠폰 지급 완료</div>
-      <div class="coupon-row">
-        <div class="dot"></div>
-        <span><strong>12개월분 필터 50% 할인 쿠폰</strong>이 지급됐습니다</span>
-      </div>
-      <div class="coupon-row">
-        <div class="dot"></div>
-        <span>유효기간: 발급일로부터 <strong>6개월</strong></span>
-      </div>
-      <div class="coupon-row">
-        <div class="dot"></div>
-        <span>세스코 공식몰(cescomall.co.kr)에서 필터 구매 시 사용 가능</span>
-      </div>
+      <div class="coupon-row"><div class="dot"></div><span><strong>12개월분 필터 50% 할인 쿠폰</strong>이 지급됐습니다</span></div>
+      <div class="coupon-row"><div class="dot"></div><span>유효기간: 발급일로부터 <strong>6개월</strong></span></div>
+      <div class="coupon-row"><div class="dot"></div><span>세스코 공식몰(cescomall.co.kr)에서 필터 구매 시 사용 가능</span></div>
     </div>
 
-    <!-- 마이랩 쿠폰 박스 -->
     <div class="coupon-box" style="background:#fff8f0; border-color:#f5c08a; margin-bottom:16px;">
       <div class="coupon-header" style="color:#b85c00;">🧪 마이랩 첫구매 쿠폰 지급 완료</div>
-      <div class="coupon-row">
-        <div class="dot" style="background:#e07b20;"></div>
-        <span>마이랩 첫구매 <strong>100원 쿠폰</strong>이 지급됐습니다</span>
-      </div>
-      <div class="coupon-row">
-        <div class="dot" style="background:#e07b20;"></div>
-        <span>세스코 공식몰에서 마이랩 첫 주문 시 <strong>100원에 구매</strong> 가능</span>
-      </div>
-      <div class="coupon-row">
-        <div class="dot" style="background:#e07b20;"></div>
-        <span>구매 후 <strong>100% 적립쿠폰</strong>이 추가로 지급됩니다</span>
-      </div>
+      <div class="coupon-row"><div class="dot" style="background:#e07b20;"></div><span>마이랩 첫구매 <strong>100원 쿠폰</strong>이 지급됐습니다</span></div>
+      <div class="coupon-row"><div class="dot" style="background:#e07b20;"></div><span>세스코 공식몰에서 마이랩 첫 주문 시 <strong>100원에 구매</strong> 가능</span></div>
+      <div class="coupon-row"><div class="dot" style="background:#e07b20;"></div><span>구매 후 <strong>100% 적립쿠폰</strong>이 추가로 지급됩니다</span></div>
     </div>
 
-    <!-- 알림 등록 완료 (알림 신청한 경우에만 표시) -->
     <div class="alarm-complete-box" id="alarmCompleteBox">
       <div class="alarm-title">📅 교체 알림 등록 완료</div>
       <div id="alarmCompletePhone" style="font-size:12px; font-weight:400; color:#2d7a50;">등록하신 연락처로 카카오 알림톡을 보내드립니다.</div>
     </div>
 
-    <a href="#" class="cta-btn" style="margin-bottom:0;">
-      세스코 공식몰에서 필터 구매하기 →
-    </a>
+    <a href="#" class="cta-btn" style="margin-bottom:0;">세스코 공식몰에서 필터 구매하기 →</a>
     <div class="complete-sub">쿠폰은 가입 시 등록하신 이메일로도 발송됩니다</div>
   </div>
 
   <div class="bottom-safe"></div>
-  <footer>
-    세스코(주) · 고객센터 1588-1119<br />
-    월~금 08:30~18:00 / 토 09:00~13:00<br />
-    www.cesco.co.kr · cescomall.co.kr
-  </footer>
+  <footer>세스코(주) · 고객센터 1588-1119<br />월~금 08:30~18:00 / 토 09:00~13:00<br />www.cesco.co.kr · cescomall.co.kr</footer>
 
   <script>
-    /* ── 체크박스 UI 동기화 ── */
-    function syncCheckUI(group, checkbox) {
-      if (checkbox.checked) {
-        group.classList.add('checked');
-      } else {
-        group.classList.remove('checked');
-      }
-    }
-
-    /* ── 알림 서비스 토글 ── */
-    function toggleAlarm(label) {
-      // label 클릭 시 checkbox 상태는 이미 바뀌어 있음
-      const cb = document.getElementById('alarmCheck');
-      syncCheckUI(label, cb);
-      toggleAlarmField();
-    }
-
-    function toggleAlarmField() {
-      const cb = document.getElementById('alarmCheck');
-      const field = document.getElementById('phoneField');
-      if (cb.checked) {
-        field.classList.add('visible');
-      } else {
-        field.classList.remove('visible');
-        document.getElementById('phoneInput').value = '';
-      }
-    }
-
-    /* 서비스 체크박스 UI */
-    document.getElementById('filterCheck').addEventListener('change', function() {
-      syncCheckUI(document.getElementById('filterCheckGroup'), this);
-    });
-    document.getElementById('diagCheck').addEventListener('change', function() {
-      syncCheckUI(document.getElementById('diagCheckGroup'), this);
-    });
-
-    /* 초기 상태: 알림 기본 체크됨 */
-    syncCheckUI(document.getElementById('alarmCheckGroup'), document.getElementById('alarmCheck'));
-
-    /* ── 전화번호 포맷 ── */
-    function formatPhone(input) {
-      let v = input.value.replace(/[^0-9]/g, '');
-      if (v.length >= 11) v = v.substring(0, 11);
-      if (v.length > 7) {
-        input.value = v.replace(/(\d{3})(\d{4})(\d{0,4})/, '$1-$2-$3');
-      } else if (v.length > 3) {
-        input.value = v.replace(/(\d{3})(\d{0,4})/, '$1-$2');
-      } else {
-        input.value = v;
-      }
-    }
-
-    /* ── Step 이동 함수 ── */
     function setStep(step) {
-      const circles = ['s1','s2','s3'];
-      const texts = ['st1','st2','st3'];
-      const lines = ['line1','line2'];
-
-      circles.forEach((id, i) => {
+      const ids = ['s1','s2','s3','s4'];
+      const tids = ['st1','st2','st3','st4'];
+      const lids = ['line1','line2','line3'];
+      ids.forEach((id, i) => {
         const el = document.getElementById(id);
-        const t = document.getElementById(texts[i]);
-        if (i + 1 < step) {
-          el.className = 'step-circle done';
-          t.className = 'step-text done';
-        } else if (i + 1 === step) {
-          el.className = 'step-circle active';
-          t.className = 'step-text active';
-        } else {
-          el.className = 'step-circle';
-          t.className = 'step-text';
-        }
+        const t = document.getElementById(tids[i]);
+        if (i + 1 < step) { el.className = 'step-circle done'; t.className = 'step-text done'; }
+        else if (i + 1 === step) { el.className = 'step-circle active'; t.className = 'step-text active'; }
+        else { el.className = 'step-circle'; t.className = 'step-text'; }
       });
-
-      lines.forEach((id, i) => {
-        const el = document.getElementById(id);
-        el.className = i + 1 < step ? 'step-line done' : 'step-line';
+      lids.forEach((id, i) => {
+        document.getElementById(id).className = i + 1 < step ? 'step-line done' : 'step-line';
       });
     }
 
-    /* ── Step 1 → Step 2 ── */
     function goStep2() {
       document.getElementById('step1Card').style.display = 'none';
       document.getElementById('step2Card').style.display = 'block';
@@ -913,7 +403,13 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* ── Step 2 폼 제출 ── */
+    function goStep3() {
+      document.getElementById('step2Card').style.display = 'none';
+      document.getElementById('step3Card').style.display = 'block';
+      setStep(3);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function submitForm() {
       const channel = document.getElementById('channelSelect').value;
       const product = document.getElementById('productSelect').value;
@@ -921,49 +417,48 @@
       const alarmChecked = document.getElementById('alarmCheck').checked;
       const phone = document.getElementById('phoneInput').value.trim();
       const phonePattern = /^010-\d{4}-\d{4}$/;
-
-      if (!channel) {
-        alert('구매 채널을 선택해주세요.');
-        document.getElementById('channelSelect').focus();
-        return;
-      }
-      if (!product) {
-        alert('제품 종류를 선택해주세요.');
-        document.getElementById('productSelect').focus();
-        return;
-      }
-      if (!serial) {
-        alert('장비 일련번호를 입력해주세요.');
-        document.getElementById('serialInput').focus();
-        return;
-      }
+      if (!channel) { alert('구매 채널을 선택해주세요.'); return; }
+      if (!product) { alert('제품 종류를 선택해주세요.'); return; }
+      if (!serial) { alert('장비 일련번호를 입력해주세요.'); return; }
       if (alarmChecked) {
-        if (!phone) {
-          alert('교체 알림 서비스 신청을 위해 연락처를 입력해주세요.');
-          document.getElementById('phoneInput').focus();
-          return;
-        }
-        if (!phonePattern.test(phone)) {
-          alert('연락처를 정확히 입력해주세요. (예: 010-1234-5678)');
-          document.getElementById('phoneInput').focus();
-          return;
-        }
+        if (!phone) { alert('교체 알림 서비스 신청을 위해 연락처를 입력해주세요.'); return; }
+        if (!phonePattern.test(phone)) { alert('연락처를 정확히 입력해주세요. (예: 010-1234-5678)'); return; }
       }
-
-      /* 완료 처리 */
-      document.getElementById('step2Card').style.display = 'none';
-      document.getElementById('step3Section').style.display = 'block';
-      setStep(3);
-
-      /* 알림 신청한 경우 완료 박스 표시 */
+      document.getElementById('step3Card').style.display = 'none';
+      document.getElementById('step4Section').style.display = 'block';
+      setStep(4);
       if (alarmChecked && phone) {
-        const box = document.getElementById('alarmCompleteBox');
-        box.style.display = 'block';
-        document.getElementById('alarmCompletePhone').textContent =
-          phone + '으로 카카오 알림톡을 보내드립니다.';
+        document.getElementById('alarmCompleteBox').style.display = 'block';
+        document.getElementById('alarmCompletePhone').textContent = phone + '으로 카카오 알림톡을 보내드립니다.';
       }
-
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleAlarm(label) {
+      const cb = document.getElementById('alarmCheck');
+      syncCheckUI(label, cb);
+      toggleAlarmField();
+    }
+    function toggleAlarmField() {
+      const cb = document.getElementById('alarmCheck');
+      const field = document.getElementById('phoneField');
+      if (cb.checked) { field.classList.add('visible'); }
+      else { field.classList.remove('visible'); document.getElementById('phoneInput').value = ''; }
+    }
+    function syncCheckUI(group, checkbox) {
+      if (checkbox.checked) group.classList.add('checked');
+      else group.classList.remove('checked');
+    }
+    document.getElementById('filterCheck').addEventListener('change', function() { syncCheckUI(document.getElementById('filterCheckGroup'), this); });
+    document.getElementById('diagCheck').addEventListener('change', function() { syncCheckUI(document.getElementById('diagCheckGroup'), this); });
+    syncCheckUI(document.getElementById('alarmCheckGroup'), document.getElementById('alarmCheck'));
+
+    function formatPhone(input) {
+      let v = input.value.replace(/[^0-9]/g, '');
+      if (v.length >= 11) v = v.substring(0, 11);
+      if (v.length > 7) input.value = v.replace(/(\d{3})(\d{4})(\d{0,4})/, '$1-$2-$3');
+      else if (v.length > 3) input.value = v.replace(/(\d{3})(\d{0,4})/, '$1-$2');
+      else input.value = v;
     }
   </script>
 </body>
