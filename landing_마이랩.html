@@ -202,9 +202,28 @@
     </div>
     <div class="sec" style="padding-top:22px">
       <div class="card">
+        <div class="card-head">🏠 공간 및 구매 채널</div>
+        <div class="card-body">
+          <label class="form-label" style="margin-bottom:8px">어떤 공간에서 사용하시나요?</label>
+          <div class="space-grid" style="margin-bottom:16px">
+            <button class="sp-btn" onclick="selectSpace(this,'가정집')"><span class="sp-icon">🏡</span><span class="sp-name">가정집</span></button>
+            <button class="sp-btn" onclick="selectSpace(this,'요식업')"><span class="sp-icon">🍳</span><span class="sp-name">요식업</span></button>
+            <button class="sp-btn" onclick="selectSpace(this,'일반사업체')"><span class="sp-icon">🏢</span><span class="sp-name">일반사업체</span></button>
+          </div>
+          <div class="divider-label"><span>구매 채널</span></div>
+          <div class="fg" style="margin-bottom:0">
+            <select class="form-ctrl" id="selCh" onchange="checkReady()">
+              <option value="">어디서 구매하셨나요?</option>
+              <option>쿠팡</option><option>스마트스토어</option><option>11번가</option><option>G마켓</option><option>옥션</option><option>세스코 자사몰</option><option>기타</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
         <div class="card-head">🧪 구매하신 마이랩 제품</div>
         <div class="card-body">
-          <div class="cat-intro">해당하는 제품 카테고리를 선택해주세요</div>
+          <div class="cat-intro">해당하는 제품 카테고리를 선택해주세요 (선택하지 않아도 진단 가능)</div>
           <div class="cat-grid">
             <button class="cat-btn" onclick="selectCat(this,'주방 위생')"><span class="cat-icon">🍽</span><span class="cat-name">주방 위생</span><span class="cat-sub">주방세제·기름때<br/>배수관세정제 등</span></button>
             <button class="cat-btn" onclick="selectCat(this,'청소·욕실')"><span class="cat-icon">🧹</span><span class="cat-name">청소·욕실</span><span class="cat-sub">욕실세정제·곰팡이<br/>배수구클리너 등</span></button>
@@ -215,27 +234,8 @@
           </div>
           <button class="cat-btn-w" onclick="selectCat(this,'세탁·섬유케어')"><span>👕</span><span>세탁·섬유케어 (세탁세제, 섬유유연제, 습기제거제 등)</span></button>
           <button class="cat-btn-w" onclick="selectCat(this,'기타')"><span>📦</span><span>기타 / 잘 모르겠어요</span></button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-head">🏠 공간 및 구매 채널</div>
-        <div class="card-body">
-          <label class="form-label" style="margin-bottom:8px">어떤 공간에서 사용하시나요?</label>
-          <div class="space-grid" style="margin-bottom:16px">
-            <button class="sp-btn" onclick="selectSpace(this,'가정집')"><span class="sp-icon">🏡</span><span class="sp-name">가정집</span></button>
-            <button class="sp-btn" onclick="selectSpace(this,'요식업')"><span class="sp-icon">🍳</span><span class="sp-name">요식업</span></button>
-            <button class="sp-btn" onclick="selectSpace(this,'일반사업체')"><span class="sp-icon">🏢</span><span class="sp-name">일반사업체</span></button>
-          </div>
-          <div class="divider-label"><span>구매 채널</span></div>
-          <div class="fg" style="margin-bottom:16px">
-            <select class="form-ctrl" id="selCh" onchange="checkReady()">
-              <option value="">어디서 구매하셨나요?</option>
-              <option>쿠팡</option><option>스마트스토어</option><option>11번가</option><option>G마켓</option><option>옥션</option><option>세스코 자사몰</option><option>기타</option>
-            </select>
-          </div>
-          <button class="btn-primary" id="startBtn" disabled onclick="startQuiz()">위생 진단 시작하기 →</button>
-          <p class="btn-note">제품·공간·구매 채널을 모두 선택해야 진단을 시작할 수 있습니다</p>
+          <button class="btn-primary" id="startBtn" onclick="startQuiz()" style="margin-top:16px">위생 진단 시작하기 →</button>
+          <p class="btn-note">선택 없이도 바로 진단을 시작할 수 있습니다</p>
         </div>
       </div>
     </div>
@@ -685,14 +685,14 @@ function selectSpace(btn, space) {
   btn.classList.add('selected'); selSpace=space; checkReady();
 }
 function checkReady() {
-  const ch=document.getElementById('selCh').value;
-  document.getElementById('startBtn').disabled=!(selCat && selSpace && ch);
+  // 테스트 모드: 필수 선택 없이도 진행 가능
 }
 
 /* ══════════════════════════════════════
    STEP 2 퀴즈
 ══════════════════════════════════════ */
 function startQuiz() {
+  if(!selCat) selCat='기타';
   questions=quizBank[selCat]||quizBank['기타']; scores={}; curQ=0;
   document.getElementById('step1').style.display='none';
   document.getElementById('step2').style.display='block';
@@ -789,9 +789,6 @@ function closeModal(e) {
    STEP 4
 ══════════════════════════════════════ */
 function submitForm() {
-  const name=document.getElementById('fName').value.trim();
-  const phone=document.getElementById('fPhone').value.trim();
-  if(!name||!phone){alert('이름과 연락처를 입력해주세요.');return;}
   document.getElementById('step3').style.display='none';
   document.getElementById('step4').style.display='block';
   setStep(4); window.scrollTo({top:0,behavior:'smooth'});

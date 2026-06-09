@@ -889,11 +889,6 @@
       const serial  = document.getElementById('serialInput').value.trim();
       const alarm   = document.getElementById('alarmCheck').checked;
       const phone   = document.getElementById('phoneInput').value.trim();
-      if (!channel) { alert('구매 채널을 선택해주세요.'); return; }
-      if (!product) { alert('제품 종류를 선택해주세요.'); return; }
-      if (!serial)  { alert('장비 일련번호를 입력해주세요.'); return; }
-      if (alarm && !phone) { alert('교체 알림 서비스 신청을 위해 연락처를 입력해주세요.'); return; }
-
       show('step4'); setStep(4);
       if (alarm && phone) {
         document.getElementById('alarmCompleteBox').style.display = 'block';
