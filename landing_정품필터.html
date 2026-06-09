@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>세스코 — 정품 필터를 써야 하는 이유</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    :root {
+      --navy:#003087; --navy2:#00256b; --green:#1a7a45;
+      --red:#c0392b; --gold:#c89b3c;
+      --text:#1a1a1a; --sub:#555; --border:#d8dee8; --bg:#f2f4f8;
+    }
+    body { font-family:'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;
+           background:var(--bg); color:var(--text); max-width:480px; margin:0 auto;
+           font-size:14px; line-height:1.5; }
+
+    /* ── HEADER ── */
+    .site-header { background:var(--navy); padding:0 20px; height:52px;
+      display:flex; align-items:center; justify-content:space-between; }
+    .site-header .logo { font-size:18px; font-weight:900; color:#fff; letter-spacing:.1em; }
+    .site-header .hbadge { font-size:10px; color:rgba(255,255,255,.65); }
+
+    /* ── HERO ── */
+    .hero {
+      position:relative; overflow:hidden;
+      background:#111; min-height:320px;
+      display:flex; flex-direction:column; justify-content:flex-end;
+    }
+    .hero-img {
+      position:absolute; inset:0; width:100%; height:100%;
+      object-fit:cover; opacity:.45;
+    }
+    .hero-overlay {
+      position:relative; z-index:2;
+      padding:32px 24px 36px;
+      background:linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.2) 100%);
+    }
+    .hero-badge { display:inline-block; background:var(--red); color:#fff;
+      font-size:10px; font-weight:800; letter-spacing:.06em;
+      padding:4px 12px; border-radius:20px; margin-bottom:12px; }
+    .hero h1 { font-size:22px; font-weight:900; color:#fff; line-height:1.4;
+      letter-spacing:-.02em; margin-bottom:10px; }
+    .hero h1 em { color:#ffcc44; font-style:normal; }
+    .hero p { font-size:13px; color:rgba(255,255,255,.78); line-height:1.7; margin-bottom:18px; }
+    .hero-cta { display:inline-block; background:#fff; color:var(--navy);
+      font-size:13px; font-weight:800; padding:12px 24px; border-radius:6px;
+      text-decoration:none; }
+
+    /* ── SECTION 공통 ── */
+    .sec { padding:28px 16px 0; }
+    .sec-title { font-size:17px; font-weight:800; color:var(--text);
+      line-height:1.45; margin-bottom:6px; }
+    .sec-sub { font-size:12px; color:var(--sub); line-height:1.7; margin-bottom:16px; }
+    .divider { height:8px; background:var(--bg); margin:28px -16px 0; }
+
+    /* ── SECTION 1 — 공포 환기 ── */
+    .review-box {
+      background:#fff; border-radius:8px; border-left:4px solid var(--red);
+      padding:18px; margin-bottom:14px; position:relative;
+    }
+    .review-box::before { content:'\201C'; font-size:48px; color:var(--red);
+      opacity:.2; position:absolute; top:6px; left:12px; line-height:1;
+      font-family:Georgia,serif; }
+    .review-quote { font-size:14px; color:var(--text); line-height:1.8;
+      font-weight:500; position:relative; z-index:1; margin-bottom:10px; }
+    .review-quote strong { color:var(--red); }
+    .review-meta { font-size:11px; color:#aaa; }
+    .risk-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px; }
+    .risk-item { background:#fff5f5; border:1px solid #fcc; border-radius:8px;
+      padding:14px 12px; text-align:center; }
+    .risk-icon { font-size:24px; margin-bottom:6px; }
+    .risk-title { font-size:12px; font-weight:800; color:var(--red); margin-bottom:4px; }
+    .risk-desc { font-size:11px; color:#555; line-height:1.5; }
+
+    /* ── SECTION 2 — 성능 비교 ── */
+    .compare-table { width:100%; border-collapse:collapse; background:#fff;
+      border-radius:8px; overflow:hidden; border:1px solid var(--border);
+      margin-bottom:12px; font-size:12px; }
+    .compare-table thead tr { background:var(--navy); color:#fff; }
+    .compare-table th { padding:10px 12px; font-weight:700; text-align:center; }
+    .compare-table th:first-child { text-align:left; }
+    .compare-table td { padding:10px 12px; border-bottom:1px solid #eef0f5;
+      text-align:center; color:var(--sub); }
+    .compare-table td:first-child { text-align:left; color:var(--text); font-weight:600; }
+    .compare-table tr:last-child td { border-bottom:none; }
+    .compare-table .ok { color:var(--green); font-size:16px; font-weight:900; }
+    .compare-table .no { color:var(--red); font-size:16px; }
+    .compare-table .qm { color:#bbb; font-size:14px; }
+    .compare-highlight { background:var(--navy); }
+    .compare-highlight td { background:rgba(255,255,255,.07); color:rgba(255,255,255,.9) !important;
+      font-weight:700 !important; }
+
+    /* ── SECTION 3 — A/S 보증 ── */
+    .as-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+    .as-card { background:#fff; border-radius:8px; border:1px solid var(--border);
+      padding:16px 14px; }
+    .as-icon { font-size:28px; margin-bottom:8px; }
+    .as-title { font-size:12px; font-weight:800; color:var(--navy); margin-bottom:4px; }
+    .as-desc { font-size:11px; color:var(--sub); line-height:1.6; }
+    .as-warning { background:#fff8e1; border:1px solid #ffe066; border-radius:8px;
+      padding:14px 16px; font-size:12px; color:#7d5800; line-height:1.7; }
+
+    /* ── SECTION 4 — 쿠폰 배너 ── */
+    .coupon-banner {
+      background:linear-gradient(135deg, var(--navy2) 0%, var(--navy) 100%);
+      margin:28px 0 0; padding:28px 20px; text-align:center;
+    }
+    .cb-eye { font-size:10px; color:rgba(255,255,255,.6); letter-spacing:.1em;
+      margin-bottom:10px; }
+    .cb-title { font-size:18px; font-weight:900; color:#fff; line-height:1.4;
+      margin-bottom:6px; }
+    .cb-title em { color:#ffcc44; font-style:normal; }
+    .cb-sub { font-size:12px; color:rgba(255,255,255,.75); margin-bottom:20px;
+      line-height:1.6; }
+    .cb-btn { display:inline-block; background:#ffcc44; color:var(--navy2);
+      font-size:14px; font-weight:900; padding:14px 32px; border-radius:6px;
+      text-decoration:none; }
+    .cb-note { font-size:10px; color:rgba(255,255,255,.5); margin-top:10px; }
+
+    /* ── SECTION 5 — 아이템 리스트 ── */
+    .item-sec { padding:28px 16px 0; }
+    .item-sec-title { font-size:16px; font-weight:800; margin-bottom:4px; }
+    .item-sec-sub { font-size:11px; color:var(--sub); margin-bottom:16px; }
+
+    /* 3종 세트 — 대형 카드 */
+    .item-featured {
+      background:#fff; border-radius:10px; border:2px solid var(--navy);
+      overflow:hidden; margin-bottom:16px;
+    }
+    .if-badge { background:var(--navy); color:#fff; font-size:10px; font-weight:800;
+      padding:6px 16px; letter-spacing:.05em; }
+    .if-body { display:flex; gap:14px; padding:16px; align-items:center; }
+    .if-img { width:90px; height:90px; object-fit:contain; flex-shrink:0;
+      background:#f7f9fc; border-radius:6px; }
+    .if-info { flex:1; }
+    .if-model { font-size:10px; color:#aaa; margin-bottom:2px; }
+    .if-name { font-size:13px; font-weight:800; color:var(--text); line-height:1.4;
+      margin-bottom:6px; }
+    .if-price-row { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+    .if-discount { font-size:14px; font-weight:900; color:var(--red); }
+    .if-price { font-size:18px; font-weight:900; color:var(--text); }
+    .if-origin { font-size:11px; color:#aaa; text-decoration:line-through; }
+    .if-coupon { font-size:10px; color:var(--green); font-weight:700; margin-bottom:10px; }
+    .if-btn { width:100%; padding:11px; background:var(--navy); color:#fff;
+      border:none; border-radius:6px; font-size:13px; font-weight:800;
+      cursor:pointer; font-family:inherit; text-align:center; text-decoration:none;
+      display:block; }
+
+    /* 개별 필터 — 3열 그리드 */
+    .item-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
+      margin-bottom:8px; }
+    .item-card { background:#fff; border-radius:8px; border:1px solid var(--border);
+      overflow:hidden; }
+    .ic-img-wrap { position:relative; background:#f7f9fc; padding:12px; }
+    .ic-img { width:100%; aspect-ratio:1/1; object-fit:contain; }
+    .ic-sub-badge { position:absolute; top:6px; left:0; background:var(--navy);
+      color:#fff; font-size:9px; font-weight:800; padding:2px 8px; }
+    .ic-body { padding:10px 10px 12px; }
+    .ic-model { font-size:9px; color:#bbb; margin-bottom:2px; }
+    .ic-name { font-size:11px; font-weight:700; color:var(--text); line-height:1.4;
+      margin-bottom:6px; min-height:36px; }
+    .ic-disc { font-size:10px; font-weight:800; color:var(--red); }
+    .ic-price { font-size:14px; font-weight:900; color:var(--text); }
+    .ic-origin { font-size:10px; color:#bbb; text-decoration:line-through; }
+    .ic-btn { width:100%; margin-top:8px; padding:8px 4px; background:var(--bg);
+      color:var(--navy); border:1px solid var(--navy); border-radius:4px;
+      font-size:10px; font-weight:800; cursor:pointer; font-family:inherit; }
+
+    /* ── 푸터 ── */
+    .bottom-safe { height:40px; }
+    footer { padding:20px; text-align:center; font-size:11px; color:#aaa;
+      line-height:1.9; border-top:1px solid var(--border); background:#fff; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="logo">CESCO</div>
+    <div class="hbadge">스마트핏 미니정수기 전용</div>
+  </header>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <img class="hero-img"
+      src="https://www.cescomall.co.kr/upload/item/G2000000733/20241125180412L.jpg"
+      alt="세스코 스마트핏 미니정수기" />
+    <div class="hero-overlay">
+      <div class="hero-badge">CESCO 정품 필터 안내</div>
+      <h1>필터는<br /><em>정품을 써야 합니다</em></h1>
+      <p>필터 하나로 A/S가 막히고<br />정수 성능이 달라질 수 있습니다</p>
+      <a href="#items" class="hero-cta">정품 필터 확인하기 ↓</a>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 1 — 공포 환기 ══ -->
+  <section class="sec">
+    <div class="sec-title">"필터가 안 맞아서 반품했어요"</div>
+    <div class="sec-sub">실제 구매자 후기입니다</div>
+
+    <div class="review-box">
+      <div class="review-quote">
+        외부에서 호환 필터 샀다가 <strong>아예 장착이 안 됐어요.</strong><br />
+        결국 정품 주문하고 기다렸네요...<br />처음부터 정품 살걸.
+      </div>
+      <div class="review-meta">— 세스코 미니정수기 구매 고객 후기</div>
+    </div>
+
+    <div class="risk-grid">
+      <div class="risk-item">
+        <div class="risk-icon">❌</div>
+        <div class="risk-title">장착 불가</div>
+        <div class="risk-desc">비정품은 미세한 규격 차이로 아예 안 맞을 수 있습니다</div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-icon">💧</div>
+        <div class="risk-title">누수 위험</div>
+        <div class="risk-desc">억지로 장착 시 연결부 누수 및 기기 고장으로 이어질 수 있습니다</div>
+      </div>
+    </div>
+    <div class="sec-sub" style="margin-top:4px">
+      세스코 정수기 필터는 제품마다 <strong>전용 규격</strong>으로 제작됩니다.<br />
+      스마트핏 미니정수기는 <strong>EW-210 전용 필터</strong>만 호환이 보장됩니다.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ SECTION 2 — 성능 비교 ══ -->
+  <section class="sec">
+    <div class="sec-title">정품 필터만 보장하는 것들</div>
+    <div class="sec-sub">"3중 필터라 믿고 정수해서 마십니다" — 실제 구매 후기</div>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="width:54%">항목</th>
+          <th>정품 필터</th>
+          <th>비정품</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="compare-highlight">
+          <td>장착 규격 100% 호환</td>
+          <td class="ok">✓</td>
+          <td class="no">✗</td>
+        </tr>
+        <tr>
+          <td>세스코 공인 정수 성능 기준</td>
+          <td class="ok">✓</td>
+          <td class="qm">?</td>
+        </tr>
+        <tr>
+          <td>중금속·잔류염소 차단 인증</td>
+          <td class="ok">✓</td>
+          <td class="qm">?</td>
+        </tr>
+        <tr>
+          <td>교체 주기 알림 제공</td>
+          <td class="ok">✓</td>
+          <td class="no">✗</td>
+        </tr>
+        <tr>
+          <td>혼자서 간편 교체 가능</td>
+          <td class="ok">✓</td>
+          <td class="qm">?</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="sec-sub">
+      필터는 정수기의 핵심 소모품입니다.<br />
+      인증받지 않은 필터는 <strong>세균·중금속 차단 성능을 보장할 수 없습니다.</strong>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ SECTION 3 — A/S 보증 ══ -->
+  <section class="sec">
+    <div class="sec-title">비정품 사용 시 A/S 보증이 제한됩니다</div>
+    <div class="sec-sub" style="margin-bottom:14px"></div>
+
+    <div class="as-grid">
+      <div class="as-card">
+        <div class="as-icon">🔧</div>
+        <div class="as-title">무상 A/S 불가</div>
+        <div class="as-desc">비정품 필터 사용이 확인되면 유상 수리로 처리됩니다</div>
+      </div>
+      <div class="as-card">
+        <div class="as-icon">📋</div>
+        <div class="as-title">품질 보증 제한</div>
+        <div class="as-desc">세스코 공인 부품 외 사용 시 품질 보증 적용이 어렵습니다</div>
+      </div>
+    </div>
+    <div class="as-warning">
+      ⚠️ <strong>처음부터 정품을 쓰는 것이 장기적으로 비용을 아끼는 방법입니다.</strong><br />
+      세스코는 정품 필터 사용 기기에 한해 무상 A/S 및 품질 보증을 제공합니다.
+    </div>
+  </section>
+
+  <!-- ══ SECTION 4 — 쿠폰 배너 ══ -->
+  <div class="coupon-banner">
+    <div class="cb-eye">CESCO MALL 회원 혜택</div>
+    <div class="cb-title">정품 필터 첫 구매 시<br /><em>50% 할인 쿠폰</em> 적용 가능</div>
+    <div class="cb-sub">세스코몰 회원가입 후 정품 필터 구매 시<br />12개월분 3종 세트 <strong style="color:#ffcc44">69,000원 → 34,500원</strong></div>
+    <a href="https://www.cescomall.co.kr/member/join" class="cb-btn">쿠폰 받고 구매하기</a>
+    <div class="cb-note">비회원은 회원가입 후 쿠폰 수령 가능</div>
+  </div>
+
+  <!-- ══ SECTION 5 — 아이템 리스트 ══ -->
+  <section class="item-sec" id="items">
+    <div class="item-sec-title">내 미니정수기 전용 정품 필터</div>
+    <div class="item-sec-sub">EW-210 적용 기기 전용 — 규격 100% 보장</div>
+
+    <!-- 3종 세트 (대형) -->
+    <div class="item-featured">
+      <div class="if-badge">⭐ 연간 관리 추천 — 3종 세트</div>
+      <div class="if-body">
+        <img class="if-img"
+          src="https://www.cescomall.co.kr/upload/item/G2000000733/20241125180412L.jpg"
+          alt="스마트핏 미니 정수기 필터 3종 세트" />
+        <div class="if-info">
+          <div class="if-model">EW-210</div>
+          <div class="if-name">[12개월분] 스마트핏 미니 정수기 필터 3종 세트</div>
+          <div class="if-price-row">
+            <span class="if-discount">29%</span>
+            <span class="if-price">69,000원</span>
+          </div>
+          <div class="if-origin">정가 98,000원</div>
+          <div class="if-coupon">🎟 50% 쿠폰 적용 시 34,500원</div>
+          <a href="https://www.cescomall.co.kr/products/view/G2000000733" class="if-btn">세스코몰에서 구매하기</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 개별 필터 3종 -->
+    <div class="item-grid">
+      <div class="item-card">
+        <div class="ic-img-wrap">
+          <img class="ic-img"
+            src="https://www.cescomall.co.kr/upload/item/G2000000242/20250124152700L.jpg"
+            alt="나노스트림 필터" />
+          <div class="ic-sub-badge">정기배송</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-model">EW-210</div>
+          <div class="ic-name">나노스트림 필터</div>
+          <div class="ic-disc">8%</div>
+          <div class="ic-price">32,000원</div>
+          <div class="ic-origin">35,000원</div>
+          <button class="ic-btn" onclick="location.href='https://www.cescomall.co.kr/products/view/G2000000242'">구매하기</button>
+        </div>
+      </div>
+      <div class="item-card">
+        <div class="ic-img-wrap">
+          <img class="ic-img"
+            src="https://www.cescomall.co.kr/upload/item/G2000000240/20241125165016L.jpg"
+            alt="포스트카본블록 필터" />
+          <div class="ic-sub-badge">정기배송</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-model">EW-210</div>
+          <div class="ic-name">포스트카본블록 필터</div>
+          <div class="ic-disc">11%</div>
+          <div class="ic-price">16,000원</div>
+          <div class="ic-origin">18,000원</div>
+          <button class="ic-btn" onclick="location.href='https://www.cescomall.co.kr/products/view/G2000000240'">구매하기</button>
+        </div>
+      </div>
+      <div class="item-card">
+        <div class="ic-img-wrap">
+          <img class="ic-img"
+            src="https://www.cescomall.co.kr/upload/item/G2000000241/20241125164935L.jpg"
+            alt="프리카본블록 필터" />
+          <div class="ic-sub-badge">정기배송</div>
+        </div>
+        <div class="ic-body">
+          <div class="ic-model">EW-210</div>
+          <div class="ic-name">프리카본블록 필터</div>
+          <div class="ic-disc">6%</div>
+          <div class="ic-price">14,000원</div>
+          <div class="ic-origin">15,000원</div>
+          <button class="ic-btn" onclick="location.href='https://www.cescomall.co.kr/products/view/G2000000241'">구매하기</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#f7f9fc;border-radius:6px;padding:12px 14px;
+      font-size:11px;color:var(--sub);line-height:1.7;margin-top:4px;margin-bottom:0">
+      💡 <strong>정기배송</strong>으로 신청하면 교체 시기에 자동 배송됩니다.<br />
+      쿠폰은 세스코몰 회원가입 후 수령 가능합니다.
+    </div>
+  </section>
+
+  <div class="bottom-safe"></div>
+  <footer>
+    세스코(주) 공식 판매 정품 필터<br />
+    고객센터 1588-1119 &nbsp;|&nbsp; 월~금 08:30~18:00 / 토 09:00~13:00<br />
+    <a href="https://www.cescomall.co.kr" style="color:#aaa">www.cescomall.co.kr</a>
+  </footer>
+
+</body>
+</html>
