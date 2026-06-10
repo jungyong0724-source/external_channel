@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=780, initial-scale=1">
+<title>CESCO 정품필터 배너</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#003087;
+    --navy-dark:#002060;
+    --warn:#c0392b;
+    --ink:#222222;
+    --ink-soft:#444444;
+    --naver:#03C75A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{
+    background:#d9dde2;
+    font-family:'Noto Sans KR',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    display:flex;align-items:center;justify-content:center;
+    min-height:100vh;
+  }
+  /* Banner canvas — exact deliverable size */
+  .banner{
+    width:780px;height:500px;
+    background:#ffffff;
+    overflow:hidden;
+    position:relative;
+    color:var(--ink);
+  }
+
+  /* ---------- SECTION 1 — WARNING BAR (60px) ---------- */
+  .warn{
+    height:60px;
+    background:var(--warn);
+    display:flex;align-items:center;justify-content:center;
+    gap:8px;
+  }
+  .warn span{
+    color:#fff;font-weight:700;font-size:22px;
+    letter-spacing:-.3px;
+  }
+  .warn .ico{
+    width:22px;height:22px;flex:none;
+    display:inline-block;
+  }
+
+  /* ---------- SECTION 2 — MAIN CONTENT (220px) ---------- */
+  .main{
+    height:220px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+  }
+  .product{
+    width:40%;height:100%;
+    display:flex;align-items:center;justify-content:center;
+    gap:6px;
+    padding:18px 14px 18px 22px;
+  }
+  .product img{display:block;}
+  .product .purifier{height:172px;width:auto;}
+  .product .filters{height:132px;width:auto;}
+
+  .copy{
+    width:60%;height:100%;
+    padding:26px 30px 26px 6px;
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .headline{
+    font-size:26px;font-weight:700;line-height:1.32;
+    color:var(--ink);letter-spacing:-.6px;
+    margin-bottom:18px;
+    text-wrap:pretty;
+  }
+  .headline b{color:var(--navy);font-weight:900;}
+  .bullets{display:flex;flex-direction:column;gap:11px;list-style:none;}
+  .bullets li{
+    display:flex;align-items:center;gap:11px;
+    font-size:18px;color:var(--ink-soft);font-weight:500;
+    letter-spacing:-.3px;
+  }
+  .bullets .check{
+    width:22px;height:22px;flex:none;
+    color:var(--navy);
+  }
+
+  /* ---------- SECTION 3 — QR + NAVER (140px) ---------- */
+  .qrnaver{
+    height:140px;
+    background:var(--navy);
+    display:flex;align-items:center;
+    padding:0 30px;
+    gap:24px;
+    position:relative;
+  }
+  .qr{
+    width:100px;height:100px;flex:none;
+    background:#fff;border-radius:6px;
+    padding:10px;
+  }
+  .qr svg{display:block;width:100%;height:100%;}
+
+  /* vertical divider */
+  .qrnaver .divider{
+    width:1px;height:104px;flex:none;
+    background:rgba(255,255,255,.3);
+  }
+
+  .naver-col{
+    flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;
+    min-width:0;
+  }
+  .shop-line{display:flex;flex-direction:column;gap:3px;}
+  .shop-line .t1{color:#fff;font-size:18px;font-weight:700;letter-spacing:-.3px;}
+  .shop-line .t2{color:#aaccff;font-size:14px;font-weight:400;letter-spacing:.2px;}
+
+  /* Naver search pill */
+  .search{
+    height:42px;background:#fff;border:1px solid #dddddd;border-radius:22px;
+    display:flex;align-items:center;gap:10px;
+    padding:0 16px;max-width:330px;
+  }
+  .search .nlogo{
+    width:22px;height:22px;flex:none;border-radius:5px;
+    background:var(--naver);color:#fff;
+    font-weight:900;font-size:15px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:Arial,'Noto Sans KR',sans-serif;
+  }
+  .search .term{
+    flex:1;font-size:15px;font-weight:700;color:var(--ink);
+    letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .search .mag{width:20px;height:20px;flex:none;color:var(--naver);}
+
+  /* ---------- SECTION 4 — SCAN GUIDE TEASER (80px) ---------- */
+  .scan{
+    height:80px;background:var(--navy-dark);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:7px;
+  }
+  .scan p{color:#fff;font-size:15px;font-weight:400;letter-spacing:-.2px;}
+  .scan .arrow{width:18px;height:18px;color:#fff;animation:bob 1.6s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
+  @media (prefers-reduced-motion:reduce){.scan .arrow{animation:none;}}
+</style>
+</head>
+<body>
+  <div class="banner" data-screen-label="CESCO Banner 1">
+
+    <!-- SECTION 1 — WARNING -->
+    <div class="warn">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3 L22 20 H2 Z" fill="#fff"/>
+        <rect x="11" y="9" width="2" height="6" rx="1" fill="#c0392b"/>
+        <rect x="11" y="16.4" width="2" height="2" rx="1" fill="#c0392b"/>
+      </svg>
+      <span>비정품 필터, 장착이 안 될 수 있습니다</span>
+    </div>
+
+    <!-- SECTION 2 — MAIN -->
+    <div class="main">
+      <div class="product">
+        <img class="purifier" src="assets/purifier.png" alt="세스코 미니 정수기">
+        <img class="filters" src="assets/filters3.png" alt="세스코 정품 필터 3종">
+      </div>
+      <div class="copy">
+        <div class="headline"><b>정품 필터</b>만 A/S와 성능을 보장합니다</div>
+        <ul class="bullets">
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>장착 100% 호환</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>교체 주기 알림</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>무상 A/S 유지</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SECTION 3 — QR + NAVER -->
+    <div class="qrnaver">
+      <div class="qr">
+        <svg viewBox="0 0 100 100" shape-rendering="crispEdges" aria-label="QR 코드"></svg>
+      </div>
+      <div class="divider"></div>
+      <div class="naver-col">
+        <div class="shop-line">
+          <div class="t1">세스코 정품 필터를 구매하세요</div>
+          <div class="t2">cescomall.co.kr</div>
+        </div>
+        <div class="search">
+          <span class="nlogo">N</span>
+          <span class="term">세스코 미니정수기</span>
+          <svg class="mag" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2.4"/>
+            <path d="M16 16 L21 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4 — SCAN GUIDE -->
+    <div class="scan">
+      <p>아래 이미지를 참고하면 QR을 쉽게 스캔할 수 있습니다 ↓</p>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 4 V18 M6 12.5 L12 19 L18 12.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+  </div>
+
+<script>
+// Generate a clean, deterministic QR-style code (placeholder pattern with finder eyes).
+(function(){
+  const svg=document.querySelector('.qr svg');
+  const N=25, cell=100/N;
+  const NS='http://www.w3.org/2000/svg';
+  // deterministic pseudo-random
+  let seed=20260610;
+  function rnd(){seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff;}
+  function isFinder(x,y){
+    const inBox=(ox,oy)=> x>=ox&&x<ox+7&&y>=oy&&y<oy+7;
+    return inBox(0,0)||inBox(N-7,0)||inBox(0,N-7);
+  }
+  // modules
+  for(let y=0;y<N;y++){
+    for(let x=0;x<N;x++){
+      if(isFinder(x,y))continue;
+      if(rnd()>0.52){
+        const r=document.createElementNS(NS,'rect');
+        r.setAttribute('x',(x*cell).toFixed(2));
+        r.setAttribute('y',(y*cell).toFixed(2));
+        r.setAttribute('width',cell.toFixed(2));
+        r.setAttribute('height',cell.toFixed(2));
+        r.setAttribute('fill','#003087');
+        svg.appendChild(r);
+      }
+    }
+  }
+  // finder eyes
+  function eye(ox,oy){
+    const outer=document.createElementNS(NS,'rect');
+    outer.setAttribute('x',(ox*cell).toFixed(2));outer.setAttribute('y',(oy*cell).toFixed(2));
+    outer.setAttribute('width',(7*cell).toFixed(2));outer.setAttribute('height',(7*cell).toFixed(2));
+    outer.setAttribute('fill','#003087');svg.appendChild(outer);
+    const mid=document.createElementNS(NS,'rect');
+    mid.setAttribute('x',((ox+1)*cell).toFixed(2));mid.setAttribute('y',((oy+1)*cell).toFixed(2));
+    mid.setAttribute('width',(5*cell).toFixed(2));mid.setAttribute('height',(5*cell).toFixed(2));
+    mid.setAttribute('fill','#fff');svg.appendChild(mid);
+    const inner=document.createElementNS(NS,'rect');
+    inner.setAttribute('x',((ox+2)*cell).toFixed(2));inner.setAttribute('y',((oy+2)*cell).toFixed(2));
+    inner.setAttribute('width',(3*cell).toFixed(2));inner.setAttribute('height',(3*cell).toFixed(2));
+    inner.setAttribute('fill','#003087');svg.appendChild(inner);
+  }
+  eye(0,0);eye(N-7,0);eye(0,N-7);
+})();
+</script>
+</body>
+</html>
