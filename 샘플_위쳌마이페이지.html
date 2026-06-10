@@ -424,6 +424,49 @@
     margin: 16px 0 0;
   }
 
+  /* ── 바코드 카드 ── */
+  .barcode-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .barcode-inner {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 18px 16px 14px;
+    margin-top: 12px;
+    text-align: center;
+  }
+  .barcode-label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .barcode-visual {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2px;
+    height: 52px;
+    margin-bottom: 10px;
+  }
+  .barcode-visual .b { background: #fff; border-radius: 1px; }
+  .barcode-number {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 3px;
+    font-family: monospace;
+    margin-bottom: 4px;
+  }
+  .barcode-valid {
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+  }
+
   /* ── 하단 탭바 ── */
   .bottom-tab {
     position: sticky;
@@ -470,7 +513,7 @@
         <div class="member-avatar">👤</div>
         <div class="member-info">
           <div class="member-name">홍길동 고객님</div>
-          <div class="member-grade">✦ MEMBERS GOLD</div>
+          <div class="member-grade">✦ MEMBERS</div>
           <div class="member-since">가입일 2026.06.12</div>
         </div>
         <div class="point-box">
@@ -586,11 +629,25 @@
           <button class="ic-btn">알림 받기</button>
         </div>
 
-        <div class="instant-card">
-          <div class="ic-icon">🍽️</div>
-          <div class="ic-title">더 화이트 식사권</div>
-          <div class="ic-desc">파트너 레스토랑</div>
-          <button class="ic-btn">자세히 보기</button>
+        <div class="instant-card" style="grid-column:1/-1;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <span class="ic-icon">🍽️</span>
+            <div>
+              <div class="ic-title">더 화이트 식사권</div>
+              <div class="ic-desc">파트너 레스토랑 — 바코드로 사용</div>
+            </div>
+          </div>
+          <button class="ic-btn red" style="width:100%;padding:7px;" onclick="document.getElementById('whiteBarcode').style.display=document.getElementById('whiteBarcode').style.display==='none'?'block':'none'">🎟️ 바코드 보기</button>
+          <div id="whiteBarcode" style="display:none;">
+            <div class="barcode-inner">
+              <div class="barcode-label">The White — 식사권</div>
+              <div class="barcode-visual">
+                <div class="b" style="width:3px;height:52px"></div><div class="b" style="width:1px;height:40px"></div><div class="b" style="width:4px;height:52px"></div><div class="b" style="width:1px;height:30px"></div><div class="b" style="width:2px;height:52px"></div><div class="b" style="width:3px;height:44px"></div><div class="b" style="width:1px;height:52px"></div><div class="b" style="width:2px;height:36px"></div><div class="b" style="width:1px;height:52px"></div><div class="b" style="width:4px;height:48px"></div><div class="b" style="width:1px;height:52px"></div><div class="b" style="width:2px;height:38px"></div><div class="b" style="width:3px;height:52px"></div><div class="b" style="width:1px;height:42px"></div><div class="b" style="width:2px;height:52px"></div><div class="b" style="width:4px;height:34px"></div><div class="b" style="width:1px;height:52px"></div><div class="b" style="width:2px;height:46px"></div><div class="b" style="width:1px;height:52px"></div><div class="b" style="width:3px;height:40px"></div><div class="b" style="width:2px;height:52px"></div><div class="b" style="width:1px;height:44px"></div><div class="b" style="width:4px;height:52px"></div><div class="b" style="width:2px;height:36px"></div><div class="b" style="width:1px;height:52px"></div><div class="b" style="width:3px;height:50px"></div><div class="b" style="width:1px;height:52px"></div>
+              </div>
+              <div class="barcode-number">9 4 3 2 - 8 8 1 7 - 5 5 0 2</div>
+              <div class="barcode-valid">유효기간 2026.12.31</div>
+            </div>
+          </div>
         </div>
 
       </div>
