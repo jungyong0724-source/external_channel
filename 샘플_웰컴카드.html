@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>멤버스 웰컴 카드 — 샘플</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+    gap: 40px;
+  }
+
+  .note {
+    font-size: 13px;
+    color: #888;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border-left: 3px solid #c00;
+  }
+
+  /* ── 카드 본체 (A5 세로 148×210mm → 화면 비율) ── */
+  .card {
+    width: 560px;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    position: relative;
+  }
+
+  /* 상단 헤더 */
+  .card-header {
+    background: #C8001E;
+    padding: 32px 36px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-header::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 160px; height: 160px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .card-header::after {
+    content: '';
+    position: absolute;
+    bottom: -50px; right: 40px;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .brand-logo {
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+  .brand-dot {
+    width: 6px; height: 6px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+  }
+  .brand-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 1px;
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+  .welcome-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .welcome-title span {
+    display: block;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .customer-name {
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 400;
+    margin-top: 12px;
+  }
+  .customer-name strong {
+    font-size: 19px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .grade-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  /* 혜택 섹션 */
+  .card-body {
+    padding: 28px 36px 24px;
+  }
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #C8001E;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  /* 즉시 혜택 그리드 */
+  .instant-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .instant-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: #fafafa;
+    border-radius: 6px;
+    border: 1px solid #f0f0f0;
+  }
+  .instant-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .instant-text {
+    font-size: 11.5px;
+    color: #333;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .instant-sub {
+    font-size: 10px;
+    color: #999;
+    font-weight: 400;
+  }
+
+  /* 구분선 */
+  .divider {
+    height: 1px;
+    background: #f0f0f0;
+    margin: 20px 0;
+    position: relative;
+  }
+
+  /* 체험 이용권 */
+  .benefit-card {
+    border: 1.5px solid #C8001E;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    position: relative;
+    background: #fff;
+  }
+  .benefit-card.secondary {
+    border-color: #e0e0e0;
+  }
+  .benefit-tag {
+    position: absolute;
+    top: -1px; right: 14px;
+    background: #C8001E;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 0 0 4px 4px;
+    letter-spacing: 0.5px;
+  }
+  .benefit-tag.grey { background: #888; }
+  .benefit-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+  .benefit-desc {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.6;
+  }
+  .benefit-desc strong { color: #C8001E; }
+
+  /* 앱 안내 */
+  .app-section {
+    background: #1a1a2e;
+    border-radius: 8px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .qr-box {
+    width: 52px; height: 52px;
+    background: #fff;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  .app-info { flex: 1; }
+  .app-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  .app-name span {
+    font-size: 10px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    margin-left: 4px;
+  }
+  .app-desc {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+  .app-steps {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
+  .app-step {
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.55);
+    background: rgba(255,255,255,0.08);
+    padding: 2px 7px;
+    border-radius: 10px;
+  }
+  .app-arrow { font-size: 9px; color: rgba(255,255,255,0.3); }
+
+  /* 푸터 */
+  .card-footer {
+    padding: 16px 36px;
+    background: #f8f8f8;
+    border-top: 1px solid #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-cta {
+    font-size: 10px;
+    color: #888;
+  }
+  .footer-cta strong { color: #333; }
+  .validity {
+    font-size: 10px;
+    color: #bbb;
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+
+<div class="note">📄 웰컴 카드 (지류) 시안 — A5 인쇄 기준 / 실제 DTP 작업 시 디자인팀 전달용 레이아웃 가이드</div>
+
+<!-- 카드 본체 -->
+<div class="card">
+
+  <!-- 헤더 -->
+  <div class="card-header">
+    <div class="brand-row">
+      <div class="brand-logo">CESCO</div>
+      <div class="brand-dot"></div>
+      <div class="brand-sub">Members Welcome</div>
+    </div>
+    <div class="welcome-title">
+      <span>계약을 축하드립니다</span>
+      고객님만을 위한<br>웰컴 혜택을 준비했습니다.
+    </div>
+    <div class="customer-name">
+      <strong>홍길동</strong> 고객님
+    </div>
+    <div class="grade-badge">MEMBERS ✦ GOLD</div>
+  </div>
+
+  <!-- 바디 -->
+  <div class="card-body">
+
+    <!-- 즉시 혜택 -->
+    <div class="section-label">즉시 사용 가능한 혜택</div>
+    <div class="instant-grid">
+      <div class="instant-item">
+        <div class="instant-icon">💰</div>
+        <div>
+          <div class="instant-text">세스코몰 포인트</div>
+          <div class="instant-sub">구매 시 5% 자동 적립</div>
+        </div>
+      </div>
+      <div class="instant-item">
+        <div class="instant-icon">🎫</div>
+        <div>
+          <div class="instant-text">등급별 쿠폰</div>
+          <div class="instant-sub">연 1회 5% 할인 + 무료 반품</div>
+        </div>
+      </div>
+      <div class="instant-item">
+        <div class="instant-icon">🗓️</div>
+        <div>
+          <div class="instant-text">멤버스 데이</div>
+          <div class="instant-sub">매월 특별 프로모션 참여</div>
+        </div>
+      </div>
+      <div class="instant-item">
+        <div class="instant-icon">🍽️</div>
+        <div>
+          <div class="instant-text">더 화이트 식사권</div>
+          <div class="instant-sub">특별 파트너 레스토랑</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 체험 이용권 -->
+    <div class="section-label">신청이 필요한 혜택</div>
+
+    <div class="benefit-card">
+      <div class="benefit-tag">위쳌 앱 신청</div>
+      <div class="benefit-title">🏠 환경가전 체험 이용권</div>
+      <div class="benefit-desc">
+        공기청정기·정수기·비데 등 환경가전 라인업 중 <strong>1종 선택</strong><br>
+        3개월 무료 체험 후 계약 전환 여부 결정<br>
+        <span style="color:#bbb">유효기간: 계약일로부터 1년</span>
+      </div>
+    </div>
+
+    <div class="benefit-card">
+      <div class="benefit-tag">위쳌 앱 신청</div>
+      <div class="benefit-title">🧪 마이랩 웰컴 키트</div>
+      <div class="benefit-desc">
+        위쳌 앱 다운로드 → 회원가입 → 주소 입력 시 <strong>마이랩 2종 선물 세트</strong> 발송<br>
+        앱 첫 구매 <strong>100원 쿠폰</strong> + 재구매 100% 적립쿠폰 함께 지급
+      </div>
+    </div>
+
+    <div class="benefit-card secondary">
+      <div class="benefit-tag grey">추천 혜택</div>
+      <div class="benefit-title">🤝 긴급 진단 양도권</div>
+      <div class="benefit-desc">
+        지인에게 해충방제 긴급 진단권 양도 가능<br>
+        지인이 계약 체결 시 <strong>서비스 금액의 2%를 1년간 적립</strong>
+      </div>
+    </div>
+
+    <!-- 앱 안내 -->
+    <div class="app-section">
+      <div class="qr-box">📲</div>
+      <div class="app-info">
+        <div class="app-name">위쳌 (WeCheck) <span>세스코 공식 앱</span></div>
+        <div class="app-desc">환경가전 체험·마이랩 키트 신청은 모두 위쳌에서 가능합니다</div>
+        <div class="app-steps">
+          <span class="app-step">앱 다운로드</span>
+          <span class="app-arrow">›</span>
+          <span class="app-step">회원가입</span>
+          <span class="app-arrow">›</span>
+          <span class="app-step">마이 혜택</span>
+          <span class="app-arrow">›</span>
+          <span class="app-step">신청</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 푸터 -->
+  <div class="card-footer">
+    <div class="footer-cta">
+      혜택 문의: <strong>1588-1255</strong> | cesco.co.kr
+    </div>
+    <div class="validity">
+      발급일: 2026.06.12<br>일부 혜택은 유효기간 있음
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
