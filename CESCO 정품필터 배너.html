@@ -33,25 +33,21 @@
     color:var(--ink);
   }
 
-  /* ---------- SECTION 1 — WARNING BAR (60px) ---------- */
+  /* ---------- SECTION 1 — HEADLINE BAR ---------- */
   .warn{
-    height:60px;
+    height:72px;
     background:var(--warn);
     display:flex;align-items:center;justify-content:center;
-    gap:8px;
+    padding:0 32px;
   }
   .warn span{
-    color:#fff;font-weight:700;font-size:22px;
-    letter-spacing:-.3px;
-  }
-  .warn .ico{
-    width:22px;height:22px;flex:none;
-    display:inline-block;
+    color:#fff;font-weight:700;font-size:17px;
+    letter-spacing:-.4px;line-height:1.45;text-align:center;
   }
 
-  /* ---------- SECTION 2 — MAIN CONTENT (220px) ---------- */
+  /* ---------- SECTION 2 — MAIN CONTENT (208px) ---------- */
   .main{
-    height:220px;
+    height:208px;
     background:#fff;
     display:flex;
     align-items:center;
@@ -72,16 +68,16 @@
     display:flex;flex-direction:column;justify-content:center;
   }
   .headline{
-    font-size:26px;font-weight:700;line-height:1.32;
+    font-size:23px;font-weight:700;line-height:1.32;
     color:var(--ink);letter-spacing:-.6px;
-    margin-bottom:18px;
+    margin-bottom:14px;
     text-wrap:pretty;
   }
   .headline b{color:var(--navy);font-weight:900;}
-  .bullets{display:flex;flex-direction:column;gap:11px;list-style:none;}
+  .bullets{display:flex;flex-direction:column;gap:8px;list-style:none;}
   .bullets li{
-    display:flex;align-items:center;gap:11px;
-    font-size:18px;color:var(--ink-soft);font-weight:500;
+    display:flex;align-items:center;gap:10px;
+    font-size:16px;color:var(--ink-soft);font-weight:500;
     letter-spacing:-.3px;
   }
   .bullets .check{
@@ -153,14 +149,9 @@
 <body>
   <div class="banner" data-screen-label="CESCO Banner 1">
 
-    <!-- SECTION 1 — WARNING -->
+    <!-- SECTION 1 — HEADLINE -->
     <div class="warn">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 3 L22 20 H2 Z" fill="#fff"/>
-        <rect x="11" y="9" width="2" height="6" rx="1" fill="#c0392b"/>
-        <rect x="11" y="16.4" width="2" height="2" rx="1" fill="#c0392b"/>
-      </svg>
-      <span>비정품 필터, 장착이 안 될 수 있습니다</span>
+      <span>정수기의 성능을 유지하는 가장 확실하고 간편한 방법,<br>세스코 정품 필터 사용입니다</span>
     </div>
 
     <!-- SECTION 2 — MAIN -->
@@ -170,11 +161,12 @@
         <img class="filters" src="assets/filters3.png" alt="세스코 정품 필터 3종">
       </div>
       <div class="copy">
-        <div class="headline"><b>정품 필터</b>만 A/S와 성능을 보장합니다</div>
+        <div class="headline">정수기의 성능은<br><b>필터에서 시작됩니다</b></div>
         <ul class="bullets">
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>장착 100% 호환</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>세균·이물질 차단 성능 유지</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>무상 A/S 유지</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>세스코 정수기 전용 규격 적용</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>제품 설계 기준에 따른 안정적인 장착</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>검증된 필터 성능 유지</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12.5 L9.5 18 L20 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>세스코 고객 전용 무상 A/S 정책 적용</li>
         </ul>
       </div>
     </div>
@@ -203,7 +195,7 @@
 
     <!-- SECTION 4 — SCAN GUIDE -->
     <div class="scan">
-      <p>아래 이미지를 참고하면 QR을 쉽게 스캔할 수 있습니다 ↓</p>
+      <p>아래 이미지를 참고하여 쉽고 빠르게 QR 스캔하실 수 있습니다.</p>
       <svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M12 4 V18 M6 12.5 L12 19 L18 12.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
