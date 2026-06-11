@@ -460,6 +460,47 @@
       margin-left: 5px;
     }
 
+    /* ── 고정 서비스 패널 ── */
+    .service-fixed {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px;
+      background: #f0f5ff;
+      border-bottom: 1px solid #dde8f8;
+    }
+    .service-fixed .sf-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .service-fixed .sf-check {
+      width: 20px; height: 20px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 13px; font-weight: 700;
+      flex-shrink: 0; margin-top: 2px;
+    }
+
+    /* ── 진단 선택 ── */
+    .dx-select-head {
+      background: #fffbe6;
+      border-bottom: 1px solid #ffe082;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #7d5800;
+    }
+    .dx-select-head span {
+      color: #cc0000;
+      font-weight: 800;
+    }
+    .service-option input[type="radio"] {
+      width: 18px; height: 18px;
+      accent-color: var(--navy);
+      flex-shrink: 0;
+      margin-top: 2px;
+      cursor: pointer;
+    }
+    .service-option.dx-selected { background: #f0f5ff; }
+
     /* ── 알림 전화번호 ── */
     .phone-wrap {
       display: none;
@@ -764,58 +805,80 @@
         </div>
       </div>
 
-      <!-- 무료 서비스 신청 (통합) -->
+      <!-- 무료 서비스 신청 -->
       <div class="card">
         <div class="card-head">🎁 무료 서비스 신청</div>
         <div class="card-body" style="padding:0">
-          <div class="service-box" style="border:none;margin-bottom:0">
-            <div class="service-box-head">
-              ✅ 아래 무료 서비스를 함께 신청하실 수 있습니다
-            </div>
 
-            <!-- 서비스 통합 신청 -->
-            <div class="service-option" id="svc1Wrap">
-              <input type="checkbox" id="freeServiceCheck"
-                onchange="syncSvcUI('svc1Wrap', this)" />
-              <div class="so-content">
-                <div class="so-title">🎁 무료 서비스 신청 (2가지 동시 제공)
-                  <span class="so-badge">무료</span>
-                </div>
-                <div class="so-desc" style="margin-top:6px">
-                  <div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:4px">
-                    <span style="color:var(--navy);font-weight:700;flex-shrink:0">①</span>
-                    <span><strong>무료 필터 교체</strong> — 필터 무료 제공 + 세스코 전문가 방문 교체 (1회)</span>
-                  </div>
-                  <div style="display:flex;align-items:flex-start;gap:6px">
-                    <span style="color:var(--navy);font-weight:700;flex-shrink:0">②</span>
-                    <span><strong>무료 해충 진단</strong> — 전문가 방문 · 해충 서식 환경 정밀 진단 (1회)</span>
-                  </div>
-                </div>
+          <!-- 필수 고정: 필터 교체 -->
+          <div class="service-fixed">
+            <div class="sf-check">✓</div>
+            <div class="so-content">
+              <div class="so-title">🔧 무료 필터 교체 서비스
+                <span class="so-badge">필수 포함</span>
               </div>
+              <div class="so-desc">세스코 전문가 방문 · 정품 필터 무료 교체 (1회)<br />등록 완료 후 담당자가 방문 일정을 안내드립니다</div>
             </div>
           </div>
 
-          <div style="padding:0 14px 14px">
-            <!-- 교체 알림 -->
-            <div style="border-top:1px solid #f0f0f0;padding-top:12px">
-              <div class="service-option" id="alarmWrap" style="padding:0;border:none;margin-bottom:10px">
-                <input type="checkbox" id="alarmCheck" checked
-                  onchange="syncSvcUI('alarmWrap', this); togglePhone(this)" />
-                <div class="so-content">
-                  <div class="so-title">📅 필터 교체 알림 서비스 (카카오 알림톡)</div>
-                  <div class="so-desc">교체 30일·7일 전 미리 알려드립니다</div>
-                </div>
-              </div>
-              <div class="phone-wrap show" id="phoneWrap">
-                <label class="form-label">연락처 <span class="req">*</span></label>
-                <input type="tel" class="form-control" id="phoneInput"
-                  placeholder="010-0000-0000" maxlength="13"
-                  oninput="formatPhone(this)" />
+          <!-- 선택: 전문가 진단 4가지 -->
+          <div class="dx-select-head">🔬 전문가 무료 진단 &nbsp;<span>1가지 선택 필수</span></div>
+
+          <div class="service-option" id="dx_alpha" onclick="selectDx(this,'alpha')">
+            <input type="radio" name="diagnosis" value="alpha" />
+            <div class="so-content">
+              <div class="so-title">플러스 알파 케어 <span class="so-badge">인기</span></div>
+              <div class="so-desc">배수구 클리너·살균 소독제 현장 케어<br />주방 후드 기름때 점검 포함 · 체험용 소량 제공</div>
+            </div>
+          </div>
+
+          <div class="service-option" id="dx_air" onclick="selectDx(this,'air')">
+            <input type="radio" name="diagnosis" value="air" />
+            <div class="so-content">
+              <div class="so-title">실내 공기질 &amp; 라돈 진단</div>
+              <div class="so-desc">실내 공기질 정밀 측정 + 라돈 수치 확인<br />공기질에 맞는 관리법 안내</div>
+            </div>
+          </div>
+
+          <div class="service-option" id="dx_pest" onclick="selectDx(this,'pest')">
+            <input type="radio" name="diagnosis" value="pest" />
+            <div class="so-content">
+              <div class="so-title">해충 정밀 진단</div>
+              <div class="so-desc">해충 서식지 정밀 점검<br />세스코 전문가 무료 방문 진단</div>
+            </div>
+          </div>
+
+          <div class="service-option" id="dx_bed" onclick="selectDx(this,'bed')" style="border-bottom:none">
+            <input type="radio" name="diagnosis" value="bed" />
+            <div class="so-content">
+              <div class="so-title">침구·매트리스 오염 진단</div>
+              <div class="so-desc">현미경으로 진드기·먼지 오염도 확인<br />침구 위생 관리 솔루션 안내</div>
+            </div>
+          </div>
+
+          <div id="dxError" style="display:none;padding:8px 14px;font-size:11px;color:#cc0000;font-weight:700">
+            ⚠ 진단 항목을 1가지 선택해주세요
+          </div>
+
+          <!-- 교체 알림 -->
+          <div style="border-top:1px solid #f0f0f0;padding:12px 14px 0">
+            <div class="service-option" id="alarmWrap" style="padding:0;border:none;margin-bottom:10px">
+              <input type="checkbox" id="alarmCheck" checked
+                onchange="syncSvcUI('alarmWrap', this); togglePhone(this)" />
+              <div class="so-content">
+                <div class="so-title">📅 필터 교체 알림 서비스 (카카오 알림톡)</div>
+                <div class="so-desc">교체 30일·7일 전 미리 알려드립니다</div>
               </div>
             </div>
-            <div style="font-size:11px;color:#aaa;margin-top:8px;line-height:1.7">
-              💡 신청하신 서비스는 등록 완료 후 담당자가 연락해 방문 일정을 조율합니다
+            <div class="phone-wrap show" id="phoneWrap">
+              <label class="form-label">연락처 <span class="req">*</span></label>
+              <input type="tel" class="form-control" id="phoneInput"
+                placeholder="010-0000-0000" maxlength="13"
+                oninput="formatPhone(this)" />
             </div>
+          </div>
+          <div style="padding:0 14px 14px;font-size:11px;color:#aaa;line-height:1.7">
+            💡 신청하신 서비스는 등록 완료 후 담당자가 연락해 방문 일정을 조율합니다
           </div>
         </div>
       </div>
@@ -842,9 +905,18 @@
         <div class="coupon-row" style="border-color:#f0d8b8"><span class="cr-dot" style="background:#d95f00"></span><span>마이랩 첫구매 <strong>100원 쿠폰</strong> 지급 완료</span></div>
         <div class="coupon-row" style="border-color:#f0d8b8"><span class="cr-dot" style="background:#d95f00"></span><span>첫 구매 후 <strong>100% 적립쿠폰</strong> 추가 지급</span></div>
       </div>
-      <div class="coupon-box" id="alarmCompleteBox" style="display:none;background:#f0fff7;border-color:#a8dfc0">
-        <div class="cb-title" style="color:#1a7a45">📅 교체 알림 등록 완료</div>
-        <div class="coupon-row" style="border-color:#c0e8d0"><span class="cr-dot" style="background:#1a7a45"></span><span id="alarmPhone">등록하신 연락처로 카카오 알림톡을 보내드립니다</span></div>
+      <div class="coupon-box" style="background:#f0fff7;border-color:#a8dfc0">
+        <div class="cb-title" style="color:#1a7a45">🔧 무료 필터 교체 서비스 신청 완료</div>
+        <div class="coupon-row" style="border-color:#c0e8d0"><span class="cr-dot" style="background:#1a7a45"></span><span>세스코 전문가 방문 · 정품 필터 무료 교체 (1회)</span></div>
+      </div>
+      <div class="coupon-box" id="dxCompleteBox" style="background:#f5f0ff;border-color:#c5a8f0">
+        <div class="cb-title" style="color:#5b00cc">🔬 전문가 무료 진단 신청 완료</div>
+        <div class="coupon-row" style="border-color:#ddd0f5"><span class="cr-dot" style="background:#5b00cc"></span><span id="dxCompleteName">진단 항목 미선택</span></div>
+        <div class="coupon-row" style="border-color:#ddd0f5"><span class="cr-dot" style="background:#5b00cc"></span><span>등록 완료 후 담당자가 방문 일정을 안내드립니다</span></div>
+      </div>
+      <div class="coupon-box" id="alarmCompleteBox" style="display:none;background:#f0f5ff;border-color:#a8c4f0">
+        <div class="cb-title" style="color:#003087">📅 교체 알림 등록 완료</div>
+        <div class="coupon-row" style="border-color:#c0d8f5"><span class="cr-dot" style="background:#003087"></span><span id="alarmPhone">등록하신 연락처로 카카오 알림톡을 보내드립니다</span></div>
       </div>
     </div>
 
@@ -862,12 +934,30 @@
   </footer>
 
   <script>
+    const DX_LABELS = {
+      alpha: '플러스 알파 케어 (배수구 클리너·살균 소독제 현장 케어)',
+      air:   '실내 공기질 & 라돈 진단',
+      pest:  '해충 정밀 진단',
+      bed:   '침구·매트리스 오염 진단'
+    };
+    let selectedDx = null;
+
+    /* ── 진단 선택 ── */
+    function selectDx(el, key) {
+      selectedDx = key;
+      ['alpha','air','pest','bed'].forEach(k => {
+        const wrap = document.getElementById('dx_' + k);
+        const radio = wrap.querySelector('input[type="radio"]');
+        wrap.classList.toggle('dx-selected', k === key);
+        radio.checked = k === key;
+      });
+      document.getElementById('dxError').style.display = 'none';
+    }
+
     /* ── 스텝 전환 ── */
     function setStep(n) {
       for (let i = 1; i <= 4; i++) {
         const si = document.getElementById('si' + i);
-        const sc = document.getElementById('sc' + i);
-        const st = document.getElementById('st' + i);
         si.className = 'step-item' + (i < n ? ' done' : i === n ? ' active' : '');
       }
     }
@@ -884,12 +974,15 @@
     function goStep3() { show('step3'); setStep(3); window.scrollTo({top:0,behavior:'smooth'}); }
 
     function submitForm() {
-      const channel = document.getElementById('channelSelect').value;
-      const product = document.getElementById('productSelect').value;
-      const serial  = document.getElementById('serialInput').value.trim();
-      const alarm   = document.getElementById('alarmCheck').checked;
-      const phone   = document.getElementById('phoneInput').value.trim();
+      if (!selectedDx) {
+        document.getElementById('dxError').style.display = 'block';
+        document.getElementById('dx_alpha').scrollIntoView({behavior:'smooth', block:'center'});
+        return;
+      }
+      const alarm = document.getElementById('alarmCheck').checked;
+      const phone = document.getElementById('phoneInput').value.trim();
       show('step4'); setStep(4);
+      document.getElementById('dxCompleteName').textContent = DX_LABELS[selectedDx];
       if (alarm && phone) {
         document.getElementById('alarmCompleteBox').style.display = 'block';
         document.getElementById('alarmPhone').textContent = phone + '으로 카카오 알림톡을 보내드립니다';
@@ -908,8 +1001,7 @@
     /* ── 서비스 체크박스 UI ── */
     function syncSvcUI(wrapId, cb) {
       const wrap = document.getElementById(wrapId);
-      if (cb.checked) wrap.style.background = '#f0f5ff';
-      else wrap.style.background = '';
+      wrap.style.background = cb.checked ? '#f0f5ff' : '';
     }
 
     function togglePhone(cb) {
@@ -927,7 +1019,6 @@
       else input.value = v;
     }
 
-    /* ── 초기 step4 숨기기 ── */
     document.getElementById('step4').style.display = 'none';
   </script>
 </body>
