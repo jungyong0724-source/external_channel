@@ -8,7 +8,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     :root {
       --navy:#003087; --navy2:#00256b; --blue:#0055cc;
-      --blue-light:#e8f0fe; --green:#1a7a45;
+      --blue-light:#e8f0fe; --green:#1a7a45; --green-soft:#eaf4ee;
       --text:#1a1a1a; --sub:#555; --border:#d8dee8; --bg:#f2f4f8;
     }
     body { font-family:'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif; background:var(--bg); color:var(--text); max-width:480px; margin:0 auto; font-size:14px; line-height:1.5; }
@@ -45,7 +45,29 @@
     .card-head { background:#f7f9fc; border-bottom:1px solid var(--border); padding:12px 18px; font-size:12px; font-weight:700; color:var(--navy); display:flex; align-items:center; gap:8px; }
     .card-body { padding:18px; }
 
-    /* ── STEP1 ── */
+    /* ── STEP1 로그인 선택 ── */
+    .choice-btn { width:100%; padding:16px 18px; border-radius:10px; cursor:pointer; font-family:inherit; text-align:left; display:flex; align-items:center; gap:14px; border:none; margin-bottom:10px; transition:filter .15s; }
+    .choice-btn:hover { filter:brightness(.95); }
+    .choice-btn .cb-icon { font-size:28px; flex-shrink:0; }
+    .choice-btn .cb-title { font-size:14px; font-weight:800; margin-bottom:3px; }
+    .choice-btn .cb-desc { font-size:11px; line-height:1.55; }
+    .choice-btn .cb-arr { margin-left:auto; font-size:18px; flex-shrink:0; }
+    .choice-new { background:var(--navy); color:#fff; }
+    .choice-new .cb-desc { color:rgba(255,255,255,.8); }
+    .choice-exist { background:#fff8e1; border:1.5px solid #ffe082; color:var(--text); }
+    .choice-exist .cb-desc { color:var(--sub); }
+    .choice-exist .cb-arr { color:#888; }
+
+    .benefit-row { display:flex; gap:8px; margin-bottom:16px; }
+    .benefit-pill { flex:1; background:#f7f9fc; border:1px solid var(--border); border-radius:8px; padding:10px 10px; text-align:center; font-size:10px; font-weight:700; color:var(--sub); line-height:1.5; }
+    .benefit-pill .bp-icon { font-size:18px; display:block; margin-bottom:4px; }
+    .benefit-pill.active { background:var(--blue-light); border-color:var(--navy); color:var(--navy); }
+
+    /* ── 인라인 로그인 폼 ── */
+    .back-link { display:inline-flex; align-items:center; gap:4px; font-size:12px; color:#888; cursor:pointer; margin-bottom:14px; border:none; background:none; font-family:inherit; padding:0; }
+    .back-link:hover { color:var(--navy); }
+
+    /* ── STEP2 선택 ── */
     .cat-intro { font-size:12px; color:var(--sub); margin-bottom:14px; padding:10px 12px; background:var(--blue-light); border-radius:6px; }
     .cat-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
     .cat-btn,.cat-btn-w { border:1.5px solid var(--border); border-radius:8px; cursor:pointer; font-family:inherit; transition:all .15s; background:#f9fafc; }
@@ -74,7 +96,7 @@
     .btn-primary:not(:disabled):hover { background:var(--navy2); }
     .btn-note { text-align:center; font-size:11px; color:#aaa; margin-top:8px; }
 
-    /* ── STEP2 QUIZ ── */
+    /* ── STEP2 퀴즈 ── */
     .qwrap { padding:20px 16px 0; }
     .qprow { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
     .qpbar { flex:1; height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
@@ -104,7 +126,7 @@
     .rl-fill { height:100%; border-radius:4px; background:#fff; transition:width 1s ease; }
     .rl-msg { font-size:12px; color:rgba(255,255,255,.9); line-height:1.7; }
 
-    /* 추천 제품 카드 */
+    /* 추천 제품 카드 (신규용) */
     .rec-card { border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:12px; }
     .rch { background:var(--navy); padding:14px 16px; display:flex; align-items:center; gap:12px; }
     .rch .ri { font-size:30px; flex-shrink:0; }
@@ -112,48 +134,29 @@
     .rch .rinfo .rname { font-size:15px; font-weight:800; color:#fff; }
     .rch .rinfo .rtag { font-size:10px; color:rgba(255,255,255,.75); margin-top:2px; }
     .rcb { padding:14px 16px; }
-    .rcb .rreason { font-size:12px; color:var(--sub); line-height:1.7; margin-bottom:12px; }
-    .coupon-row { background:var(--blue-light); border-radius:6px; padding:10px 14px; display:flex; align-items:center; gap:10px; }
-    .cl { font-size:11px; font-weight:700; color:var(--navy); }
-    .btn-coupon { margin-left:auto; background:var(--navy); color:#fff; font-size:11px; font-weight:800; padding:6px 14px; border-radius:4px; white-space:nowrap; border:none; cursor:pointer; font-family:inherit; }
-    .btn-coupon:hover { background:var(--navy2); }
+    .rcb .rreason { font-size:12px; color:var(--sub); line-height:1.7; margin-bottom:10px; }
+    .coupon-badge { display:inline-flex; align-items:center; gap:6px; background:var(--green-soft); border:1px solid #a8d9b8; border-radius:6px; padding:6px 12px; font-size:11px; font-weight:700; color:var(--green); }
 
-    /* 전문가 진단 추천 카드 */
-    .dx-card { border:1.5px solid var(--navy); border-radius:8px; overflow:hidden; margin-bottom:12px; }
+    /* 전문가 진단 카드 */
+    .dx-card { border:1.5px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:10px; cursor:pointer; transition:border-color .15s; }
+    .dx-card:hover { border-color:var(--navy); }
+    .dx-card.selected { border-color:var(--navy); background:var(--blue-light); }
     .dxh { background:linear-gradient(110deg,var(--navy2),var(--navy)); padding:14px 16px; display:flex; align-items:center; gap:12px; }
+    .dx-card.selected .dxh { background:linear-gradient(110deg,#002060,var(--navy2)); }
     .dxh .di { font-size:28px; flex-shrink:0; }
     .dxh .dinfo .dnum { font-size:10px; color:rgba(255,255,255,.6); font-weight:700; }
     .dxh .dinfo .dname { font-size:14px; font-weight:800; color:#fff; margin-bottom:2px; }
     .dxh .dinfo .dtag { font-size:10px; color:rgba(255,255,255,.75); }
     .dxb { padding:14px 16px; }
-    .dx-points { list-style:none; margin-bottom:0; }
-    .dx-points li { font-size:12px; color:var(--sub); line-height:1.8; padding-left:14px; position:relative; }
-    .dx-points li::before { content:'·'; position:absolute; left:4px; font-weight:900; color:var(--navy); }
+    .dxb p { font-size:12px; color:var(--sub); line-height:1.7; }
     .form-row { display:flex; gap:10px; }
     .form-row .fg { flex:1; }
     .fg { margin-bottom:12px; }
     .btn-diagnose { width:100%; padding:14px; background:var(--green); color:#fff; border:none; border-radius:6px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; }
     .btn-diagnose:hover { background:#155e36; }
-
     .ptip { background:#fff8e1; border:1px solid #ffe066; border-radius:6px; padding:12px 14px; margin-bottom:14px; font-size:12px; color:#7d5800; line-height:1.7; }
-
-    /* ── 로그인 모달 ── */
-    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:200; align-items:flex-end; justify-content:center; }
-    .modal-overlay.open { display:flex; }
-    .modal-sheet { background:#fff; border-radius:16px 16px 0 0; width:100%; max-width:480px; padding:0 0 32px; animation:slideUp .3s ease; position:relative; }
-    @keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
-    .modal-bar { width:40px; height:4px; background:#ddd; border-radius:2px; margin:12px auto 0; }
-    .modal-head { padding:20px 20px 0; }
-    .modal-head .mlogo { font-size:16px; font-weight:900; color:var(--navy); letter-spacing:.08em; margin-bottom:4px; }
-    .modal-head h3 { font-size:17px; font-weight:800; margin-bottom:4px; }
-    .modal-head p { font-size:12px; color:var(--sub); line-height:1.6; margin-bottom:20px; }
-    .modal-body { padding:0 20px; }
-    .modal-body .form-ctrl { margin-bottom:10px; }
-    .btn-login { width:100%; padding:14px; background:var(--navy); color:#fff; border:none; border-radius:6px; font-size:15px; font-weight:800; cursor:pointer; font-family:inherit; margin-bottom:12px; }
-    .modal-links { text-align:center; }
-    .modal-links a { font-size:12px; color:var(--navy); text-decoration:none; font-weight:600; }
-    .modal-links a:hover { text-decoration:underline; }
-    .modal-close { position:absolute; top:14px; right:18px; font-size:24px; color:#999; cursor:pointer; background:none; border:none; line-height:1; }
+    .exist-coupon-note { background:#fff8e1; border:1px solid #ffe082; border-radius:8px; padding:14px 16px; margin-bottom:14px; font-size:12px; color:#7d5800; line-height:1.75; display:flex; gap:10px; align-items:flex-start; }
+    .exist-coupon-note .ni { font-size:20px; flex-shrink:0; }
 
     /* ── STEP4 완료 ── */
     .complete { display:none; padding:32px 16px 0; text-align:center; }
@@ -174,24 +177,6 @@
 
     .bottom-safe { height:48px; }
     footer { padding:20px; text-align:center; font-size:11px; color:#aaa; line-height:1.9; border-top:1px solid var(--border); background:#fff; }
-
-    /* ── MEMBER TYPE ── */
-    .mem-type { display:flex; gap:10px; margin-bottom:4px; }
-    .mem-btn { flex:1; padding:16px 10px; background:#f9fafc; border:1.5px solid var(--border); border-radius:8px; cursor:pointer; font-family:inherit; text-align:center; transition:all .15s; }
-    .mem-btn:hover,.mem-btn.selected { background:var(--blue-light); border-color:var(--navy); }
-    .mem-btn .mb-icon { font-size:26px; margin-bottom:6px; }
-    .mem-btn .mb-title { font-size:13px; font-weight:800; color:var(--text); margin-bottom:3px; }
-    .mem-btn .mb-desc { font-size:10px; color:var(--sub); line-height:1.4; }
-    .mem-btn.selected .mb-title { color:var(--navy); }
-    .new-badge { display:inline-block; background:#d4edff; color:#0055cc; font-size:10px; font-weight:700; padding:2px 8px; border-radius:12px; margin-top:4px; }
-    .skip-btn { width:100%; margin-top:10px; padding:12px; background:var(--navy); color:#fff; border:none; border-radius:6px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit; display:none; }
-    .skip-btn:hover { background:var(--navy2); }
-
-    /* ── DX SELECTABLE ── */
-    .dx-card.selectable { cursor:pointer; transition:border-color .15s, background .15s; }
-    .dx-card.selectable:hover { border-color:var(--navy); }
-    .dx-card.selectable.selected { border-color:var(--navy); background:var(--blue-light); }
-    .dx-card.selectable.selected .dxh { background:linear-gradient(110deg,#002060,var(--navy2)); }
   </style>
 </head>
 <body>
@@ -202,7 +187,7 @@
   </header>
 
   <div class="step-bar">
-    <div class="step-item active" id="si1"><div class="step-circle">1</div><div class="step-text">정보 입력</div></div>
+    <div class="step-item active" id="si1"><div class="step-circle">1</div><div class="step-text">회원 확인</div></div>
     <div class="step-divider"></div>
     <div class="step-item" id="si2"><div class="step-circle">2</div><div class="step-text">위생 진단</div></div>
     <div class="step-divider"></div>
@@ -211,7 +196,7 @@
     <div class="step-item" id="si4"><div class="step-circle">4</div><div class="step-text">완료</div></div>
   </div>
 
-  <!-- ══ STEP 1 ══ -->
+  <!-- ══ STEP 1: 회원 확인 ══ -->
   <div id="step1">
     <div class="hero" style="padding:26px 24px 36px">
       <div class="hero-eye">MYLAB × CESCO</div>
@@ -220,75 +205,146 @@
     </div>
     <div class="sec" style="padding-top:22px">
 
-      <div class="card">
-        <div class="card-head">🏠 공간 및 구매 채널</div>
-        <div class="card-body">
-          <label class="form-label" style="margin-bottom:8px">어떤 공간에서 사용하시나요?</label>
-          <div class="space-grid" style="margin-bottom:16px">
-            <button class="sp-btn" onclick="selectSpace(this,'가정집')"><span class="sp-icon">🏡</span><span class="sp-name">가정집</span></button>
-            <button class="sp-btn" onclick="selectSpace(this,'요식업')"><span class="sp-icon">🍳</span><span class="sp-name">요식업</span></button>
-            <button class="sp-btn" onclick="selectSpace(this,'일반사업체')"><span class="sp-icon">🏢</span><span class="sp-name">일반사업체</span></button>
-          </div>
-          <div class="divider-label"><span>구매 채널</span></div>
-          <div class="fg" style="margin-bottom:0">
-            <select class="form-ctrl" id="selCh" onchange="checkReady()">
-              <option value="">어디서 구매하셨나요?</option>
-              <option>쿠팡</option><option>스마트스토어</option><option>11번가</option><option>G마켓</option><option>옥션</option><option>세스코 자사몰</option><option>기타</option>
-            </select>
+      <!-- 혜택 미리보기 -->
+      <div class="benefit-row">
+        <div class="benefit-pill active">
+          <span class="bp-icon">🆕</span>신규 가입<br/>100원 쿠폰 즉시
+        </div>
+        <div class="benefit-pill active">
+          <span class="bp-icon">🔬</span>전문가 진단<br/>무료 방문
+        </div>
+        <div class="benefit-pill active">
+          <span class="bp-icon">🎁</span>방문 후<br/>마이랩 쿠폰
+        </div>
+      </div>
+
+      <!-- 선택 화면 -->
+      <div id="choiceScreen">
+        <div class="card">
+          <div class="card-head">👤 세스코몰 회원이신가요?</div>
+          <div class="card-body">
+            <p style="font-size:12px;color:var(--sub);line-height:1.7;margin-bottom:16px">회원 여부에 따라 혜택 구성이 달라집니다</p>
+            <button class="choice-btn choice-new" onclick="goNewUser()">
+              <span class="cb-icon">🆕</span>
+              <div>
+                <div class="cb-title">회원가입하기</div>
+                <div class="cb-desc">추천 마이랩 제품 100원 쿠폰 즉시 지급<br/>전문가 진단 체험 신청</div>
+              </div>
+              <span class="cb-arr">›</span>
+            </button>
+            <button class="choice-btn choice-exist" onclick="showInlineLogin()">
+              <span class="cb-icon">👋</span>
+              <div>
+                <div class="cb-title" style="color:var(--text)">로그인하기 (기존 회원)</div>
+                <div class="cb-desc">전문가 진단 선택 신청<br/>방문 완료 후 연관 마이랩 쿠폰 지급</div>
+              </div>
+              <span class="cb-arr">›</span>
+            </button>
           </div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-head">🧪 구매하신 마이랩 제품</div>
-        <div class="card-body">
-          <div class="cat-intro">해당하는 제품 카테고리를 선택해주세요 (선택하지 않아도 진단 가능)</div>
-          <div class="cat-grid">
-            <button class="cat-btn" onclick="selectCat(this,'주방 위생')"><span class="cat-icon">🍽</span><span class="cat-name">주방 위생</span><span class="cat-sub">주방세제·기름때<br/>배수관세정제 등</span></button>
-            <button class="cat-btn" onclick="selectCat(this,'청소·욕실')"><span class="cat-icon">🧹</span><span class="cat-name">청소·욕실</span><span class="cat-sub">욕실세정제·곰팡이<br/>배수구클리너 등</span></button>
-            <button class="cat-btn" onclick="selectCat(this,'개인위생')"><span class="cat-icon">🧴</span><span class="cat-name">개인위생</span><span class="cat-sub">핸드워시·손소독제<br/>폼샴푸 등</span></button>
-            <button class="cat-btn" onclick="selectCat(this,'살균·소독')"><span class="cat-icon">🦠</span><span class="cat-name">살균·소독</span><span class="cat-sub">살균소독제<br/>살균클리닝티슈 등</span></button>
-            <button class="cat-btn" onclick="selectCat(this,'해충퇴치')"><span class="cat-icon">🐛</span><span class="cat-name">해충퇴치</span><span class="cat-sub">모기·초파리 제품<br/>야외미스트 등</span></button>
-            <button class="cat-btn" onclick="selectCat(this,'반려동물')"><span class="cat-icon">🐾</span><span class="cat-name">반려동물</span><span class="cat-sub">탈취제 등</span></button>
+      <!-- 인라인 로그인 폼 (기존 회원 클릭 시 표시) -->
+      <div id="loginInline" style="display:none">
+        <div class="card">
+          <div class="card-head">🔐 기존 회원 로그인</div>
+          <div class="card-body">
+            <button class="back-link" onclick="showChoiceScreen()">← 뒤로</button>
+            <div class="fg"><input class="form-ctrl" type="text" placeholder="이메일 또는 회원번호" /></div>
+            <div class="fg"><input class="form-ctrl" type="password" placeholder="비밀번호" /></div>
+            <button class="btn-primary" onclick="goExistUser()">로그인하고 진단 시작하기 →</button>
+            <div style="text-align:center;margin-top:10px">
+              <a href="#" style="font-size:12px;color:var(--navy);font-weight:600;text-decoration:none">비밀번호 찾기</a>
+            </div>
           </div>
-          <button class="cat-btn-w" onclick="selectCat(this,'세탁·섬유케어')"><span>👕</span><span>세탁·섬유케어 (세탁세제, 섬유유연제, 습기제거제 등)</span></button>
-          <button class="cat-btn-w" onclick="selectCat(this,'기타')"><span>📦</span><span>기타 / 잘 모르겠어요</span></button>
-          <button class="btn-primary" id="startBtn" onclick="startQuiz()" style="margin-top:16px">위생 진단 시작하기 →</button>
-          <p class="btn-note">선택 없이도 바로 진단을 시작할 수 있습니다</p>
         </div>
       </div>
+
     </div>
   </div>
 
-  <!-- ══ STEP 2 ══ -->
+  <!-- ══ STEP 2: 위생 진단 ══ -->
   <div id="step2" style="display:none">
-    <div class="hero" style="padding:20px 24px 34px">
-      <div class="hero-eye">STEP 2</div>
-      <h1 style="font-size:18px">맞춤 위생 진단</h1>
-      <p>구매 제품과 공간에 맞는 심화 질문입니다</p>
-    </div>
-    <div class="qwrap">
-      <div class="qprow">
-        <div class="qpbar"><div class="qpfill" id="qpFill" style="width:25%"></div></div>
-        <div class="qptxt" id="qpTxt">1 / 4</div>
+
+    <!-- 2a: 공간·제품 선택 -->
+    <div id="step2sel">
+      <div class="hero" style="padding:20px 24px 34px">
+        <div class="hero-eye">STEP 2</div>
+        <h1 style="font-size:18px">맞춤 위생 진단</h1>
+        <p>공간과 구매 제품을 선택하고 진단을 시작하세요</p>
       </div>
-      <div class="qcard" id="qCard">
-        <div class="sel-tags" id="selTags"></div>
-        <div class="qqtxt" id="qQ"></div>
-        <div class="qopts" id="qOpts"></div>
+      <div class="sec" style="padding-top:18px">
+        <div class="card">
+          <div class="card-head">🏠 공간 및 구매 채널</div>
+          <div class="card-body">
+            <label class="form-label" style="margin-bottom:8px">어떤 공간에서 사용하시나요?</label>
+            <div class="space-grid" style="margin-bottom:16px">
+              <button class="sp-btn" onclick="selectSpace(this,'가정집')"><span class="sp-icon">🏡</span><span class="sp-name">가정집</span></button>
+              <button class="sp-btn" onclick="selectSpace(this,'요식업')"><span class="sp-icon">🍳</span><span class="sp-name">요식업</span></button>
+              <button class="sp-btn" onclick="selectSpace(this,'일반사업체')"><span class="sp-icon">🏢</span><span class="sp-name">일반사업체</span></button>
+            </div>
+            <div class="divider-label"><span>구매 채널</span></div>
+            <div class="fg" style="margin-bottom:0">
+              <select class="form-ctrl" id="selCh">
+                <option value="">어디서 구매하셨나요?</option>
+                <option>쿠팡</option><option>스마트스토어</option><option>11번가</option><option>G마켓</option><option>옥션</option><option>세스코 자사몰</option><option>기타</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">🧪 구매하신 마이랩 제품</div>
+          <div class="card-body">
+            <div class="cat-intro">해당하는 제품 카테고리를 선택해주세요 (선택하지 않아도 진단 가능)</div>
+            <div class="cat-grid">
+              <button class="cat-btn" onclick="selectCat(this,'주방 위생')"><span class="cat-icon">🍽</span><span class="cat-name">주방 위생</span><span class="cat-sub">주방세제·기름때<br/>배수관세정제 등</span></button>
+              <button class="cat-btn" onclick="selectCat(this,'청소·욕실')"><span class="cat-icon">🧹</span><span class="cat-name">청소·욕실</span><span class="cat-sub">욕실세정제·곰팡이<br/>배수구클리너 등</span></button>
+              <button class="cat-btn" onclick="selectCat(this,'개인위생')"><span class="cat-icon">🧴</span><span class="cat-name">개인위생</span><span class="cat-sub">핸드워시·손소독제<br/>폼샴푸 등</span></button>
+              <button class="cat-btn" onclick="selectCat(this,'살균·소독')"><span class="cat-icon">🦠</span><span class="cat-name">살균·소독</span><span class="cat-sub">살균소독제<br/>살균클리닝티슈 등</span></button>
+              <button class="cat-btn" onclick="selectCat(this,'해충퇴치')"><span class="cat-icon">🐛</span><span class="cat-name">해충퇴치</span><span class="cat-sub">모기·초파리 제품<br/>야외미스트 등</span></button>
+              <button class="cat-btn" onclick="selectCat(this,'반려동물')"><span class="cat-icon">🐾</span><span class="cat-name">반려동물</span><span class="cat-sub">탈취제 등</span></button>
+            </div>
+            <button class="cat-btn-w" onclick="selectCat(this,'세탁·섬유케어')"><span>👕</span><span>세탁·섬유케어 (세탁세제, 섬유유연제, 습기제거제 등)</span></button>
+            <button class="cat-btn-w" onclick="selectCat(this,'기타')"><span>📦</span><span>기타 / 잘 모르겠어요</span></button>
+            <button class="btn-primary" id="startBtn" onclick="startQuiz()" style="margin-top:16px">위생 진단 시작하기 →</button>
+            <p class="btn-note">선택 없이도 바로 진단을 시작할 수 있습니다</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2b: 퀴즈 -->
+    <div id="step2quiz" style="display:none">
+      <div class="hero" style="padding:20px 24px 34px">
+        <div class="hero-eye">STEP 2</div>
+        <h1 style="font-size:18px">맞춤 위생 진단</h1>
+        <p>구매 제품과 공간에 맞는 심화 질문입니다</p>
+      </div>
+      <div class="qwrap">
+        <div class="qprow">
+          <div class="qpbar"><div class="qpfill" id="qpFill" style="width:25%"></div></div>
+          <div class="qptxt" id="qpTxt">1 / 4</div>
+        </div>
+        <div class="qcard" id="qCard">
+          <div class="sel-tags" id="selTags"></div>
+          <div class="qqtxt" id="qQ"></div>
+          <div class="qopts" id="qOpts"></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ══ STEP 3 ══ -->
+  <!-- ══ STEP 3: 결과·추천 ══ -->
   <div id="step3" style="display:none">
     <div class="hero" style="padding:20px 24px 34px">
       <div class="hero-eye">STEP 3</div>
       <h1 style="font-size:18px">진단 결과 · 맞춤 추천</h1>
-      <p>진단 결과를 바탕으로 제품과 전문가 진단을 추천합니다</p>
+      <p>진단 결과를 바탕으로 맞춤 혜택과 전문가 진단을 추천합니다</p>
     </div>
     <div class="sec" style="padding-top:18px">
 
+      <!-- 위험도 (공통) -->
       <div class="card">
         <div class="card-head">📊 위생 진단 결과</div>
         <div class="card-body" style="padding:16px">
@@ -302,28 +358,31 @@
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-head">🎯 맞춤 마이랩 추천 제품</div>
-        <div class="card-body" style="padding:12px 16px">
-          <div id="recCards"></div>
-          <div id="couponInfoBox" style="border-radius:6px;overflow:hidden;margin-top:4px">
-            <div style="background:#f7f9fc;padding:10px 14px;font-size:11px;font-weight:700;color:#333">🎁 로그인 방식에 따라 혜택이 달라집니다</div>
-            <div style="display:flex;flex-direction:column;gap:1px">
-              <div style="background:#e8f0fe;padding:10px 14px;font-size:11px;color:var(--text);line-height:1.7">
-                <strong style="color:var(--navy)">🆕 신규 가입 시</strong><br/>추천 마이랩 제품 <strong>100원 쿠폰 즉시 지급</strong> + 추천 전문가 진단 신청
-              </div>
-              <div style="background:#fff8e1;padding:10px 14px;font-size:11px;color:var(--text);line-height:1.7">
-                <strong style="color:#7d5800">👋 기존 회원 로그인 시</strong><br/>전문가 방문 진단 신청 → <strong>진단 완료 후 연관 마이랩 쿠폰 지급</strong>
-              </div>
-            </div>
+      <!-- 신규 전용: 추천 제품 + 100원 쿠폰 -->
+      <div id="s3new" style="display:none">
+        <div class="card">
+          <div class="card-head">🎯 맞춤 마이랩 추천 제품</div>
+          <div class="card-body" style="padding:12px 16px">
+            <p style="font-size:11px;color:var(--sub);line-height:1.6;margin-bottom:12px">진단 결과를 바탕으로 가장 적합한 마이랩 제품을 추천합니다</p>
+            <div id="recCards"></div>
           </div>
         </div>
       </div>
 
+      <!-- 전문가 진단 (공통) -->
       <div class="card">
         <div class="card-head">🔬 전문가 무료 진단 신청</div>
         <div class="card-body" style="padding:12px 16px">
-          <p style="font-size:12px;color:var(--sub);line-height:1.6;margin-bottom:14px">
+
+          <!-- 기존 회원 쿠폰 안내 -->
+          <div id="s3existNote" style="display:none">
+            <div class="exist-coupon-note">
+              <span class="ni">🎁</span>
+              <div>전문가 방문 진단 완료 후 진단 결과와 연관된 <strong>마이랩 제품 100원 쿠폰</strong>을 카카오 알림톡으로 발급해 드립니다.</div>
+            </div>
+          </div>
+
+          <p style="font-size:12px;color:var(--sub);line-height:1.6;margin-bottom:12px">
             아래 4가지 진단 중 <strong>원하시는 항목을 선택</strong>해 주세요. 세스코 전문가가 직접 방문합니다.
           </p>
           <div id="dxCards"></div>
@@ -334,13 +393,13 @@
             <div class="fg"><label class="form-label">이름 <span class="req">*</span></label><input class="form-ctrl" type="text" id="fName" placeholder="홍길동" /></div>
             <div class="fg"><label class="form-label">연락처 <span class="req">*</span></label><input class="form-ctrl" type="tel" id="fPhone" placeholder="010-0000-0000" oninput="fmtPhone(this)" /></div>
           </div>
-          <button class="btn-diagnose" id="submitBtn" onclick="tryOpenModal()">혜택 받고 진단 신청하기 →</button>
+          <button class="btn-diagnose" onclick="submitDiagnosis()">진단 신청 완료하기 →</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ══ STEP 4 신규 ══ -->
+  <!-- ══ STEP 4: 완료 (신규) ══ -->
   <div id="step4new" class="complete" style="display:none">
     <div class="complete-icon">🎉</div>
     <h2>가입 완료! 쿠폰이 지급됐습니다</h2>
@@ -367,10 +426,10 @@
         </div>
       </div>
     </div>
-    <button class="btn-primary" style="margin-top:8px">세스코몰에서 쿠폰 사용하기 →</button>
+    <button class="btn-primary" style="margin-top:8px" onclick="location.href='https://www.cescomall.co.kr'">세스코몰에서 쿠폰 사용하기 →</button>
   </div>
 
-  <!-- ══ STEP 4 기존 ══ -->
+  <!-- ══ STEP 4: 완료 (기존) ══ -->
   <div id="step4exist" class="complete" style="display:none">
     <div class="complete-icon">✅</div>
     <h2>진단 신청이 완료됐습니다!</h2>
@@ -397,61 +456,7 @@
         </div>
       </div>
     </div>
-    <button class="btn-primary" style="margin-top:8px">세스코몰 로그인하기 →</button>
-  </div>
-
-  <!-- ══ 로그인 모달 ══ -->
-  <div class="modal-overlay" id="loginModal" onclick="closeModal(event)">
-    <div class="modal-sheet">
-      <button class="modal-close" onclick="closeModalBtn()">×</button>
-      <div class="modal-bar"></div>
-
-      <!-- 선택 화면 -->
-      <div id="modalChoice">
-        <div class="modal-head">
-          <div class="mlogo">CESCO</div>
-          <h3>세스코몰 회원이신가요?</h3>
-          <p>회원 여부에 따라 혜택이 달라집니다</p>
-        </div>
-        <div class="modal-body" style="display:flex;flex-direction:column;gap:10px">
-          <button onclick="handleNewUser()" style="width:100%;padding:16px 18px;background:var(--navy);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;text-align:left;display:flex;align-items:center;gap:14px">
-            <span style="font-size:28px">🆕</span>
-            <div>
-              <div style="font-size:14px;font-weight:800;margin-bottom:3px">회원가입하기</div>
-              <div style="font-size:11px;color:rgba(255,255,255,.8);line-height:1.5">추천 마이랩 제품 100원 쿠폰 즉시 지급<br/>추천 전문가 진단 신청</div>
-            </div>
-            <span style="margin-left:auto;font-size:18px">›</span>
-          </button>
-          <button onclick="showLoginForm()" style="width:100%;padding:16px 18px;background:#fff8e1;border:1.5px solid #ffe082;border-radius:8px;cursor:pointer;font-family:inherit;text-align:left;display:flex;align-items:center;gap:14px">
-            <span style="font-size:28px">👋</span>
-            <div>
-              <div style="font-size:14px;font-weight:800;margin-bottom:3px;color:var(--text)">로그인하기 (기존 회원)</div>
-              <div style="font-size:11px;color:var(--sub);line-height:1.5">원하는 전문가 진단 선택<br/>방문 완료 후 연관 마이랩 쿠폰 지급</div>
-            </div>
-            <span style="margin-left:auto;font-size:18px;color:#888">›</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- 로그인 폼 (기존 회원 클릭 시) -->
-      <div id="modalLoginForm" style="display:none">
-        <div class="modal-head">
-          <div class="mlogo">CESCO</div>
-          <h3>기존 회원 로그인</h3>
-          <p>세스코몰 계정으로 로그인해 주세요</p>
-        </div>
-        <div class="modal-body">
-          <input class="form-ctrl" type="text" placeholder="이메일 또는 회원번호" style="margin-bottom:8px" />
-          <input class="form-ctrl" type="password" placeholder="비밀번호" style="margin-bottom:12px" />
-          <button class="btn-login" onclick="handleExistUser()">로그인하고 진단 신청하기</button>
-          <div class="modal-links" style="margin-top:12px;display:flex;justify-content:space-between">
-            <a href="#" onclick="showChoiceScreen();return false" style="font-size:12px;color:#888">← 뒤로</a>
-            <a href="#" style="font-size:12px;color:var(--navy)">비밀번호 찾기</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <button class="btn-primary" style="margin-top:8px" onclick="location.href='https://www.cescomall.co.kr'">세스코몰 로그인하기 →</button>
   </div>
 
   <div class="bottom-safe"></div>
@@ -459,7 +464,7 @@
 
 <script>
 /* ══════════════════════════════════════
-   진단 문항 뱅크 — 10가지 전문진단 신호 포함
+   진단 문항 뱅크
 ══════════════════════════════════════ */
 const quizBank = {
   '주방 위생': [
@@ -693,16 +698,17 @@ const quizBank = {
 
 /* ══════════════════════════════════════
    마이랩 제품 카탈로그
+   master* = 사업장 전용 (가정집 제외)
 ══════════════════════════════════════ */
 const products = {
   grease:    {name:'기름때세정제 파워',      tag:'주방 기름때 특화',      icon:'🍳', reason:'강력한 효소·계면활성제가 주방 기름때와 찌든 오염을 빠르게 분해합니다.'},
-  drain:     {name:'마스터 배수관세정제',    tag:'배수구 냄새·막힘 해결', icon:'💧', reason:'배관 내 유기물을 분해해 냄새·막힘의 근본 원인을 제거합니다. 월 1회 사용으로 관리 가능합니다.'},
+  drain:     {name:'마스터 배수관세정제',    tag:'배수구 냄새·막힘 해결', icon:'💧', reason:'배관 내 유기물을 분해해 냄새·막힘의 근본 원인을 제거합니다.', masterOnly:true},
   fruitfly:  {name:'초파리 유인제',         tag:'초파리 완전 박멸',      icon:'🪲', reason:'페로몬 유인 방식으로 초파리를 효과적으로 유인·포획합니다.'},
-  lax:       {name:'마스터 락스',           tag:'주방 강력 살균',        icon:'🦠', reason:'주방 조리대·도마·행주의 세균과 바이러스를 강력 살균합니다.'},
-  kitchen:   {name:'마스터 주방세제',       tag:'주방 기본 세정',        icon:'🧴', reason:'식품 접촉 표면에 안전하며 기름기와 음식물 오염을 깨끗이 제거합니다.'},
+  lax:       {name:'마스터 락스',           tag:'주방 강력 살균',        icon:'🦠', reason:'주방 조리대·도마·행주의 세균과 바이러스를 강력 살균합니다.', masterOnly:true},
+  kitchen:   {name:'마스터 주방세제',       tag:'주방 기본 세정',        icon:'🧴', reason:'식품 접촉 표면에 안전하며 기름기와 음식물 오염을 깨끗이 제거합니다.', masterOnly:true},
   mold:      {name:'곰팡이제거제',          tag:'욕실 곰팡이 뿌리 제거', icon:'🖤', reason:'욕실 타일 줄눈·코킹의 검은 곰팡이를 뿌리부터 제거하고 재발을 억제합니다.'},
   bathroom:  {name:'다목적 욕실세정제',     tag:'욕실 물때·얼룩 제거',   icon:'🚿', reason:'욕실 전면의 물때·비누찌꺼기·얼룩을 한 번에 제거합니다.'},
-  bdrain:    {name:'배수구클리너',          tag:'배수구 막힘 즉시 해결', icon:'🔧', reason:'욕실 배수구의 머리카락·찌꺼기를 용해해 막힘과 악취를 해결합니다.'},
+  bdrain:    {name:'배수구클리너',          tag:'배수구 막힘 즉시 해결', icon:'🔧', reason:'욕실·주방 배수구의 찌꺼기를 용해해 막힘과 악취를 해결합니다.'},
   tissue:    {name:'다용도 살균클리닝 티슈',tag:'간편 즉시 살균',        icon:'✨', reason:'즉시 사용 가능한 살균 티슈로 표면의 세균을 빠르게 제거합니다.'},
   mosquito:  {name:'모기 에어로솔',         tag:'실내 모기 즉시 퇴치',   icon:'🦟', reason:'살충 성분이 실내 모기를 빠르게 퇴치하며 분사 30분 후 환기 가능합니다.'},
   repellent: {name:'모기 기피제',           tag:'야외 활동 모기 차단',   icon:'🌿', reason:'DEET-free 성분으로 야외활동 시 모기의 접근을 효과적으로 차단합니다.'},
@@ -718,182 +724,26 @@ const products = {
   petdeodor: {name:'반려동물 탈취제',       tag:'반려동물 냄새 제거',     icon:'🐾', reason:'반려동물 체취와 배변 냄새를 분해·제거하며 동물에게 무해한 성분을 사용합니다.'},
 };
 
-/* ══════════════════════════════════════
-   전문가 진단 카탈로그 (10종 — 진단정보.md 기반)
-══════════════════════════════════════ */
-const diagnoses = {
-  pest_env:  {name:'해충 발생 환경 정밀 진단',       icon:'🔬',
-    points:['해충 유입 경로·서식 가능 환경 분석','배설물·탈피각 등 실제 흔적 조사','틈새·구조 점검 및 습기·먹이원 확인']},
-  bedding:   {name:'침구·매트리스 오염 진단',        icon:'🛏',
-    points:['초정밀 현미경으로 침구 표면 오염도 측정','집먼지 진드기 밀도 평가','알레르기 유발 가능 수준 진단']},
-  surface:   {name:'표면 세균 오염 정밀 진단',       icon:'🦠',
-    points:['ATP 측정기로 생활공간 주요 표면 오염도 측정','손이 많이 닿는 구역·집기 세균 핫스팟 도출','변기·세면대·배수구 오염도 진단']},
-  air:       {name:'실내 공기질 & 라돈 진단',        icon:'💨',
-    points:['미세먼지·CO₂·VOCs 등 유해가스 수준 측정','라돈 농도 측정','환기 상태·공기 정체 여부 평가 및 원인 분석']},
-  drain:     {name:'배수구 오염도 정밀진단',         icon:'🔧',
-    points:['정밀 진단 내시경으로 배수구 내부 오염도 측정','악취 발생 원인 평가','해충 유입 가능성 평가']},
-  mold_dx:   {name:'곰팡이 & 습기 리스크 진단',      icon:'🌫',
-    points:['곰팡이 발생 구역 탐지 (벽지 뒤·가구 뒤·창틀·욕실 줄눈)','수분 측정기로 벽체 수분율 측정','곰팡이 발생 원인 평가']},
-  hood:      {name:'후드·덕트 기름때 오염 진단',     icon:'🍳',
-    points:['주방 후드 및 덕트 내부 기름때 오염도 진단','화재·위생 위험 요소 평가','청소 주기·방법 맞춤 안내']},
-  aircon:    {name:'에어컨 내부 미생물 오염도 진단', icon:'❄️',
-    points:['에어컨 내부 곰팡이·세균 오염 진단','냉방 사용 시 오염 확산 위험도 평가','필터·내부 청소 권장 사항 안내']},
-  fly_pest:  {name:'비래해충 유입 리스크 예측 진단', icon:'🦟',
-    points:['창문·출입구·배수구 등 해충 유입 경로 분석','모기·파리·초파리 유입 위험도 예측','차단 방법 및 적합 제품 안내']},
-  odor:      {name:'실내 악취원인 정밀 분석',        icon:'👃',
-    points:['생활공간 악취 원인 물질 분석','발생원 위치 파악','근본 제거 방안 제시']},
-};
+/* 가정집일 때 마스터 제품 대체 */
+const MASTER_SUB = { drain:'bdrain', lax:'sterilizer', kitchen:'tissue' };
+
+function resolveProductKey(pk) {
+  if (selSpace === '가정집' && MASTER_SUB[pk]) return MASTER_SUB[pk];
+  return pk;
+}
 
 /* ══════════════════════════════════════
    제품 추천 맵
 ══════════════════════════════════════ */
 const productRecMap = {
-  '주방 위생':     {grease:['grease','kitchen'], drain:['drain','lax'],       pest:['fruitfly','drain'],  bacteria:['lax','sterilizer'], hood:['kitchen','drain'],     _default:['kitchen','drain']},
-  '청소·욕실':    {mold:['mold','bathroom'],     limescale:['bathroom','bdrain'],drain:['bdrain','bathroom'],smell:['tissue','bdrain'], moisture:['mold','bathroom'],  _default:['bathroom','mold']},
-  '해충퇴치':     {mosquito:['mosquito','repellent'],fruitfly:['fruitfly','drain'],ant:['outdoor','fruitfly'],roach:['outdoor','mosquito'],fly:['outdoor','mosquito'],  _default:['mosquito','outdoor']},
+  '주방 위생':     {grease:['grease','kitchen'], drain:['drain','lax'],       pest:['fruitfly','drain'],  bacteria:['lax','sterilizer'], hood:['kitchen','drain'],  _default:['kitchen','drain']},
+  '청소·욕실':    {mold:['mold','bathroom'],     limescale:['bathroom','bdrain'],drain:['bdrain','bathroom'],smell:['tissue','bdrain'],moisture:['mold','bathroom'],_default:['bathroom','mold']},
+  '해충퇴치':     {mosquito:['mosquito','repellent'],fruitfly:['fruitfly','drain'],ant:['outdoor','fruitfly'],roach:['outdoor','mosquito'],fly:['outdoor','mosquito'],_default:['mosquito','outdoor']},
   '개인위생':     {antibac:['antibac','sanitizer'],sensitive:['handwash','antibac'],air:['antibac','sanitizer'],_default:['antibac','handwash']},
   '살균·소독':    {professional:['sterilizer','tissue'],safe:['sterilizer','antibac'],bacteria:['sterilizer','lax'],surface:['tissue','sterilizer'],_default:['sterilizer','tissue']},
   '반려동물':     {deodorize:['petdeodor','deodorizer'],fabric:['deodorizer','laundry'],bacteria:['sterilizer','petdeodor'],pest:['outdoor','petdeodor'],bedding:['deodorizer','laundry'],_default:['petdeodor','deodorizer']},
-  '세탁·섬유케어':{smell:['deodorizer','drum'],  drum:['drum','deodorizer'],  bacteria:['laundry','drum'],moisture:['moisture','drum'],  bedding:['laundry','deodorizer'],_default:['laundry','deodorizer']},
+  '세탁·섬유케어':{smell:['deodorizer','drum'],  drum:['drum','deodorizer'],  bacteria:['laundry','drum'],moisture:['moisture','drum'], bedding:['laundry','deodorizer'],_default:['laundry','deodorizer']},
   '기타':         {kitchen:['kitchen','drain'],  bathroom:['bathroom','mold'],pest:['fruitfly','outdoor'],general:['sterilizer','tissue'],aircon:['tissue','sterilizer'],odor:['tissue','sterilizer'],_default:['sterilizer','kitchen']},
-};
-
-/* ══════════════════════════════════════
-   전문가 진단 추천 맵 (10종 기반)
-══════════════════════════════════════ */
-const diagRecMap = {
-  '주방 위생':     {grease:['hood','drain'],      drain:['drain','surface'],  pest:['fly_pest','drain'],  bacteria:['surface','drain'],   hood:['hood','drain'],   odor:['odor','drain'],   _default:['drain','surface']},
-  '청소·욕실':    {mold:['mold_dx','surface'],    limescale:['surface','drain'],drain:['drain','mold_dx'],smell:['odor','drain'],        moisture:['mold_dx','drain'],_default:['surface','drain']},
-  '해충퇴치':     {mosquito:['fly_pest','pest_env'],fruitfly:['fly_pest','drain'],ant:['pest_env','fly_pest'],roach:['pest_env','drain'],fly:['fly_pest','pest_env'],_default:['pest_env','fly_pest']},
-  '개인위생':     {antibac:['surface','air'],      sensitive:['surface','bedding'],air:['air','surface'],  _default:['surface','air']},
-  '살균·소독':    {professional:['surface','drain'],safe:['surface','air'],   bacteria:['surface','drain'],surface:['surface','odor'],   _default:['surface','odor']},
-  '반려동물':     {deodorize:['odor','surface'],   pest:['pest_env','fly_pest'],bacteria:['surface','bedding'],fabric:['bedding','surface'],bedding:['bedding','surface'],_default:['odor','pest_env']},
-  '세탁·섬유케어':{smell:['odor','mold_dx'],       drum:['mold_dx','surface'],bacteria:['surface','bedding'],moisture:['mold_dx','air'],  bedding:['bedding','mold_dx'],_default:['bedding','mold_dx']},
-  '기타':         {kitchen:['hood','drain'],       bathroom:['surface','drain'],pest:['pest_env','fly_pest'],general:['surface','odor'],  drain:['drain','odor'],  mold:['mold_dx','surface'],aircon:['aircon','air'],odor:['odor','surface'],_default:['surface','odor']},
-};
-
-/* ══════════════════════════════════════
-   상태 변수
-══════════════════════════════════════ */
-let selCat='', selSpace='';
-let questions=[], curQ=0, scores={};
-
-/* ══════════════════════════════════════
-   STEP 1
-══════════════════════════════════════ */
-function selectCat(btn, cat) {
-  document.querySelectorAll('.cat-btn,.cat-btn-w').forEach(b=>b.classList.remove('selected'));
-  btn.classList.add('selected'); selCat=cat; checkReady();
-}
-function selectSpace(btn, space) {
-  document.querySelectorAll('.sp-btn').forEach(b=>b.classList.remove('selected'));
-  btn.classList.add('selected'); selSpace=space; checkReady();
-}
-function checkReady() {
-  // 테스트 모드: 필수 선택 없이도 진행 가능
-}
-
-/* ══════════════════════════════════════
-   STEP 2 퀴즈
-══════════════════════════════════════ */
-function startQuiz() {
-  if(!selCat) selCat='기타';
-  questions=quizBank[selCat]||quizBank['기타']; scores={}; curQ=0;
-  document.getElementById('step1').style.display='none';
-  document.getElementById('step2').style.display='block';
-  setStep(2); renderQ(); window.scrollTo({top:0,behavior:'smooth'});
-}
-function renderQ() {
-  const q=questions[curQ], total=questions.length;
-  document.getElementById('qpFill').style.width=Math.round(((curQ+1)/total)*100)+'%';
-  document.getElementById('qpTxt').textContent=(curQ+1)+' / '+total;
-  document.getElementById('selTags').innerHTML=`<span class="sel-tag">🧪 ${selCat}</span><span class="sel-tag">🏠 ${selSpace}</span>`;
-  document.getElementById('qQ').textContent=q.q;
-  const sc=q.opts.length===3||q.opts.some(o=>o.text.length>20);
-  const el=document.getElementById('qOpts');
-  el.className='qopts'+(sc?' sc':'');
-  el.innerHTML=q.opts.map((o,i)=>`<button class="qopt" onclick="pickAnswer(${i})"><span class="oi">${o.icon}</span><span class="ot">${o.text}</span></button>`).join('');
-}
-function pickAnswer(idx) {
-  const opt=questions[curQ].opts[idx];
-  Object.entries(opt.scores).forEach(([k,v])=>{scores[k]=(scores[k]||0)+v;});
-  document.querySelectorAll('.qopt')[idx].classList.add('selected');
-  setTimeout(()=>{
-    curQ++;
-    if(curQ<questions.length){
-      const c=document.getElementById('qCard');
-      c.classList.add('fade-out');
-      setTimeout(()=>{c.classList.remove('fade-out'); renderQ();},220);
-    } else { showResult(); }
-  },320);
-}
-
-/* ══════════════════════════════════════
-   STEP 3 결과
-══════════════════════════════════════ */
-function showResult() {
-  const total=Object.values(scores).reduce((a,b)=>a+b,0);
-  let grade,pct,msg;
-  if(total<=2)      {grade='양호';pct=15;msg='현재 위생 상태가 양호합니다. 예방 제품으로 지금 관리를 유지하세요.';}
-  else if(total<=5) {grade='주의';pct=45;msg='일부 위험 요소가 발견됩니다. 추천 제품으로 선제적 관리를 시작하시기 바랍니다.';}
-  else if(total<=9) {grade='위험';pct=72;msg='복합 위험 요소가 확인됩니다. 추천 제품으로 즉시 관리를 시작하고 전문가 진단을 권장합니다.';}
-  else              {grade='시급';pct=92;msg='위험 수준이 높습니다. 추천 제품과 함께 세스코 전문가의 방문 진단을 빠르게 신청해 주세요.';}
-  document.getElementById('rlGrade').textContent=grade;
-  document.getElementById('rlFill').style.width=pct+'%';
-  document.getElementById('rlMsg').textContent=msg;
-
-  const tip=document.getElementById('pTip');
-  if((scores.roach||0)>=3||(scores.ant||0)>=3){
-    tip.innerHTML=`<div class="ptip">⚠️ <strong>전문가 진단을 강력 권장합니다</strong><br />선택하신 해충 유형은 제품만으로 완전한 제거가 어렵습니다. 세스코 전문가의 방문 진단으로 근본 서식처를 제거해야 재발을 막을 수 있습니다.</div>`;
-  } else { tip.innerHTML=''; }
-
-  // 제품 추천
-  const pmap=productRecMap[selCat]||productRecMap['기타'];
-  const topD=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0];
-  const dim=topD?topD[0]:'_default';
-  const pPair=(pmap[dim]||pmap['_default']).slice(0,2);
-  document.getElementById('recCards').innerHTML=pPair.map((pk,i)=>{
-    const p=products[pk]; if(!p)return'';
-    return`<div class="rec-card">
-      <div class="rch"><div class="ri">${p.icon}</div><div class="rinfo"><div class="rnum">추천 ${i+1}</div><div class="rname">${p.name}</div><div class="rtag">${p.tag}</div></div></div>
-      <div class="rcb"><div class="rreason">${p.reason}</div>
-      <div class="coupon-row"><span class="cl">🎟 첫구매 쿠폰</span><button class="btn-coupon" onclick="openModal()">100원 쿠폰 받기</button></div></div></div>`;
-  }).join('');
-
-  // 전문가 진단 4가지 고정 항목
-  renderFixedDiagnoses();
-
-  document.getElementById('step2').style.display='none';
-  document.getElementById('step3').style.display='block';
-  setStep(3); window.scrollTo({top:0,behavior:'smooth'});
-}
-
-/* ══════════════════════════════════════
-   회원 구분 상태
-══════════════════════════════════════ */
-let isNewUser = null;
-let selectedDiagnosisKey = null;
-
-/* 퀴즈 점수 기반 추천 진단 키 */
-function getRecommendedDxKey() {
-  const pestScore    = (scores.pest||0)+(scores.roach||0)+(scores.mosquito||0)+(scores.fruitfly||0)+(scores.ant||0)+(scores.fly||0);
-  const airScore     = (scores.air||0)+(scores.aircon||0);
-  const beddingScore = (scores.bedding||0)+(scores.fabric||0);
-  const alphaScore   = (scores.drain||0)+(scores.grease||0)+(scores.hood||0)+(scores.bacteria||0)+(scores.odor||0);
-  const max = Math.max(pestScore, airScore, beddingScore, alphaScore);
-  if (max === 0) return 'alpha';
-  if (pestScore === max)    return 'pest';
-  if (airScore === max)     return 'air';
-  if (beddingScore === max) return 'bed';
-  return 'alpha';
-}
-
-/* 진단 키 → 기존 고객 마이랩 쿠폰 안내 */
-const DX_COUPON_MAP = {
-  alpha: { label:'배수구 클리너 · 살균 소독제 쿠폰', desc:'방문 시 직접 사용한 제품 기반 쿠폰을 발급합니다' },
-  air:   { label:'공기질 관련 마이랩 쿠폰',         desc:'실내 공기질 개선에 적합한 제품 쿠폰을 발급합니다' },
-  pest:  { label:'해충 관련 마이랩 쿠폰',           desc:'초파리유인제·야외도어미스트 등 해충 관련 쿠폰을 발급합니다' },
-  bed:   { label:'침구 케어 마이랩 쿠폰',           desc:'살균티슈·세탁세제 등 침구 위생 관련 쿠폰을 발급합니다' },
 };
 
 /* ══════════════════════════════════════
@@ -910,21 +760,190 @@ const FIXED_DIAGNOSES = [
     desc:'현미경으로 진드기·먼지 오염도 확인<br/>침구 위생 관리 솔루션 안내' },
 ];
 
-function renderFixedDiagnoses(recKey) {
-  const rec = recKey || getRecommendedDxKey();
+/* 진단 키 → 기존 고객 마이랩 쿠폰 안내 */
+const DX_COUPON_MAP = {
+  alpha: { label:'배수구 클리너 · 살균 소독제 쿠폰', desc:'방문 시 직접 사용한 제품 기반 쿠폰을 발급합니다' },
+  air:   { label:'공기질 관련 마이랩 쿠폰',         desc:'실내 공기질 개선에 적합한 제품 쿠폰을 발급합니다' },
+  pest:  { label:'해충 관련 마이랩 쿠폰',           desc:'초파리유인제·야외도어미스트 등 해충 관련 쿠폰을 발급합니다' },
+  bed:   { label:'침구 케어 마이랩 쿠폰',           desc:'살균티슈·세탁세제 등 침구 위생 관련 쿠폰을 발급합니다' },
+};
+
+/* ══════════════════════════════════════
+   퀴즈 점수 → 4개 진단 중 1개 추천
+══════════════════════════════════════ */
+function getRecommendedDxKey() {
+  const pestScore    = (scores.pest||0)+(scores.roach||0)+(scores.mosquito||0)+(scores.fruitfly||0)+(scores.ant||0)+(scores.fly||0);
+  const airScore     = (scores.air||0)+(scores.aircon||0);
+  const beddingScore = (scores.bedding||0)+(scores.fabric||0);
+  const alphaScore   = (scores.drain||0)+(scores.grease||0)+(scores.hood||0)+(scores.bacteria||0)+(scores.odor||0);
+  const max = Math.max(pestScore, airScore, beddingScore, alphaScore);
+  if (max === 0) return 'alpha';
+  if (pestScore === max)    return 'pest';
+  if (airScore === max)     return 'air';
+  if (beddingScore === max) return 'bed';
+  return 'alpha';
+}
+
+/* ══════════════════════════════════════
+   상태 변수
+══════════════════════════════════════ */
+let isNewUser = null;
+let selCat = '', selSpace = '';
+let questions = [], curQ = 0, scores = {};
+let selectedDiagnosisKey = null;
+
+/* ══════════════════════════════════════
+   STEP 1 — 회원 확인
+══════════════════════════════════════ */
+function goNewUser() {
+  isNewUser = true;
+  document.getElementById('step1').style.display = 'none';
+  document.getElementById('step2').style.display = 'block';
+  setStep(2);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function showInlineLogin() {
+  document.getElementById('choiceScreen').style.display = 'none';
+  document.getElementById('loginInline').style.display = 'block';
+}
+
+function showChoiceScreen() {
+  document.getElementById('loginInline').style.display = 'none';
+  document.getElementById('choiceScreen').style.display = 'block';
+}
+
+function goExistUser() {
+  isNewUser = false;
+  document.getElementById('step1').style.display = 'none';
+  document.getElementById('step2').style.display = 'block';
+  setStep(2);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ══════════════════════════════════════
+   STEP 2 — 공간·제품 선택
+══════════════════════════════════════ */
+function selectCat(btn, cat) {
+  document.querySelectorAll('.cat-btn,.cat-btn-w').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected'); selCat = cat;
+}
+function selectSpace(btn, space) {
+  document.querySelectorAll('.sp-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected'); selSpace = space;
+}
+
+/* ══════════════════════════════════════
+   STEP 2 — 퀴즈
+══════════════════════════════════════ */
+function startQuiz() {
+  if (!selCat) selCat = '기타';
+  questions = quizBank[selCat] || quizBank['기타'];
+  scores = {}; curQ = 0;
+  document.getElementById('step2sel').style.display = 'none';
+  document.getElementById('step2quiz').style.display = 'block';
+  renderQ();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function renderQ() {
+  const q = questions[curQ], total = questions.length;
+  document.getElementById('qpFill').style.width = Math.round(((curQ+1)/total)*100) + '%';
+  document.getElementById('qpTxt').textContent = (curQ+1) + ' / ' + total;
+  document.getElementById('selTags').innerHTML =
+    `<span class="sel-tag">🧪 ${selCat}</span><span class="sel-tag">🏠 ${selSpace||'공간 미선택'}</span>`;
+  document.getElementById('qQ').textContent = q.q;
+  const sc = q.opts.length === 3 || q.opts.some(o => o.text.length > 20);
+  const el = document.getElementById('qOpts');
+  el.className = 'qopts' + (sc ? ' sc' : '');
+  el.innerHTML = q.opts.map((o,i) =>
+    `<button class="qopt" onclick="pickAnswer(${i})"><span class="oi">${o.icon}</span><span class="ot">${o.text}</span></button>`
+  ).join('');
+}
+function pickAnswer(idx) {
+  const opt = questions[curQ].opts[idx];
+  Object.entries(opt.scores).forEach(([k,v]) => { scores[k] = (scores[k]||0) + v; });
+  document.querySelectorAll('.qopt')[idx].classList.add('selected');
+  setTimeout(() => {
+    curQ++;
+    if (curQ < questions.length) {
+      const c = document.getElementById('qCard');
+      c.classList.add('fade-out');
+      setTimeout(() => { c.classList.remove('fade-out'); renderQ(); }, 220);
+    } else {
+      showResult();
+    }
+  }, 320);
+}
+
+/* ══════════════════════════════════════
+   STEP 3 — 결과·추천
+══════════════════════════════════════ */
+function showResult() {
+  const total = Object.values(scores).reduce((a,b) => a+b, 0);
+  let grade, pct, msg;
+  if (total <= 2)      { grade='양호'; pct=15; msg='현재 위생 상태가 양호합니다. 예방 제품으로 지금 관리를 유지하세요.'; }
+  else if (total <= 5) { grade='주의'; pct=45; msg='일부 위험 요소가 발견됩니다. 추천 제품으로 선제적 관리를 시작하시기 바랍니다.'; }
+  else if (total <= 9) { grade='위험'; pct=72; msg='복합 위험 요소가 확인됩니다. 추천 제품으로 즉시 관리를 시작하고 전문가 진단을 권장합니다.'; }
+  else                 { grade='시급'; pct=92; msg='위험 수준이 높습니다. 전문가의 방문 진단을 빠르게 신청해 주세요.'; }
+  document.getElementById('rlGrade').textContent = grade;
+  document.getElementById('rlFill').style.width = pct + '%';
+  document.getElementById('rlMsg').textContent = msg;
+
+  const tip = document.getElementById('pTip');
+  if ((scores.roach||0) >= 3 || (scores.ant||0) >= 3) {
+    tip.innerHTML = `<div class="ptip">⚠️ <strong>전문가 진단을 강력 권장합니다</strong><br />선택하신 해충 유형은 제품만으로 완전한 제거가 어렵습니다. 세스코 전문가의 방문 진단으로 근본 서식처를 제거해야 재발을 막을 수 있습니다.</div>`;
+  } else { tip.innerHTML = ''; }
+
+  /* 신규: 추천 제품 카드 (마스터 제품 필터링) */
+  if (isNewUser) {
+    document.getElementById('s3new').style.display = 'block';
+    const pmap = productRecMap[selCat] || productRecMap['기타'];
+    const topD = Object.entries(scores).sort((a,b) => b[1]-a[1])[0];
+    const dim  = topD ? topD[0] : '_default';
+    const pPair = (pmap[dim] || pmap['_default'])
+      .map(pk => resolveProductKey(pk))
+      .filter((pk, i, arr) => arr.indexOf(pk) === i)
+      .slice(0, 2);
+    document.getElementById('recCards').innerHTML = pPair.map((pk, i) => {
+      const p = products[pk]; if (!p) return '';
+      return `<div class="rec-card">
+        <div class="rch"><div class="ri">${p.icon}</div><div class="rinfo">
+          <div class="rnum">추천 ${i+1}</div>
+          <div class="rname">${p.name}</div>
+          <div class="rtag">${p.tag}</div>
+        </div></div>
+        <div class="rcb">
+          <div class="rreason">${p.reason}</div>
+          <span class="coupon-badge">🎟 진단 신청 완료 시 100원 쿠폰 지급</span>
+        </div></div>`;
+    }).join('');
+  }
+
+  /* 기존: 쿠폰 후지급 안내 */
+  if (!isNewUser) {
+    document.getElementById('s3existNote').style.display = 'block';
+  }
+
+  /* 4가지 전문가 진단 카드 (퀴즈 점수 기반 추천 pre-select) */
+  const recKey = getRecommendedDxKey();
+  selectedDiagnosisKey = recKey;
   document.getElementById('dxCards').innerHTML = FIXED_DIAGNOSES.map((d, i) => `
-    <div class="dx-card selectable${d.key===rec?' selected':''}" data-key="${d.key}" onclick="selectDiagnosis(this,'${d.key}')">
+    <div class="dx-card${d.key === recKey ? ' selected' : ''}" data-key="${d.key}" onclick="selectDiagnosis(this,'${d.key}')">
       <div class="dxh">
         <div class="di">${d.icon}</div>
         <div class="dinfo">
-          <div class="dnum">진단 ${i+1}${d.key===rec?' <span style=\'background:#fff3;color:#fff;font-size:9px;padding:1px 7px;border-radius:10px;font-weight:700\'>추천</span>':''}</div>
+          <div class="dnum">진단 ${i+1}${d.key===recKey ? ' <span style="background:rgba(255,255,255,.25);color:#fff;font-size:9px;padding:1px 7px;border-radius:10px;font-weight:700">추천</span>' : ''}</div>
           <div class="dname">${d.name}</div>
           <div class="dtag">세스코 전문가 무료 방문 진단</div>
         </div>
       </div>
-      <div class="dxb"><p style="font-size:12px;color:var(--sub);line-height:1.7">${d.desc}</p></div>
+      <div class="dxb"><p>${d.desc}</p></div>
     </div>`).join('');
-  selectedDiagnosisKey = rec;
+
+  document.getElementById('step2').style.display = 'none';
+  document.getElementById('step3').style.display = 'block';
+  setStep(3);
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 function selectDiagnosis(el, key) {
@@ -934,104 +953,62 @@ function selectDiagnosis(el, key) {
 }
 
 /* ══════════════════════════════════════
-   로그인 모달
+   STEP 4 — 진단 신청 제출
 ══════════════════════════════════════ */
-/* 제품 카드 쿠폰 버튼 → 바로 모달 열기 (폼 검사 없음) */
-function openModal() {
-  showChoiceScreen();
-  document.getElementById('loginModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-/* 진단 신청 버튼 → 이름/연락처/진단 선택 검사 후 모달 열기 */
-function tryOpenModal() {
+function submitDiagnosis() {
   const name  = document.getElementById('fName').value.trim();
   const phone = document.getElementById('fPhone').value.trim();
   if (!name || !phone) {
-    document.getElementById('fName').focus();
     alert('이름과 연락처를 입력해 주세요.');
+    document.getElementById('fName').focus();
     return;
   }
   if (!selectedDiagnosisKey) {
     alert('전문가 진단 항목을 선택해 주세요.');
     return;
   }
-  openModal();
-}
-function showChoiceScreen() {
-  document.getElementById('modalChoice').style.display = 'block';
-  document.getElementById('modalLoginForm').style.display = 'none';
-}
-function showLoginForm() {
-  document.getElementById('modalChoice').style.display = 'none';
-  document.getElementById('modalLoginForm').style.display = 'block';
-}
-function closeModalBtn() {
-  document.getElementById('loginModal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeModal(e) {
-  if (e.target === document.getElementById('loginModal')) closeModalBtn();
-}
 
-/* ══════════════════════════════════════
-   STEP 4 — 신규 / 기존 분기
-══════════════════════════════════════ */
-function handleNewUser() {
-  isNewUser = true;
-  closeModalBtn();
-  // 추천 제품명 표시
-  const pmap = productRecMap[selCat] || productRecMap['기타'];
-  const topD = Object.entries(scores).sort((a,b)=>b[1]-a[1])[0];
-  const dim  = topD ? topD[0] : '_default';
-  const pk   = (pmap[dim] || pmap['_default'])[0];
-  const pName = products[pk] ? products[pk].name : '추천 마이랩 제품';
-  document.getElementById('s4n_product').textContent = pName;
-  // 추천 진단명 표시 (진단이 선택된 경우에만 해당 카드 노출)
-  const dxInfo = FIXED_DIAGNOSES.find(d => d.key === selectedDiagnosisKey);
-  const dxCard = document.getElementById('s4n_diagCard');
-  if (dxInfo && document.getElementById('fName').value.trim()) {
-    document.getElementById('s4n_diag').textContent = dxInfo.name;
-    if (dxCard) dxCard.style.display = 'block';
-  } else {
-    if (dxCard) dxCard.style.display = 'none';
-  }
-  // Step 4 신규 표시
-  document.getElementById('step3').style.display = 'none';
-  document.getElementById('step4new').style.display = 'block';
-  setStep(4); window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function handleExistUser() {
-  isNewUser = false;
-  closeModalBtn();
-  // 선택한 진단명 표시
   const dxInfo = FIXED_DIAGNOSES.find(d => d.key === selectedDiagnosisKey);
   const dxName = dxInfo ? dxInfo.name : '전문가 진단';
-  document.getElementById('s4e_diag').textContent = dxName;
-  // 연관 쿠폰 표시
-  const coupon = DX_COUPON_MAP[selectedDiagnosisKey] || DX_COUPON_MAP['alpha'];
-  document.getElementById('s4e_coupon').textContent = coupon.label;
-  document.getElementById('s4e_coupon_desc').textContent = coupon.desc;
-  // Step 4 기존 표시
-  document.getElementById('step3').style.display = 'none';
-  document.getElementById('step4exist').style.display = 'block';
-  setStep(4); window.scrollTo({top:0, behavior:'smooth'});
+
+  if (isNewUser) {
+    /* 신규: 추천 제품명 + 진단명 표시 */
+    const pmap = productRecMap[selCat] || productRecMap['기타'];
+    const topD = Object.entries(scores).sort((a,b) => b[1]-a[1])[0];
+    const dim  = topD ? topD[0] : '_default';
+    const pk   = resolveProductKey((pmap[dim] || pmap['_default'])[0]);
+    document.getElementById('s4n_product').textContent = products[pk] ? products[pk].name : '추천 마이랩 제품';
+    document.getElementById('s4n_diag').textContent = dxName;
+    document.getElementById('step3').style.display = 'none';
+    document.getElementById('step4new').style.display = 'block';
+  } else {
+    /* 기존: 진단명 + 쿠폰 표시 */
+    document.getElementById('s4e_diag').textContent = dxName;
+    const coupon = DX_COUPON_MAP[selectedDiagnosisKey] || DX_COUPON_MAP['alpha'];
+    document.getElementById('s4e_coupon').textContent = coupon.label;
+    document.getElementById('s4e_coupon_desc').textContent = coupon.desc;
+    document.getElementById('step3').style.display = 'none';
+    document.getElementById('step4exist').style.display = 'block';
+  }
+
+  setStep(4);
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 /* ══════════════════════════════════════
    공통 유틸
 ══════════════════════════════════════ */
 function setStep(n) {
-  for(let i=1;i<=4;i++){
-    document.getElementById('si'+i).className='step-item'+(i<n?' done':i===n?' active':'');
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('si'+i).className = 'step-item' + (i < n ? ' done' : i === n ? ' active' : '');
   }
 }
 function fmtPhone(input) {
-  let v=input.value.replace(/[^0-9]/g,'');
-  if(v.length>11)v=v.slice(0,11);
-  if(v.length>7)      input.value=v.replace(/(\d{3})(\d{4})(\d{0,4})/,'$1-$2-$3');
-  else if(v.length>3) input.value=v.replace(/(\d{3})(\d{0,4})/,'$1-$2');
-  else                input.value=v;
+  let v = input.value.replace(/[^0-9]/g, '');
+  if (v.length > 11) v = v.slice(0, 11);
+  if (v.length > 7)      input.value = v.replace(/(\d{3})(\d{4})(\d{0,4})/, '$1-$2-$3');
+  else if (v.length > 3) input.value = v.replace(/(\d{3})(\d{0,4})/, '$1-$2');
+  else                   input.value = v;
 }
 </script>
 </body>
