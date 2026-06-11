@@ -220,27 +220,6 @@
     </div>
     <div class="sec" style="padding-top:22px">
 
-      <!-- 회원 구분 -->
-      <div class="card" id="memberCard">
-        <div class="card-head">👤 세스코몰 회원이신가요?</div>
-        <div class="card-body">
-          <div class="mem-type">
-            <button class="mem-btn" id="btnNew" onclick="setMember(this,true)">
-              <div class="mb-icon">🆕</div>
-              <div class="mb-title">아직 미가입이에요</div>
-              <div class="mb-desc">진단 후 마이랩 100원 첫구매 쿠폰 지급</div>
-              <div class="new-badge">+ 100원 쿠폰 혜택</div>
-            </button>
-            <button class="mem-btn" id="btnExist" onclick="setMember(this,false)">
-              <div class="mb-icon">👋</div>
-              <div class="mb-title">이미 회원이에요</div>
-              <div class="mb-desc">4가지 전문가 진단 중 원하는 항목 신청</div>
-            </button>
-          </div>
-          <button class="skip-btn" id="skipToQuizBtn" onclick="skipToSelect()">진단 항목 바로 선택하기 →</button>
-        </div>
-      </div>
-
       <div class="card">
         <div class="card-head">🏠 공간 및 구매 채널</div>
         <div class="card-body">
@@ -327,8 +306,16 @@
         <div class="card-head">🎯 맞춤 마이랩 추천 제품</div>
         <div class="card-body" style="padding:12px 16px">
           <div id="recCards"></div>
-          <div id="couponInfoBox" style="background:#f7f9fc;border-radius:6px;padding:10px 12px;font-size:11px;color:var(--sub);line-height:1.7">
-            💡 추천 제품 구매 시 <strong>마이랩 첫구매 100원 쿠폰</strong>이 적용됩니다.<br />구매 후 <strong>100% 적립쿠폰</strong>이 추가로 지급됩니다.
+          <div id="couponInfoBox" style="border-radius:6px;overflow:hidden;margin-top:4px">
+            <div style="background:#f7f9fc;padding:10px 14px;font-size:11px;font-weight:700;color:#333">🎁 로그인 방식에 따라 혜택이 달라집니다</div>
+            <div style="display:flex;flex-direction:column;gap:1px">
+              <div style="background:#e8f0fe;padding:10px 14px;font-size:11px;color:var(--text);line-height:1.7">
+                <strong style="color:var(--navy)">🆕 신규 가입 시</strong><br/>추천 마이랩 제품 <strong>100원 쿠폰 즉시 지급</strong> + 추천 전문가 진단 신청
+              </div>
+              <div style="background:#fff8e1;padding:10px 14px;font-size:11px;color:var(--text);line-height:1.7">
+                <strong style="color:#7d5800">👋 기존 회원 로그인 시</strong><br/>전문가 방문 진단 신청 → <strong>진단 완료 후 연관 마이랩 쿠폰 지급</strong>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -347,30 +334,70 @@
             <div class="fg"><label class="form-label">이름 <span class="req">*</span></label><input class="form-ctrl" type="text" id="fName" placeholder="홍길동" /></div>
             <div class="fg"><label class="form-label">연락처 <span class="req">*</span></label><input class="form-ctrl" type="tel" id="fPhone" placeholder="010-0000-0000" oninput="fmtPhone(this)" /></div>
           </div>
-          <button class="btn-diagnose" id="submitBtn" onclick="submitForm()">무료 진단 신청하기</button>
+          <button class="btn-diagnose" id="submitBtn" onclick="tryOpenModal()">혜택 받고 진단 신청하기 →</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ══ STEP 4 ══ -->
-  <div id="step4" class="complete">
-    <div class="complete-icon">🔬</div>
-    <h2>신청이 완료됐습니다!</h2>
-    <p>세스코 전문가가 방문해 위생 환경을 진단하고<br />맞춤 솔루션을 제안해 드립니다.</p>
+  <!-- ══ STEP 4 신규 ══ -->
+  <div id="step4new" class="complete" style="display:none">
+    <div class="complete-icon">🎉</div>
+    <h2>가입 완료! 쿠폰이 지급됐습니다</h2>
+    <p>추천 마이랩 제품을 100원에 구매하고<br />전문가 진단 일정을 안내받으세요.</p>
     <div style="text-align:left;width:100%">
       <div class="contract-card">
-        <div class="ct-top">
-          <div class="tag">이런 서비스를 제안드립니다</div>
-          <h3>진단 결과에 따라<br /><em>세스코 전문 서비스</em>를 안내합니다</h3>
+        <div class="ct-top" style="background:linear-gradient(110deg,#004a20,#1a7a45)">
+          <div class="tag">즉시 지급 완료</div>
+          <h3>추천 마이랩 제품<br /><em>100원 첫구매 쿠폰</em></h3>
         </div>
         <div class="ct-body">
-          <div class="ct-row"><div class="ci">🐛</div><div class="ct"><strong>IPM 해충방제 서비스</strong><span>해충 서식 환경 차단 + 정기 방문 관리</span></div></div>
-          <div class="ct-row"><div class="ci">💧</div><div class="ct"><strong>환경가전 위생 서비스</strong><span>정수기·공기청정기·비데 정기 관리</span></div></div>
-          <div class="ct-row"><div class="ci">🧪</div><div class="ct"><strong>마이랩 정기구독</strong><span>진단 결과에 맞는 위생용품 정기 배송</span></div></div>
+          <div class="ct-row"><div class="ci">🎟</div><div class="ct"><strong id="s4n_product">추천 마이랩 제품</strong><span>세스코몰에서 100원으로 구매 가능합니다</span></div></div>
+          <div class="ct-row"><div class="ci">💰</div><div class="ct"><strong>100% 적립쿠폰 추가 지급</strong><span>첫구매 완료 후 결제금액 전액 적립</span></div></div>
+        </div>
+      </div>
+      <div class="contract-card">
+        <div class="ct-top">
+          <div class="tag">전문가 진단 신청 완료</div>
+          <h3><em id="s4n_diag">추천 전문가 진단</em><br />방문 일정을 안내드립니다</h3>
+        </div>
+        <div class="ct-body">
+          <div class="ct-row"><div class="ci">🔬</div><div class="ct"><strong>세스코 전문가 무료 방문</strong><span>담당자가 연락해 방문 일정을 조율합니다</span></div></div>
+          <div class="ct-row"><div class="ci">🎁</div><div class="ct"><strong>현장 체험용 제품 제공</strong><span>방문 시 소독제·배수구 클리너 소량 남겨드립니다</span></div></div>
         </div>
       </div>
     </div>
+    <button class="btn-primary" style="margin-top:8px">세스코몰에서 쿠폰 사용하기 →</button>
+  </div>
+
+  <!-- ══ STEP 4 기존 ══ -->
+  <div id="step4exist" class="complete" style="display:none">
+    <div class="complete-icon">✅</div>
+    <h2>진단 신청이 완료됐습니다!</h2>
+    <p>세스코 전문가가 방문 후<br />연관 마이랩 쿠폰을 드립니다.</p>
+    <div style="text-align:left;width:100%">
+      <div class="contract-card">
+        <div class="ct-top">
+          <div class="tag">전문가 진단 신청 완료</div>
+          <h3><em id="s4e_diag">선택한 전문가 진단</em><br />방문 일정을 안내드립니다</h3>
+        </div>
+        <div class="ct-body">
+          <div class="ct-row"><div class="ci">🔬</div><div class="ct"><strong>세스코 전문가 무료 방문</strong><span>담당자가 연락해 방문 일정을 조율합니다</span></div></div>
+          <div class="ct-row"><div class="ci">🎁</div><div class="ct"><strong>현장 체험용 제품 제공</strong><span>방문 시 소독제·배수구 클리너 소량 남겨드립니다</span></div></div>
+        </div>
+      </div>
+      <div class="contract-card">
+        <div class="ct-top" style="background:linear-gradient(110deg,#7d5800,#b07a00)">
+          <div class="tag">방문 완료 후 지급 예정</div>
+          <h3>진단 결과에 연관된<br /><em id="s4e_coupon">마이랩 쿠폰</em></h3>
+        </div>
+        <div class="ct-body">
+          <div class="ct-row"><div class="ci">📋</div><div class="ct"><strong>방문 진단 완료 후 지급</strong><span id="s4e_coupon_desc">전문가 진단 결과에 맞는 마이랩 제품 쿠폰을 드립니다</span></div></div>
+          <div class="ct-row"><div class="ci">📱</div><div class="ct"><strong>카카오 알림톡으로 안내</strong><span>쿠폰 발급 시 문자·알림톡으로 발송됩니다</span></div></div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-primary" style="margin-top:8px">세스코몰 로그인하기 →</button>
   </div>
 
   <!-- ══ 로그인 모달 ══ -->
@@ -378,19 +405,52 @@
     <div class="modal-sheet">
       <button class="modal-close" onclick="closeModalBtn()">×</button>
       <div class="modal-bar"></div>
-      <div class="modal-head">
-        <div class="mlogo">CESCO</div>
-        <h3>쿠폰을 받으려면<br />세스코 로그인이 필요해요</h3>
-        <p>세스코 계정으로 로그인하면<br /><strong>마이랩 첫구매 100원 쿠폰</strong>이 즉시 지급됩니다.</p>
-      </div>
-      <div class="modal-body">
-        <input class="form-ctrl" type="text" placeholder="이메일 또는 회원번호" />
-        <input class="form-ctrl" type="password" placeholder="비밀번호" />
-        <button class="btn-login">로그인하기</button>
-        <div class="modal-links">
-          <a href="#">회원가입 하기</a> &nbsp;·&nbsp; <a href="#">비밀번호 찾기</a>
+
+      <!-- 선택 화면 -->
+      <div id="modalChoice">
+        <div class="modal-head">
+          <div class="mlogo">CESCO</div>
+          <h3>세스코몰 회원이신가요?</h3>
+          <p>회원 여부에 따라 혜택이 달라집니다</p>
+        </div>
+        <div class="modal-body" style="display:flex;flex-direction:column;gap:10px">
+          <button onclick="handleNewUser()" style="width:100%;padding:16px 18px;background:var(--navy);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;text-align:left;display:flex;align-items:center;gap:14px">
+            <span style="font-size:28px">🆕</span>
+            <div>
+              <div style="font-size:14px;font-weight:800;margin-bottom:3px">회원가입하기</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.8);line-height:1.5">추천 마이랩 제품 100원 쿠폰 즉시 지급<br/>추천 전문가 진단 신청</div>
+            </div>
+            <span style="margin-left:auto;font-size:18px">›</span>
+          </button>
+          <button onclick="showLoginForm()" style="width:100%;padding:16px 18px;background:#fff8e1;border:1.5px solid #ffe082;border-radius:8px;cursor:pointer;font-family:inherit;text-align:left;display:flex;align-items:center;gap:14px">
+            <span style="font-size:28px">👋</span>
+            <div>
+              <div style="font-size:14px;font-weight:800;margin-bottom:3px;color:var(--text)">로그인하기 (기존 회원)</div>
+              <div style="font-size:11px;color:var(--sub);line-height:1.5">원하는 전문가 진단 선택<br/>방문 완료 후 연관 마이랩 쿠폰 지급</div>
+            </div>
+            <span style="margin-left:auto;font-size:18px;color:#888">›</span>
+          </button>
         </div>
       </div>
+
+      <!-- 로그인 폼 (기존 회원 클릭 시) -->
+      <div id="modalLoginForm" style="display:none">
+        <div class="modal-head">
+          <div class="mlogo">CESCO</div>
+          <h3>기존 회원 로그인</h3>
+          <p>세스코몰 계정으로 로그인해 주세요</p>
+        </div>
+        <div class="modal-body">
+          <input class="form-ctrl" type="text" placeholder="이메일 또는 회원번호" style="margin-bottom:8px" />
+          <input class="form-ctrl" type="password" placeholder="비밀번호" style="margin-bottom:12px" />
+          <button class="btn-login" onclick="handleExistUser()">로그인하고 진단 신청하기</button>
+          <div class="modal-links" style="margin-top:12px;display:flex;justify-content:space-between">
+            <a href="#" onclick="showChoiceScreen();return false" style="font-size:12px;color:#888">← 뒤로</a>
+            <a href="#" style="font-size:12px;color:var(--navy)">비밀번호 찾기</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -809,34 +869,32 @@ function showResult() {
 }
 
 /* ══════════════════════════════════════
-   회원 구분 & 기존 회원 바로 선택
+   회원 구분 상태
 ══════════════════════════════════════ */
 let isNewUser = null;
 let selectedDiagnosisKey = null;
 
-function setMember(el, newUser) {
-  isNewUser = newUser;
-  document.querySelectorAll('.mem-btn').forEach(b => b.classList.remove('selected'));
-  el.classList.add('selected');
-  const skipBtn = document.getElementById('skipToQuizBtn');
-  if (skipBtn) skipBtn.style.display = newUser ? 'none' : 'block';
-  const couponBox = document.getElementById('couponInfoBox');
-  if (couponBox) couponBox.style.display = newUser ? '' : 'none';
+/* 퀴즈 점수 기반 추천 진단 키 */
+function getRecommendedDxKey() {
+  const pestScore    = (scores.pest||0)+(scores.roach||0)+(scores.mosquito||0)+(scores.fruitfly||0)+(scores.ant||0)+(scores.fly||0);
+  const airScore     = (scores.air||0)+(scores.aircon||0);
+  const beddingScore = (scores.bedding||0)+(scores.fabric||0);
+  const alphaScore   = (scores.drain||0)+(scores.grease||0)+(scores.hood||0)+(scores.bacteria||0)+(scores.odor||0);
+  const max = Math.max(pestScore, airScore, beddingScore, alphaScore);
+  if (max === 0) return 'alpha';
+  if (pestScore === max)    return 'pest';
+  if (airScore === max)     return 'air';
+  if (beddingScore === max) return 'bed';
+  return 'alpha';
 }
 
-function skipToSelect() {
-  // 기존 회원: 퀴즈 생략하고 Step 3(진단 선택) 바로 이동
-  document.getElementById('step1').style.display = 'none';
-  document.getElementById('step3').style.display = 'block';
-  // 진단 결과 위젯 숨기고, 제품 추천 섹션 숨기기
-  const riskCard = document.querySelector('#step3 .card:first-child');
-  if (riskCard) riskCard.style.display = 'none';
-  const recCard = document.querySelector('#step3 .sec .card:nth-child(2)');
-  if (recCard) recCard.style.display = 'none';
-  renderFixedDiagnoses();
-  setStep(3);
-  window.scrollTo({top:0, behavior:'smooth'});
-}
+/* 진단 키 → 기존 고객 마이랩 쿠폰 안내 */
+const DX_COUPON_MAP = {
+  alpha: { label:'배수구 클리너 · 살균 소독제 쿠폰', desc:'방문 시 직접 사용한 제품 기반 쿠폰을 발급합니다' },
+  air:   { label:'공기질 관련 마이랩 쿠폰',         desc:'실내 공기질 개선에 적합한 제품 쿠폰을 발급합니다' },
+  pest:  { label:'해충 관련 마이랩 쿠폰',           desc:'초파리유인제·야외도어미스트 등 해충 관련 쿠폰을 발급합니다' },
+  bed:   { label:'침구 케어 마이랩 쿠폰',           desc:'살균티슈·세탁세제 등 침구 위생 관련 쿠폰을 발급합니다' },
+};
 
 /* ══════════════════════════════════════
    4가지 고정 전문가 진단
@@ -852,20 +910,21 @@ const FIXED_DIAGNOSES = [
     desc:'현미경으로 진드기·먼지 오염도 확인<br/>침구 위생 관리 솔루션 안내' },
 ];
 
-function renderFixedDiagnoses() {
+function renderFixedDiagnoses(recKey) {
+  const rec = recKey || getRecommendedDxKey();
   document.getElementById('dxCards').innerHTML = FIXED_DIAGNOSES.map((d, i) => `
-    <div class="dx-card selectable" data-key="${d.key}" onclick="selectDiagnosis(this,'${d.key}')">
+    <div class="dx-card selectable${d.key===rec?' selected':''}" data-key="${d.key}" onclick="selectDiagnosis(this,'${d.key}')">
       <div class="dxh">
         <div class="di">${d.icon}</div>
         <div class="dinfo">
-          <div class="dnum">진단 ${i+1}</div>
+          <div class="dnum">진단 ${i+1}${d.key===rec?' <span style=\'background:#fff3;color:#fff;font-size:9px;padding:1px 7px;border-radius:10px;font-weight:700\'>추천</span>':''}</div>
           <div class="dname">${d.name}</div>
           <div class="dtag">세스코 전문가 무료 방문 진단</div>
         </div>
       </div>
       <div class="dxb"><p style="font-size:12px;color:var(--sub);line-height:1.7">${d.desc}</p></div>
     </div>`).join('');
-  selectedDiagnosisKey = null;
+  selectedDiagnosisKey = rec;
 }
 
 function selectDiagnosis(el, key) {
@@ -877,25 +936,75 @@ function selectDiagnosis(el, key) {
 /* ══════════════════════════════════════
    로그인 모달
 ══════════════════════════════════════ */
-function openModal() {
+function tryOpenModal() {
+  const name  = document.getElementById('fName').value.trim();
+  const phone = document.getElementById('fPhone').value.trim();
+  if (!name || !phone) {
+    alert('이름과 연락처를 입력해 주세요.');
+    return;
+  }
+  if (!selectedDiagnosisKey) {
+    alert('전문가 진단 항목을 선택해 주세요.');
+    return;
+  }
+  showChoiceScreen();
   document.getElementById('loginModal').classList.add('open');
-  document.body.style.overflow='hidden';
+  document.body.style.overflow = 'hidden';
+}
+function showChoiceScreen() {
+  document.getElementById('modalChoice').style.display = 'block';
+  document.getElementById('modalLoginForm').style.display = 'none';
+}
+function showLoginForm() {
+  document.getElementById('modalChoice').style.display = 'none';
+  document.getElementById('modalLoginForm').style.display = 'block';
 }
 function closeModalBtn() {
   document.getElementById('loginModal').classList.remove('open');
-  document.body.style.overflow='';
+  document.body.style.overflow = '';
 }
 function closeModal(e) {
-  if(e.target===document.getElementById('loginModal')) closeModalBtn();
+  if (e.target === document.getElementById('loginModal')) closeModalBtn();
 }
+function openModal() { tryOpenModal(); } // 하위 호환
 
 /* ══════════════════════════════════════
-   STEP 4
+   STEP 4 — 신규 / 기존 분기
 ══════════════════════════════════════ */
-function submitForm() {
-  document.getElementById('step3').style.display='none';
-  document.getElementById('step4').style.display='block';
-  setStep(4); window.scrollTo({top:0,behavior:'smooth'});
+function handleNewUser() {
+  isNewUser = true;
+  closeModalBtn();
+  // 추천 제품명 표시
+  const pmap = productRecMap[selCat] || productRecMap['기타'];
+  const topD = Object.entries(scores).sort((a,b)=>b[1]-a[1])[0];
+  const dim  = topD ? topD[0] : '_default';
+  const pk   = (pmap[dim] || pmap['_default'])[0];
+  const pName = products[pk] ? products[pk].name : '추천 마이랩 제품';
+  document.getElementById('s4n_product').textContent = pName;
+  // 추천 진단명 표시
+  const dxInfo = FIXED_DIAGNOSES.find(d => d.key === selectedDiagnosisKey);
+  document.getElementById('s4n_diag').textContent = dxInfo ? dxInfo.name : '전문가 추천 진단';
+  // Step 4 신규 표시
+  document.getElementById('step3').style.display = 'none';
+  document.getElementById('step4new').style.display = 'block';
+  setStep(4); window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function handleExistUser() {
+  isNewUser = false;
+  closeModalBtn();
+  // 선택한 진단명 표시
+  const dxInfo = FIXED_DIAGNOSES.find(d => d.key === selectedDiagnosisKey);
+  const dxName = dxInfo ? dxInfo.name : '전문가 진단';
+  document.getElementById('s4e_diag').textContent = dxName;
+  // 연관 쿠폰 표시
+  const coupon = DX_COUPON_MAP[selectedDiagnosisKey] || DX_COUPON_MAP['alpha'];
+  document.getElementById('s4e_coupon').textContent = coupon.label;
+  document.getElementById('s4e_coupon_desc').textContent = coupon.desc;
+  // Step 4 기존 표시
+  document.getElementById('step3').style.display = 'none';
+  document.getElementById('step4exist').style.display = 'block';
+  setStep(4); window.scrollTo({top:0, behavior:'smooth'});
 }
 
 /* ══════════════════════════════════════
