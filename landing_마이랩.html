@@ -174,6 +174,24 @@
 
     .bottom-safe { height:48px; }
     footer { padding:20px; text-align:center; font-size:11px; color:#aaa; line-height:1.9; border-top:1px solid var(--border); background:#fff; }
+
+    /* ── MEMBER TYPE ── */
+    .mem-type { display:flex; gap:10px; margin-bottom:4px; }
+    .mem-btn { flex:1; padding:16px 10px; background:#f9fafc; border:1.5px solid var(--border); border-radius:8px; cursor:pointer; font-family:inherit; text-align:center; transition:all .15s; }
+    .mem-btn:hover,.mem-btn.selected { background:var(--blue-light); border-color:var(--navy); }
+    .mem-btn .mb-icon { font-size:26px; margin-bottom:6px; }
+    .mem-btn .mb-title { font-size:13px; font-weight:800; color:var(--text); margin-bottom:3px; }
+    .mem-btn .mb-desc { font-size:10px; color:var(--sub); line-height:1.4; }
+    .mem-btn.selected .mb-title { color:var(--navy); }
+    .new-badge { display:inline-block; background:#d4edff; color:#0055cc; font-size:10px; font-weight:700; padding:2px 8px; border-radius:12px; margin-top:4px; }
+    .skip-btn { width:100%; margin-top:10px; padding:12px; background:var(--navy); color:#fff; border:none; border-radius:6px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit; display:none; }
+    .skip-btn:hover { background:var(--navy2); }
+
+    /* ── DX SELECTABLE ── */
+    .dx-card.selectable { cursor:pointer; transition:border-color .15s, background .15s; }
+    .dx-card.selectable:hover { border-color:var(--navy); }
+    .dx-card.selectable.selected { border-color:var(--navy); background:var(--blue-light); }
+    .dx-card.selectable.selected .dxh { background:linear-gradient(110deg,#002060,var(--navy2)); }
   </style>
 </head>
 <body>
@@ -201,6 +219,28 @@
       <p>구매 제품과 공간에 맞는 위생 위험을 진단하고<br />최적의 마이랩 제품 및 전문가 진단을 추천합니다</p>
     </div>
     <div class="sec" style="padding-top:22px">
+
+      <!-- 회원 구분 -->
+      <div class="card" id="memberCard">
+        <div class="card-head">👤 세스코몰 회원이신가요?</div>
+        <div class="card-body">
+          <div class="mem-type">
+            <button class="mem-btn" id="btnNew" onclick="setMember(this,true)">
+              <div class="mb-icon">🆕</div>
+              <div class="mb-title">아직 미가입이에요</div>
+              <div class="mb-desc">진단 후 마이랩 100원 첫구매 쿠폰 지급</div>
+              <div class="new-badge">+ 100원 쿠폰 혜택</div>
+            </button>
+            <button class="mem-btn" id="btnExist" onclick="setMember(this,false)">
+              <div class="mb-icon">👋</div>
+              <div class="mb-title">이미 회원이에요</div>
+              <div class="mb-desc">4가지 전문가 진단 중 원하는 항목 신청</div>
+            </button>
+          </div>
+          <button class="skip-btn" id="skipToQuizBtn" onclick="skipToSelect()">진단 항목 바로 선택하기 →</button>
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-head">🏠 공간 및 구매 채널</div>
         <div class="card-body">
@@ -287,22 +327,27 @@
         <div class="card-head">🎯 맞춤 마이랩 추천 제품</div>
         <div class="card-body" style="padding:12px 16px">
           <div id="recCards"></div>
-          <div style="background:#f7f9fc;border-radius:6px;padding:10px 12px;font-size:11px;color:var(--sub);line-height:1.7">
+          <div id="couponInfoBox" style="background:#f7f9fc;border-radius:6px;padding:10px 12px;font-size:11px;color:var(--sub);line-height:1.7">
             💡 추천 제품 구매 시 <strong>마이랩 첫구매 100원 쿠폰</strong>이 적용됩니다.<br />구매 후 <strong>100% 적립쿠폰</strong>이 추가로 지급됩니다.
           </div>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-head">🔬 맞춤 전문가 진단 추천</div>
+        <div class="card-head">🔬 전문가 무료 진단 신청</div>
         <div class="card-body" style="padding:12px 16px">
-          <p style="font-size:12px;color:var(--sub);line-height:1.6;margin-bottom:14px">진단 결과를 바탕으로 가장 필요한 <strong>세스코 무료 전문가 진단</strong>을 추천합니다.</p>
+          <p style="font-size:12px;color:var(--sub);line-height:1.6;margin-bottom:14px">
+            아래 4가지 진단 중 <strong>원하시는 항목을 선택</strong>해 주세요. 세스코 전문가가 직접 방문합니다.
+          </p>
           <div id="dxCards"></div>
+          <div style="background:#fff8e1;border:1px solid #ffe066;border-radius:6px;padding:10px 14px;margin:0 0 14px;font-size:12px;color:#7d5800;line-height:1.7">
+            🎁 <strong>방문 시 전문가가 배수구 클리너 또는 살균 소독제를 직접 사용해 드리고, 소량 제품을 체험용으로 남겨드립니다.</strong>
+          </div>
           <div class="form-row">
             <div class="fg"><label class="form-label">이름 <span class="req">*</span></label><input class="form-ctrl" type="text" id="fName" placeholder="홍길동" /></div>
             <div class="fg"><label class="form-label">연락처 <span class="req">*</span></label><input class="form-ctrl" type="tel" id="fPhone" placeholder="010-0000-0000" oninput="fmtPhone(this)" /></div>
           </div>
-          <button class="btn-diagnose" onclick="submitForm()">무료 진단 신청하기</button>
+          <button class="btn-diagnose" id="submitBtn" onclick="submitForm()">무료 진단 신청하기</button>
         </div>
       </div>
     </div>
@@ -755,19 +800,78 @@ function showResult() {
       <div class="coupon-row"><span class="cl">🎟 첫구매 쿠폰</span><button class="btn-coupon" onclick="openModal()">100원 쿠폰 받기</button></div></div></div>`;
   }).join('');
 
-  // 전문가 진단 추천
-  const dmap=diagRecMap[selCat]||diagRecMap['기타'];
-  const dPair=(dmap[dim]||dmap['_default']).slice(0,2);
-  document.getElementById('dxCards').innerHTML=dPair.map((dk,i)=>{
-    const d=diagnoses[dk]; if(!d)return'';
-    return`<div class="dx-card">
-      <div class="dxh"><div class="di">${d.icon}</div><div class="dinfo"><div class="dnum">추천 진단 ${i+1}</div><div class="dname">${d.name}</div><div class="dtag">세스코 전문가 무료 방문 진단</div></div></div>
-      <div class="dxb"><ul class="dx-points">${d.points.map(pt=>`<li>${pt}</li>`).join('')}</ul></div></div>`;
-  }).join('');
+  // 전문가 진단 4가지 고정 항목
+  renderFixedDiagnoses();
 
   document.getElementById('step2').style.display='none';
   document.getElementById('step3').style.display='block';
   setStep(3); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ══════════════════════════════════════
+   회원 구분 & 기존 회원 바로 선택
+══════════════════════════════════════ */
+let isNewUser = null;
+let selectedDiagnosisKey = null;
+
+function setMember(el, newUser) {
+  isNewUser = newUser;
+  document.querySelectorAll('.mem-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  const skipBtn = document.getElementById('skipToQuizBtn');
+  if (skipBtn) skipBtn.style.display = newUser ? 'none' : 'block';
+  const couponBox = document.getElementById('couponInfoBox');
+  if (couponBox) couponBox.style.display = newUser ? '' : 'none';
+}
+
+function skipToSelect() {
+  // 기존 회원: 퀴즈 생략하고 Step 3(진단 선택) 바로 이동
+  document.getElementById('step1').style.display = 'none';
+  document.getElementById('step3').style.display = 'block';
+  // 진단 결과 위젯 숨기고, 제품 추천 섹션 숨기기
+  const riskCard = document.querySelector('#step3 .card:first-child');
+  if (riskCard) riskCard.style.display = 'none';
+  const recCard = document.querySelector('#step3 .sec .card:nth-child(2)');
+  if (recCard) recCard.style.display = 'none';
+  renderFixedDiagnoses();
+  setStep(3);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ══════════════════════════════════════
+   4가지 고정 전문가 진단
+══════════════════════════════════════ */
+const FIXED_DIAGNOSES = [
+  { key:'alpha', icon:'🧹', name:'플러스 알파 케어',
+    desc:'소독제·배수구 클리너 현장 케어<br/>주방 후드 기름때 점검 포함' },
+  { key:'air',   icon:'🌬', name:'실내 공기질 & 라돈 진단',
+    desc:'실내 공기질 정밀 측정 + 라돈 수치 확인<br/>공기질에 맞는 관리법 안내' },
+  { key:'pest',  icon:'🐛', name:'해충 정밀 진단',
+    desc:'해충 서식지 정밀 점검<br/>세스코 전문가 무료 방문 (기존 무료진단 기반)' },
+  { key:'bed',   icon:'🛏', name:'침구·매트리스 오염 진단',
+    desc:'현미경으로 진드기·먼지 오염도 확인<br/>침구 위생 관리 솔루션 안내' },
+];
+
+function renderFixedDiagnoses() {
+  document.getElementById('dxCards').innerHTML = FIXED_DIAGNOSES.map((d, i) => `
+    <div class="dx-card selectable" data-key="${d.key}" onclick="selectDiagnosis(this,'${d.key}')">
+      <div class="dxh">
+        <div class="di">${d.icon}</div>
+        <div class="dinfo">
+          <div class="dnum">진단 ${i+1}</div>
+          <div class="dname">${d.name}</div>
+          <div class="dtag">세스코 전문가 무료 방문 진단</div>
+        </div>
+      </div>
+      <div class="dxb"><p style="font-size:12px;color:var(--sub);line-height:1.7">${d.desc}</p></div>
+    </div>`).join('');
+  selectedDiagnosisKey = null;
+}
+
+function selectDiagnosis(el, key) {
+  selectedDiagnosisKey = key;
+  document.querySelectorAll('#dxCards .dx-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
 }
 
 /* ══════════════════════════════════════
