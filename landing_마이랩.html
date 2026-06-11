@@ -356,7 +356,7 @@
           <div class="ct-row"><div class="ci">💰</div><div class="ct"><strong>100% 적립쿠폰 추가 지급</strong><span>첫구매 완료 후 결제금액 전액 적립</span></div></div>
         </div>
       </div>
-      <div class="contract-card">
+      <div class="contract-card" id="s4n_diagCard">
         <div class="ct-top">
           <div class="tag">전문가 진단 신청 완료</div>
           <h3><em id="s4n_diag">추천 전문가 진단</em><br />방문 일정을 안내드립니다</h3>
@@ -936,10 +936,18 @@ function selectDiagnosis(el, key) {
 /* ══════════════════════════════════════
    로그인 모달
 ══════════════════════════════════════ */
+/* 제품 카드 쿠폰 버튼 → 바로 모달 열기 (폼 검사 없음) */
+function openModal() {
+  showChoiceScreen();
+  document.getElementById('loginModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+/* 진단 신청 버튼 → 이름/연락처/진단 선택 검사 후 모달 열기 */
 function tryOpenModal() {
   const name  = document.getElementById('fName').value.trim();
   const phone = document.getElementById('fPhone').value.trim();
   if (!name || !phone) {
+    document.getElementById('fName').focus();
     alert('이름과 연락처를 입력해 주세요.');
     return;
   }
@@ -947,9 +955,7 @@ function tryOpenModal() {
     alert('전문가 진단 항목을 선택해 주세요.');
     return;
   }
-  showChoiceScreen();
-  document.getElementById('loginModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  openModal();
 }
 function showChoiceScreen() {
   document.getElementById('modalChoice').style.display = 'block';
@@ -966,7 +972,6 @@ function closeModalBtn() {
 function closeModal(e) {
   if (e.target === document.getElementById('loginModal')) closeModalBtn();
 }
-function openModal() { tryOpenModal(); } // 하위 호환
 
 /* ══════════════════════════════════════
    STEP 4 — 신규 / 기존 분기
@@ -981,9 +986,15 @@ function handleNewUser() {
   const pk   = (pmap[dim] || pmap['_default'])[0];
   const pName = products[pk] ? products[pk].name : '추천 마이랩 제품';
   document.getElementById('s4n_product').textContent = pName;
-  // 추천 진단명 표시
+  // 추천 진단명 표시 (진단이 선택된 경우에만 해당 카드 노출)
   const dxInfo = FIXED_DIAGNOSES.find(d => d.key === selectedDiagnosisKey);
-  document.getElementById('s4n_diag').textContent = dxInfo ? dxInfo.name : '전문가 추천 진단';
+  const dxCard = document.getElementById('s4n_diagCard');
+  if (dxInfo && document.getElementById('fName').value.trim()) {
+    document.getElementById('s4n_diag').textContent = dxInfo.name;
+    if (dxCard) dxCard.style.display = 'block';
+  } else {
+    if (dxCard) dxCard.style.display = 'none';
+  }
   // Step 4 신규 표시
   document.getElementById('step3').style.display = 'none';
   document.getElementById('step4new').style.display = 'block';
