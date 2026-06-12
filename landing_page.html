@@ -824,10 +824,20 @@
           <!-- 선택: 전문가 진단 4가지 -->
           <div class="dx-select-head">🔬 전문가 무료 진단 &nbsp;<span>1가지 선택 필수</span></div>
 
+          <div class="service-option dx-selected" id="dx_pest" onclick="selectDx(this,'pest')">
+            <input type="radio" name="diagnosis" value="pest" checked />
+            <div class="so-content">
+              <div class="so-title">해충 정밀 진단 <span class="so-badge">인기</span></div>
+              <div class="so-desc">해충 서식지 정밀 점검<br />세스코 전문가 무료 방문 진단</div>
+            </div>
+          </div>
+
+          <div style="padding:8px 14px 4px;font-size:10px;color:#aaa;font-weight:600;letter-spacing:.04em">다른 진단 선택하기</div>
+
           <div class="service-option" id="dx_alpha" onclick="selectDx(this,'alpha')">
             <input type="radio" name="diagnosis" value="alpha" />
             <div class="so-content">
-              <div class="so-title">플러스 알파 케어 <span class="so-badge">인기</span></div>
+              <div class="so-title">플러스 알파 케어</div>
               <div class="so-desc">배수구 클리너·살균 소독제 현장 케어<br />주방 후드 기름때 점검 포함 · 체험용 소량 제공</div>
             </div>
           </div>
@@ -837,14 +847,6 @@
             <div class="so-content">
               <div class="so-title">실내 공기질 &amp; 라돈 진단</div>
               <div class="so-desc">실내 공기질 정밀 측정 + 라돈 수치 확인<br />공기질에 맞는 관리법 안내</div>
-            </div>
-          </div>
-
-          <div class="service-option" id="dx_pest" onclick="selectDx(this,'pest')">
-            <input type="radio" name="diagnosis" value="pest" />
-            <div class="so-content">
-              <div class="so-title">해충 정밀 진단</div>
-              <div class="so-desc">해충 서식지 정밀 점검<br />세스코 전문가 무료 방문 진단</div>
             </div>
           </div>
 
@@ -940,12 +942,12 @@
       pest:  '해충 정밀 진단',
       bed:   '침구·매트리스 오염 진단'
     };
-    let selectedDx = null;
+    let selectedDx = 'pest';
 
     /* ── 진단 선택 ── */
     function selectDx(el, key) {
       selectedDx = key;
-      ['alpha','air','pest','bed'].forEach(k => {
+      ['pest','alpha','air','bed'].forEach(k => {
         const wrap = document.getElementById('dx_' + k);
         const radio = wrap.querySelector('input[type="radio"]');
         wrap.classList.toggle('dx-selected', k === key);
