@@ -62,20 +62,6 @@
   .coupon-card li{font-size:12.5px;color:#4a4a4a}
   .coupon-card li::before{content:"· "}
 
-  /* ===== 쿠폰 코드 박스 ===== */
-  .coupon-code-box{margin-top:14px;background:#fffde7;border:1.5px dashed #ffca28;border-radius:10px;
-    padding:14px;text-align:center;font-size:15px;font-weight:800;color:#a3720b;letter-spacing:.5px;
-    cursor:pointer;user-select:all}
-  .coupon-code-box:active{background:#fff9c4}
-  .coupon-code-tip{display:block;font-size:11px;font-weight:600;color:#8a5a00;margin-top:5px}
-  .coupon-howto{margin-top:14px;background:#f7f8fa;border-radius:10px;padding:14px}
-  .coupon-howto .cw-title{font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:8px}
-  .coupon-howto table{width:100%;border-collapse:collapse}
-  .coupon-howto th{font-size:10.5px;color:#8a8f93;font-weight:700;padding-bottom:4px}
-  .coupon-howto td{font-size:11.5px;font-weight:700;color:var(--navy);text-align:center;
-    background:#fff;border-radius:6px;padding:8px 4px}
-  .coupon-howto td + td{padding-left:0}
-
   /* ===== 타임라인(원형 불릿) ===== */
   .timeline{position:relative;margin-top:22px}
   .t-item{display:flex;gap:16px;position:relative;padding-bottom:22px}
@@ -112,23 +98,13 @@
   <section class="block blue">
     <span class="ch-badge">환경가전 구매 고객 전용</span>
     <h1 class="hd">우리 집 환경가전,<br>세스코몰에서<br><em>필터 50% 쿠폰</em> 받으세요.</h1>
-    <p class="lead">정수기·비데·공기청정기 등 세스코 환경가전을 사용 중이시라면,<br>아래 쿠폰코드로 필터·소모품 할인 혜택을 바로 받아보세요.</p>
+    <p class="lead">정수기·비데·공기청정기 등 세스코 환경가전을 사용 중이시라면,<br>세스코몰 회원가입 후 필터·소모품 할인 혜택을 바로 받아보세요.</p>
 
     <div class="coupon-card">
       <div class="cc-rate">50% OFF</div>
       <div class="cc-title">필터 50% 할인 쿠폰</div>
-      <div class="coupon-code-box" onclick="copyCouponCode('CESCOFILTER50')">
-        쿠폰코드 : CESCOFILTER50
-        <span class="coupon-code-tip">터치하여 코드 복사하기</span>
-      </div>
-      <div class="coupon-howto">
-        <div class="cw-title">💡 쿠폰 사용 방법</div>
-        <table>
-          <tr><th>STEP 01</th><th>STEP 02</th><th>STEP 03</th><th>STEP 04</th></tr>
-          <tr><td>마이페이지</td><td>쿠폰</td><td>쿠폰/이벤트당첨 등록</td><td>쿠폰번호 등록</td></tr>
-        </table>
-      </div>
-      <ul style="margin-top:12px">
+      <ul>
+        <li>세스코몰 회원가입 후 마이페이지에서 쿠폰 등록 시 사용 가능</li>
         <li>필터·소모품 구매 시 세스코몰(cescomall.co.kr)에서 사용</li>
         <li>유효기간: 발급일로부터 6개월</li>
       </ul>
@@ -206,9 +182,9 @@
   <!-- ④ 마무리 회원가입 CTA -->
   <section class="block navy" id="signup" style="text-align:center">
     <h2 class="hd" style="color:#fff">지금 바로 회원가입하고<br>필터 할인까지 받아보세요!</h2>
-    <p class="lead" style="color:rgba(255,255,255,.8)">세스코몰 회원가입 후 쿠폰코드를 등록하면<br>필터 50% 할인 쿠폰을 바로 사용하실 수 있습니다.</p>
+    <p class="lead" style="color:rgba(255,255,255,.8)">세스코몰 회원가입 후 마이페이지에서<br>필터 50% 할인 쿠폰을 바로 받아보세요.</p>
     <div style="margin-top:18px">
-      <a href="https://www.cescomall.co.kr" target="_blank" class="btn btn-outline">세스코몰 회원가입하고<br>쿠폰 등록하기</a>
+      <a href="https://www.cescomall.co.kr" target="_blank" class="btn btn-outline">세스코몰<br>회원가입하기</a>
     </div>
   </section>
 
@@ -218,20 +194,5 @@
     재구매 적립 등 일부 혜택은 시스템 반영 후 순차 오픈됩니다.
   </p>
 </div>
-<script>
-  function copyCouponCode(text) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () { alert('쿠폰코드 복사가 완료되었습니다.'); })
-        .catch(function () { fallbackCopy(text); });
-    } else { fallbackCopy(text); }
-  }
-  function fallbackCopy(text) {
-    var t = document.createElement("textarea"); t.value = text; t.style.position = "fixed";
-    document.body.appendChild(t); t.focus(); t.select();
-    try { document.execCommand('copy'); alert('쿠폰코드 복사가 완료되었습니다.'); }
-    catch (e) { alert('복사에 실패했습니다. 수동으로 복사해 주세요.'); }
-    document.body.removeChild(t);
-  }
-</script>
 </body>
 </html>
